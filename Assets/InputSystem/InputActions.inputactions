@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "Throttle",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "5c4d93d4-c91c-4531-85b2-1f31dda599f8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -90,6 +90,61 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "RightJoystick",
+                    "id": "7b8f8ec8-90fc-4067-8c98-d502a5021837",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PitchAndRoll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "55eb9b84-b7fb-471b-8f1f-4c94dc7f5b0c",
+                    "path": "<Gamepad>/rightStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PitchAndRoll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "e54ca545-7fd9-45aa-a590-877c4ea920ab",
+                    "path": "<Gamepad>/rightStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PitchAndRoll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "5ec72e1a-c3ca-474c-8f16-aefe94f174a9",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PitchAndRoll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "b86946d0-7f9f-429e-9c0c-340d0033d538",
+                    "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PitchAndRoll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "QE",
                     "id": "028e2821-8033-4cce-adda-aaebcbf4930e",
                     "path": "1DAxis",
@@ -118,6 +173,39 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "LeftJoystick",
+                    "id": "6b69094d-52a1-497f-9116-1724456e830d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "02a0d458-9a3f-4f2b-959c-b3e0a950d0d4",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "3d99f2f6-855d-4623-87bc-bc665b5f4564",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Yaw",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -154,6 +242,39 @@
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "LeftJoystick",
+                    "id": "16d26a20-5841-4dbd-9448-02b07675d820",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "e1507c13-7d9d-46cd-909c-3851391a8d25",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "fa053c31-f5eb-4726-9284-307cf7778588",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
@@ -165,6 +286,17 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
                     "isOptional": false,
                     "isOR": false
                 }
