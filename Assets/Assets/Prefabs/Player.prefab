@@ -233,7 +233,7 @@ Rigidbody:
   m_GameObject: {fileID: 6939467342495647376}
   serializedVersion: 4
   m_Mass: 5
-  m_Drag: 1
+  m_Drag: 0.4
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -250,7 +250,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &3140482109115698981
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -288,4 +288,5 @@ MonoBehaviour:
   _dronePropertiesHolderSO: {fileID: 11400000, guid: d783e14b927a2bd42a61521d070e1e7d,
     type: 2}
   _throttleMultiplicator: 175
-  _accelerationMultiplier: 5
+  _motorsAccelerationMultiplier: 12
+  _motorsPowerClamp: 2
