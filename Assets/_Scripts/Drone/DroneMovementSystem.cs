@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DroneMovementSystem : MonoBehaviour
 {
@@ -61,6 +62,16 @@ public class DroneMovementSystem : MonoBehaviour
         {
             transform.Rotate(new Vector3(_pitchAndRollMotorPower.y, 0f, -_pitchAndRollMotorPower.x) * _droneSpeed, Space.Self);
         }
+        
+        Debug.Log(inputVector + "   " + _pitchAndRollMotorPower);
+    }
+
+    private float GetAdjustedMotorPowerAccordingInputValue(float inputValue, float currentMotorPowerValue)
+    {
+        float normalizedMotorPower = currentMotorPowerValue / _motorsPowerClamp;
+        float t = _motorsAccelerationMultiplier * Time.fixedDeltaTime;
+        normalizedMotorPower = Mathf.Lerp(normalizedMotorPower, inputValue, t);
+        return normalizedMotorPower * _motorsPowerClamp;
     }
 
     private void HandleYaw()
@@ -93,15 +104,5 @@ public class DroneMovementSystem : MonoBehaviour
         {
             _rigidbody.AddForce(transform.up * _throttleMultiplicator * _throttleMotorPower * _droneSpeed);
         }
-
-        Debug.Log(inputValue + "   " + _throttleMotorPower);
-    }
-
-    private float GetAdjustedMotorPowerAccordingInputValue(float inputValue, float currentMotorPowerValue)
-    {
-        float normalizedMotorPower = currentMotorPowerValue / _motorsPowerClamp;
-        float t = _motorsAccelerationMultiplier * Time.fixedDeltaTime;
-        normalizedMotorPower = Mathf.Lerp(normalizedMotorPower, inputValue, t);
-        return normalizedMotorPower * _motorsPowerClamp;
     }
 }
