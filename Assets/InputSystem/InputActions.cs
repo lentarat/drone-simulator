@@ -114,7 +114,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""RightJoystick"",
                     ""id"": ""7b8f8ec8-90fc-4067-8c98-d502a5021837"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
