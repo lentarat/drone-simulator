@@ -18,24 +18,14 @@ public class DroneMovementSystem : MonoBehaviour
     private float _droneSpeed;
     private float _yawMotorPower;
     private float _throttleMotorPower;
-    private float _compensateFixedDeltaTimeMultiplier = 200f;
+    //private float _compensateFixedDeltaTimeMultiplier = 200f;
     private Vector2 _pitchAndRollMotorPower;
-    private DroneMovementInputActionsReader _droneMovementInputActionsReader;
+    private IDroneMoveable _droneMoveable;
 
     private void Awake()
     {
-        _droneMovementInputActionsReader = new();
+        _droneMoveable = new DroneMovementInputActionsReader();
         _droneSpeed = _dronePropertiesHolderSO.Speed;
-    }
-
-    private void OnEnable()
-    {
-        _droneMovementInputActionsReader.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _droneMovementInputActionsReader.Disable();
     }
 
     private void FixedUpdate()
@@ -47,7 +37,7 @@ public class DroneMovementSystem : MonoBehaviour
 
     private void HandlePitchAndRoll()
     {
-        Vector2 inputVector = _droneMovementInputActionsReader.GetPitchAndRollInputValue;
+        Vector2 inputVector = _droneMoveable.GetPitchAndRollInputValue;
         if (inputVector == Vector2.zero)
         {
             Vector2 minPower = Vector2.one * 0.01f;
@@ -62,8 +52,6 @@ public class DroneMovementSystem : MonoBehaviour
         {
             transform.Rotate(new Vector3(_pitchAndRollMotorPower.y, 0f, -_pitchAndRollMotorPower.x) * _droneSpeed, Space.Self);
         }
-        
-        Debug.Log(inputVector + "   " + _pitchAndRollMotorPower);
     }
 
     private float GetAdjustedMotorPowerAccordingInputValue(float inputValue, float currentMotorPowerValue)
@@ -76,7 +64,7 @@ public class DroneMovementSystem : MonoBehaviour
 
     private void HandleYaw()
     {
-        float inputValue = _droneMovementInputActionsReader.GetYawInputValue;
+        float inputValue = _droneMoveable.GetYawInputValue;
         if (inputValue == 0f)
         {
             if (Mathf.Abs(_yawMotorPower) < 0.01f)
@@ -92,7 +80,7 @@ public class DroneMovementSystem : MonoBehaviour
 
     private void HandleThrottle()
     {
-        float inputValue = Mathf.Clamp01(_droneMovementInputActionsReader.GetThrottleInputValue);
+        float inputValue = Mathf.Clamp01(_droneMoveable.GetThrottleInputValue);
         if (inputValue == 0f)
         { 
             if(_throttleMotorPower < 0.01f)
