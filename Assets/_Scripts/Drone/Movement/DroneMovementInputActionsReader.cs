@@ -3,19 +3,13 @@ using UnityEngine.InputSystem;
 
 public class DroneMovementInputActionsReader : IDroneMoveable
 {
-    public InputActions InputActions { private set; get; }
-    Vector2 IDroneMoveable.GetPitchAndRollInputValue => InputActions.Drone.PitchAndRoll.ReadValue<Vector2>();
-    float IDroneMoveable.GetYawInputValue => InputActions.Drone.Yaw.ReadValue<float>();
-    float IDroneMoveable.GetThrottleInputValue => InputActions.Drone.Throttle.ReadValue<float>();
+    private InputActions _inputActions;
+    Vector2 IDroneMoveable.GetPitchAndRollInputValue => _inputActions.Drone.PitchAndRoll.ReadValue<Vector2>();
+    float IDroneMoveable.GetYawInputValue => _inputActions.Drone.Yaw.ReadValue<float>();
+    float IDroneMoveable.GetThrottleInputValue => _inputActions.Drone.Throttle.ReadValue<float>();
 
-    public DroneMovementInputActionsReader()
+    public DroneMovementInputActionsReader(InputActions inputActions)
     {
-        InputActions = new InputActions();
-        InputActions.Drone.Enable();
-    }
-
-    ~DroneMovementInputActionsReader()
-    {
-        InputActions.Drone.Disable();
+        _inputActions = inputActions;
     }
 }

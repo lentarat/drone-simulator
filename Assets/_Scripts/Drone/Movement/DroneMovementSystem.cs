@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class DroneMovementSystem : MonoBehaviour
 {
@@ -22,9 +23,14 @@ public class DroneMovementSystem : MonoBehaviour
     private Vector2 _pitchAndRollMotorPower;
     private IDroneMoveable _droneMoveable;
 
+    [Inject]
+    private void Construct(IDroneMoveable droneMoveable)
+    { 
+        _droneMoveable = droneMoveable;
+    }
+
     private void Awake()
     {
-        _droneMoveable = new DroneMovementInputActionsReader();
         _droneSpeed = _dronePropertiesHolderSO.Speed;
     }
 
