@@ -53,6 +53,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PayloadRelease"",
+                    ""type"": ""Button"",
+                    ""id"": ""28da296c-66dc-4b43-b2ce-f6c7832ba988"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +306,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Throttle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4623663e-37b8-44ad-ab8b-befbee9e1f30"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""PayloadRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -331,6 +351,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Drone_PitchAndRoll = m_Drone.FindAction("PitchAndRoll", throwIfNotFound: true);
         m_Drone_Yaw = m_Drone.FindAction("Yaw", throwIfNotFound: true);
         m_Drone_Throttle = m_Drone.FindAction("Throttle", throwIfNotFound: true);
+        m_Drone_PayloadRelease = m_Drone.FindAction("PayloadRelease", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -395,6 +416,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Drone_PitchAndRoll;
     private readonly InputAction m_Drone_Yaw;
     private readonly InputAction m_Drone_Throttle;
+    private readonly InputAction m_Drone_PayloadRelease;
     public struct DroneActions
     {
         private @InputActions m_Wrapper;
@@ -402,6 +424,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @PitchAndRoll => m_Wrapper.m_Drone_PitchAndRoll;
         public InputAction @Yaw => m_Wrapper.m_Drone_Yaw;
         public InputAction @Throttle => m_Wrapper.m_Drone_Throttle;
+        public InputAction @PayloadRelease => m_Wrapper.m_Drone_PayloadRelease;
         public InputActionMap Get() { return m_Wrapper.m_Drone; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +443,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Throttle.started += instance.OnThrottle;
             @Throttle.performed += instance.OnThrottle;
             @Throttle.canceled += instance.OnThrottle;
+            @PayloadRelease.started += instance.OnPayloadRelease;
+            @PayloadRelease.performed += instance.OnPayloadRelease;
+            @PayloadRelease.canceled += instance.OnPayloadRelease;
         }
 
         private void UnregisterCallbacks(IDroneActions instance)
@@ -433,6 +459,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Throttle.started -= instance.OnThrottle;
             @Throttle.performed -= instance.OnThrottle;
             @Throttle.canceled -= instance.OnThrottle;
+            @PayloadRelease.started -= instance.OnPayloadRelease;
+            @PayloadRelease.performed -= instance.OnPayloadRelease;
+            @PayloadRelease.canceled -= instance.OnPayloadRelease;
         }
 
         public void RemoveCallbacks(IDroneActions instance)
@@ -473,5 +502,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnPitchAndRoll(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
         void OnThrottle(InputAction.CallbackContext context);
+        void OnPayloadRelease(InputAction.CallbackContext context);
     }
 }

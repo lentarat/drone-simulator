@@ -9,6 +9,6 @@ public class DroneInstaller : MonoInstaller
     {
         Container.Bind<InputActions>().AsSingle();
         Container.Bind<IDroneMoveable>().To<DroneMovementInputActionsReader>().AsSingle();
-        Container.Bind<IDroneBomber>().To<DroneBomberInputActionsReader>().AsSingle();
+        Container.Bind<IPayloadReleaseInvoker>().To<DroneAttackInputActionsReader>().AsSingle();
     }
 }

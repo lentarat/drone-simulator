@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PayloadRelease",
+                    "type": "Button",
+                    "id": "28da296c-66dc-4b43-b2ce-f6c7832ba988",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -275,6 +284,17 @@
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4623663e-37b8-44ad-ab8b-befbee9e1f30",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "PayloadRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

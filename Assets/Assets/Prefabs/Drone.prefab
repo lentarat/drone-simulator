@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5299006788870452563}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2353863655772359033}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!20 &3940458946705801763
 Camera:
   m_ObjectHideFlags: 0
@@ -150,9 +150,9 @@ GameObject:
   - component: {fileID: 318228524029876893}
   - component: {fileID: 520594486710014193}
   - component: {fileID: 3140482109115698981}
-  - component: {fileID: 3832685974097376641}
-  - component: {fileID: -2424482211641165078}
   - component: {fileID: 4525841584679973798}
+  - component: {fileID: -2424482211641165078}
+  - component: {fileID: 3832685974097376641}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -174,6 +174,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3361411635569036093}
+  - {fileID: 486418819243906189}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &272340195198654744
@@ -274,6 +275,31 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4525841584679973798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6939467342495647376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad37dbadb1af9674e8cde559e964302c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2424482211641165078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6939467342495647376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1d6b5d4fe42db4b9a33ca9a2dffdd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _droneMovementSystem: {fileID: 3832685974097376641}
 --- !u!114 &3832685974097376641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,27 +318,82 @@ MonoBehaviour:
   _throttleMultiplicator: 100
   _motorsAccelerationMultiplier: 12
   _motorsPowerClamp: 1.5
---- !u!114 &-2424482211641165078
-MonoBehaviour:
+--- !u!1001 &2298050455677409431
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2353863655772359033}
+    m_Modifications:
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.636
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982611750919996521, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600925993572070757, guid: 3692306d7289f5d429dab54b313d2ab2,
+        type: 3}
+      propertyPath: m_Name
+      value: VOG
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3692306d7289f5d429dab54b313d2ab2, type: 3}
+--- !u!4 &486418819243906189 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1811656377627216922, guid: 3692306d7289f5d429dab54b313d2ab2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2298050455677409431}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6939467342495647376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1d6b5d4fe42db4b9a33ca9a2dffdd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4525841584679973798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6939467342495647376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad37dbadb1af9674e8cde559e964302c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
