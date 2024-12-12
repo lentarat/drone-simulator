@@ -1,1 +1,5 @@
 You can use SmartPropoPlus program to set up RC transmitters to emulate Gamepad Input. https://discussions.unity.com/t/using-a-radio-control-system-for-game-input/216735
+
+Ідеї:
+мапи: полігон для тренування польотами фпв дроном, полігон з самовідтворюваними рухаючими цілями (макетами); 
+види квадрокоптерів: камікадзе, бомбер (крім вибухівки та вогневої зброї (? несе ще й інші дрони ?)).

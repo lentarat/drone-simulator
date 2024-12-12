@@ -16,6 +16,8 @@ public class DroneMovementSystem : MonoBehaviour
     [SerializeField] private float _motorsAccelerationMultiplier;
     [SerializeField] private float _motorsPowerClamp;
 
+    public Vector3 Velocity => _rigidbody.velocity;
+
     private float _droneSpeed;
     private float _yawMotorPower;
     private float _throttleMotorPower;
@@ -56,7 +58,7 @@ public class DroneMovementSystem : MonoBehaviour
 
         if (_pitchAndRollMotorPower != Vector2.zero)
         {
-            transform.Rotate(new Vector3(_pitchAndRollMotorPower.y, 0f, -_pitchAndRollMotorPower.x) * _droneSpeed, Space.Self);
+            transform.Rotate(new Vector3(-_pitchAndRollMotorPower.x, 0f, -_pitchAndRollMotorPower.y) * _droneSpeed, Space.Self);
         }
     }
 

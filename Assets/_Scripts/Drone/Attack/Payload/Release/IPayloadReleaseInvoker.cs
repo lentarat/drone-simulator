@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDroneBomber
+public interface IPayloadReleaseInvoker
 {
-    public event Action OnBombReleaseCalled;
+    public event Action OnReleaseCalled;
 }
