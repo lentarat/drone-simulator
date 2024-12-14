@@ -9,7 +9,7 @@ public class PayloadReleaseSystem : MonoBehaviour
 {
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
 
-    private IPayload[] _payloads;
+    private Payload[] _payloads;
     private IPayloadReleaseInvoker _payloadReleasable;
 
     [Inject]
@@ -26,21 +26,30 @@ public class PayloadReleaseSystem : MonoBehaviour
 
     private void HandleBombReleaseCall()
     {
+        //StartCoroutine(RespawnPayload());
         DropPayload();
     }
 
     private void DropPayload()
     {
         Vector3 payloadVelocityAfterDisconnetion = _droneMovementSystem.Velocity;
-        foreach (IPayload payload in _payloads) 
+        foreach (Payload payload in _payloads) 
         {
             payload.DisconnectWithVelocity(payloadVelocityAfterDisconnetion);
         }
     }
 
-    private IPayload[] GetAllPayloads()
+    //private IEnumerator RespawnPayload()
+    //{
+    //    foreach (Payload payload in _payloads)
+    //    {
+    //        Instantiate(payload, transform);
+    //    }
+    //}
+
+    private Payload[] GetAllPayloads()
     { 
-        return gameObject.GetComponentsInChildren<IPayload>();
+        return gameObject.GetComponentsInChildren<Payload>();
     }
 
     private void OnDisable()
