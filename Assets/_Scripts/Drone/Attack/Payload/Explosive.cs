@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject.SpaceFighter;
 
-public class Explosive : MonoBehaviour, IPayload
+public class Explosive : Payload
 {
-    [SerializeField] private Rigidbody _rigidbody;
-
-    void IPayload.DisconnectWithVelocity(Vector3 disconnectVelocity)
+    private void OnCollisionEnter(Collision collision)
     {
-        transform.parent = null;
-        _rigidbody.isKinematic = false;
-        _rigidbody.velocity = disconnectVelocity;
+        Explode();
+    }
+
+    private void Explode()
+    {
+        Destroy(gameObject);
     }
 }
