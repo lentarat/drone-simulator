@@ -6,7 +6,7 @@ using UnityEngine;
 public class PayloadRealisticRotationAdjuster : MonoBehaviour
 {
     [SerializeField] private Rigidbody _payloadRigidbody;
-    [SerializeField, Range(0.1f, 1f)] private float _rotationSpeed = 0.5f;
+    [SerializeField, Range(0.1f, 3f)] private float _rotationSpeed = 1f;
 
     private void Update()
     {

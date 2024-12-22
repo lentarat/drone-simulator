@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Payload : MonoBehaviour
+public class DronePayload : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
 

@@ -5,12 +5,13 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class PayloadReleaseSystem : MonoBehaviour
+public class DronePayloadReleaseSystem : MonoBehaviour
 {
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
+    [SerializeField] private DronePayload _payloadPrefab;
 
-    private Payload[] _payloads;
     private IPayloadReleaseInvoker _payloadReleasable;
+    private DronePayload _payload;
 
     [Inject]
     private void Construct(IPayloadReleaseInvoker payload)
@@ -21,35 +22,29 @@ public class PayloadReleaseSystem : MonoBehaviour
     private void Awake()
     {
         _payloadReleasable.OnReleaseCalled += HandleBombReleaseCall;
-        _payloads = GetAllPayloads();
+        SpawnPayload();
     }
 
     private void HandleBombReleaseCall()
     {
-        //StartCoroutine(RespawnPayload());
         DropPayload();
+        Invoke("SpawnPayload", 3f);
     }
 
     private void DropPayload()
     {
         Vector3 payloadVelocityAfterDisconnetion = _droneMovementSystem.Velocity;
-        foreach (Payload payload in _payloads) 
-        {
-            payload.DisconnectWithVelocity(payloadVelocityAfterDisconnetion);
-        }
+        _payload.DisconnectWithVelocity(payloadVelocityAfterDisconnetion);
     }
 
-    //private IEnumerator RespawnPayload()
-    //{
-    //    foreach (Payload payload in _payloads)
-    //    {
-    //        Instantiate(payload, transform);
-    //    }
-    //}
+    private void SpawnPayload()
+    {
+        if(_payload != null ) 
+        {
+            throw new System.Exception("There is already a payload");
+        }
 
-    private Payload[] GetAllPayloads()
-    { 
-        return gameObject.GetComponentsInChildren<Payload>();
+        _payload = Instantiate(_payloadPrefab, transform);    
     }
 
     private void OnDisable()
