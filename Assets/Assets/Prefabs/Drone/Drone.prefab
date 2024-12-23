@@ -316,6 +316,6 @@ MonoBehaviour:
   _rigidbody: {fileID: 520594486710014193}
   _dronePropertiesHolderSO: {fileID: 11400000, guid: d783e14b927a2bd42a61521d070e1e7d,
     type: 2}
-  _throttleMultiplicator: 100
+  _throttleMultiplicator: 200
   _motorsAccelerationMultiplier: 12
   _motorsPowerClamp: 1.5

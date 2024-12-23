@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DroneProperties
   m_EditorClassIdentifier: 
   _name: DefaultDroneName
-  _speed: 1
+  _speed: 0.5
