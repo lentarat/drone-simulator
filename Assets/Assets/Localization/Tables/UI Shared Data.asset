@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: PlayButton
     m_Metadata:
       m_Items: []
+  - m_Id: 53389905181384704
+    m_Key: WorkshopButton
+    m_Metadata:
+      m_Items: []
   - m_Id: 4226468913152
     m_Key: SettingsButton
     m_Metadata:
