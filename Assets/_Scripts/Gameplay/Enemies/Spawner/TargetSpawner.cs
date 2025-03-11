@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using Zenject;
 
-public class RandomTargetIndicator : MonoBehaviour
+public class TargetSpawner : MonoBehaviour
 {
-    [SerializeField] private Transform[] _targetsTransforms;
     [SerializeField] private Transform _targetScopePrefab;
+    [SerializeField] private Transform[] _targetsTransforms;
 
     private int _lastTargetIndex = -1;
+    private Coroutine _changeTargetsCoroutine;
+    private Queue<GameObject> _targetScopesQueue = new();
+    private ITargetFactory _targetFactory;
+
+    [Inject]
+    private void Construct()
+    { 
+
+    }
 
     private void Awake()
     {
@@ -16,17 +27,31 @@ public class RandomTargetIndicator : MonoBehaviour
 
     private void ShowNewTarget()
     {
+        if (_changeTargetsCoroutine == null)
+        {
+            _changeTargetsCoroutine = StartCoroutine(ChangeTargetsCoroutine());
+        }
+
         int randomTargetIndex = GetRandomTargetsIndex();
         Vector3 randomTargetPosition = _targetsTransforms[randomTargetIndex].position;
         Ray ray = new Ray(randomTargetPosition, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
-            Debug.Log($"Position: {hitInfo.point}, normal direction: {hitInfo.normal}");
             Transform targetScope = Instantiate(_targetScopePrefab, transform);
             targetScope.transform.position = hitInfo.point;
-            targetScope.transform.rotation = Quaternion.LookRotation(-hitInfo.normal,Vector3.down);
+            targetScope.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            targetScope.transform.position += targetScope.transform.up * 0.01f;
+            _targetScopesQueue.Enqueue(targetScope.gameObject);
         }
-    } 
+    }
+
+    private IEnumerator ChangeTargetsCoroutine()
+    {
+        while (true)
+        {
+            yield return null;
+        }
+    }
 
     private int GetRandomTargetsIndex()
     {
@@ -51,5 +76,12 @@ public class RandomTargetIndicator : MonoBehaviour
         }
 
         return randomTargetIndex;
+    }
+
+    private void HideAllTargets()
+    {
+        StopCoroutine(_changeTargetsCoroutine);
+        Debug.Log("Stopped Coroutine " + _changeTargetsCoroutine);
+        _changeTargetsCoroutine = null;
     }
 }
