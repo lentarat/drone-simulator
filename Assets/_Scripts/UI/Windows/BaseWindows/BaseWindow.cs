@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
 
 public abstract class BaseWindow : MonoBehaviour
 {
@@ -23,17 +22,17 @@ public abstract class BaseWindow : MonoBehaviour
         public BaseWindow Window => _window;
     }
 
+    public void Initialize()
+    {
+        SetWindowState();
+    }
+
     protected virtual void SetWindowState()
     {
         _windowState = new NormalWindowState(this);
     }
 
     private void Awake()
-    {
-        SetWindowState();
-    }
-
-    private void Start()
     {
         SubscribeToButtons();
     }
@@ -52,7 +51,7 @@ public abstract class BaseWindow : MonoBehaviour
         newWindowState.Open();
 
         if (newWindowState.ShouldClosePreviousWindow())
-        { 
+        {
             _windowState.Close();
         }
     }

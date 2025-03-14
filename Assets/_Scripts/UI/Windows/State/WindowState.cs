@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public abstract class WindowState
 {
     private BaseWindow _baseWindow;
@@ -12,15 +8,21 @@ public abstract class WindowState
         _baseWindow = baseWindow;
     }
 
-    public virtual void Open()
+    public void Open()
     {
         _baseWindow.gameObject.SetActive(true);
+        HandleOpen();
     }
 
-    public virtual void Close()
+    public virtual void HandleOpen() { }
+
+    public void Close()
     {
         _baseWindow.gameObject.SetActive(false);
+        HandleClose();
     }
+
+    public virtual void HandleClose() { }
 
     public virtual bool ShouldClosePreviousWindow()
     {
