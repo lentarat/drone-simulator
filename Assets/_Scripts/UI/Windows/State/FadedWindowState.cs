@@ -1,7 +1,6 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FadedWindowState : WindowState
 {
@@ -11,32 +10,28 @@ public class FadedWindowState : WindowState
 
     public override void HandleOpen()
     {
-
-        if (BaseWindow.TryGetComponent<Image>(out Image image))
+        if (BaseWindow.TryGetComponent<CanvasGroup>(out CanvasGroup canvasGroup))
         {
-            //Color newColor = image.color;
-            //newColor.a = 0.5f;
-            //image.color = newColor;
-            image.DOFade(1f, 1f);
+            canvasGroup.DOFade(1f, 1f);
         }
         else
         {
-            Debug.LogError(GetType() + " image component not found");
+            Debug.LogError(GetType() + " canvasGroup component not found");
         }
     }
 
-    public override void HandleClose()
+    public override async UniTask HandleClose()
     {
-        if (BaseWindow.TryGetComponent<Image>(out Image image))
+        if (BaseWindow.TryGetComponent<CanvasGroup>(out CanvasGroup canvasGroup))
         {
             //Color newColor = image.color;
             //newColor.a = 0.5f;
             //image.color = newColor;
-            image.DOFade(0f, 1f);
+            await canvasGroup.DOFade(0f, 1f).ToUniTask();
         }
         else
         {
-            Debug.LogError(GetType() + " image component not found");
+            Debug.LogError(GetType() + " canvasGroup component not found");
         }
     }
 }
