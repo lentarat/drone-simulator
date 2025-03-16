@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 public abstract class WindowState
 {
     private BaseWindow _baseWindow;
@@ -16,13 +17,16 @@ public abstract class WindowState
 
     public virtual void HandleOpen() { }
 
-    public void Close()
+    public async void Close()
     {
+        await HandleClose();
         _baseWindow.gameObject.SetActive(false);
-        HandleClose();
     }
 
-    public virtual void HandleClose() { }
+    public virtual UniTask HandleClose() 
+    {
+        return UniTask.CompletedTask;
+    }
 
     public virtual bool ShouldClosePreviousWindow()
     {

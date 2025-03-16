@@ -1,0 +1,1 @@
+If you have an error with DOTWEEN, simply add UNITASK_DOTWEEN_SUPPORT at ProjectSettings->Player->ScriptCompilation->ScriptingDefineSymbols

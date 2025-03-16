@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class CombinedWindowState : WindowState
 {
@@ -19,11 +17,11 @@ public class CombinedWindowState : WindowState
         }
     }
 
-    public override void HandleClose()
+    public override async UniTask HandleClose()
     {
         foreach (WindowState state in _windowStates)
         {
-            state.HandleClose();
+            await state.HandleClose();
         }
     }
 
