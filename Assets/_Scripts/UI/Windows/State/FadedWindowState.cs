@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class FadedWindowState : WindowState
 {
+    private CanvasGroup _canvasGroup;
+
     public FadedWindowState(BaseWindow baseWindow) : base(baseWindow)
     {
     }
 
     public override void HandleOpen()
     {
-        if (BaseWindow.TryGetComponent<CanvasGroup>(out CanvasGroup canvasGroup))
+        if (BaseWindow.TryGetComponent<CanvasGroup>(out _canvasGroup))
         {
-            canvasGroup.DOFade(1f, 1f);
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.DOFade(1f, 1f).SetLink(BaseWindow.gameObject);
         }
         else
         {
@@ -22,12 +25,10 @@ public class FadedWindowState : WindowState
 
     public override async UniTask HandleClose()
     {
-        if (BaseWindow.TryGetComponent<CanvasGroup>(out CanvasGroup canvasGroup))
+        if (BaseWindow.TryGetComponent<CanvasGroup>(out _canvasGroup))
         {
-            //Color newColor = image.color;
-            //newColor.a = 0.5f;
-            //image.color = newColor;
-            await canvasGroup.DOFade(0f, 1f).ToUniTask();
+            _canvasGroup.alpha = 1f;
+            await _canvasGroup.DOFade(0f, 1f).SetLink(BaseWindow.gameObject).ToUniTask();
         }
         else
         {

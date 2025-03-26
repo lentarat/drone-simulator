@@ -3,11 +3,14 @@ using UnityEngine.UI;
 
 public abstract class BackableWindow : BaseWindow
 {
-    [SerializeField] private Button _openPreviousWindowButton;
+    [Header("BackableWindow fields")]
+    [SerializeField] private Button _openPreviousWindowButton;  
     [SerializeField] private BaseWindow _previousWindow;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         SubscribeToBackButton();
     }
 

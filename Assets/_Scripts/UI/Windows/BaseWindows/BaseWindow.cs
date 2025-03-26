@@ -4,14 +4,11 @@ using System;
 
 public abstract class BaseWindow : MonoBehaviour
 {
+    [Header("BaseWindow fields")]
     [SerializeField] private ButtonClickToWindow[] _buttonClicksToWindowStates;
 
     private WindowState _windowState;
-    public WindowState WindowState
-    {
-        get => _windowState;
-        protected set => _windowState = value;
-    }
+    public WindowState WindowState => _windowState;
 
     [Serializable]
     public struct ButtonClickToWindow
@@ -27,12 +24,19 @@ public abstract class BaseWindow : MonoBehaviour
         SetWindowState();
     }
 
-    protected virtual void SetWindowState()
+    private void SetWindowState()
     {
-        _windowState = new NormalWindowState(this);
+        WindowState[] windowStates = GetChosenWindowStates();
+        _windowState = new CombinedWindowState(this, windowStates);
     }
 
-    private void Awake()
+    protected virtual WindowState[] GetChosenWindowStates()
+    {
+        WindowState[] chosenWindowState = { new NormalWindowState(this) };
+        return chosenWindowState;
+    }
+
+    protected virtual void Awake()
     {
         SubscribeToButtons();
     }

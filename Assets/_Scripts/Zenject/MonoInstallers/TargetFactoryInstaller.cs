@@ -1,11 +1,10 @@
-using UnityEngine;
 using Zenject;
 
 public class TargetFactoryInstaller : MonoInstaller, IInitializable
 {
     public override void InstallBindings()
     {
-        Container.BindInterfacesTo<TargetFactoryInstaller>();
+        //Container.BindInterfacesTo<TargetFactoryInstaller>();
         //Container.BindInterfacesAndSelfTo<TargetFa>();
     }
 
