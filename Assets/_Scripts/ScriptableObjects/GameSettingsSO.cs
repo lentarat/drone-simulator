@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSettingsSO : MonoBehaviour
+[CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/GameSettings")]
+public class GameSettingsSO : ScriptableObject
 {
-    public TargetMovementType TargetMovementType { get; set; }
-    public int DifficultyLevel { get; set; }
+    [SerializeField] private TargetMovementType _targetMovementType;
+    public TargetMovementType TargetMovementType => _targetMovementType;
+    [SerializeField] private int _difficultyLevel;
+    public int DifficultyLevel => _difficultyLevel;
 }
 
 public enum TargetMovementType

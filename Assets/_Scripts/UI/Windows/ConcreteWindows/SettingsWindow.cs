@@ -1,11 +1,17 @@
+using UnityEngine;
+
 public class SettingsWindow : BackableWindow
 {
-    protected override WindowState[] GetChosenWindowStates()
+    public override void Initialize()
     {
-        WindowState[] chosenWindowStates = {
-            new OverlappedWindowState(this),
-            new FadedWindowState(this)
-        };
-        return chosenWindowStates;
+        base.Initialize();
+
+        StayAliveInPlayMode();
+    }
+
+    private void StayAliveInPlayMode()
+    {
+        Transform topMostParent = transform.root; 
+        DontDestroyOnLoad(topMostParent);
     }
 }

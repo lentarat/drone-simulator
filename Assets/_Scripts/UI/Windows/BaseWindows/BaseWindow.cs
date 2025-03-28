@@ -19,7 +19,7 @@ public abstract class BaseWindow : MonoBehaviour
         public BaseWindow Window => _window;
     }
 
-    public void Initialize()
+    public virtual void Initialize()
     {
         SetWindowState();
     }
@@ -32,7 +32,7 @@ public abstract class BaseWindow : MonoBehaviour
 
     protected virtual WindowState[] GetChosenWindowStates()
     {
-        WindowState[] chosenWindowState = { new NormalWindowState(this) };
+        WindowState[] chosenWindowState = { new FadedWindowState(this) };
         return chosenWindowState;
     }
 

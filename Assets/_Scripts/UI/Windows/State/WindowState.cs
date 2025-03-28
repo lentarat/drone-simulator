@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 public abstract class WindowState
 {
+    private bool _isClosing;
+    private bool _isOpening;
     private BaseWindow _baseWindow;
     protected BaseWindow BaseWindow => _baseWindow;
 
@@ -9,17 +11,34 @@ public abstract class WindowState
         _baseWindow = baseWindow;
     }
 
-    public void Open()
+    public async void Open()
     {
+        if (_isOpening || _isClosing)
+            return;
+
+        _isOpening = true;
+
         _baseWindow.gameObject.SetActive(true);
-        HandleOpen();
+        await HandleOpen();
+
+        _isOpening = false;
     }
 
-    public virtual void HandleOpen() { }
+    public virtual UniTask HandleOpen()
+    {
+        return UniTask.CompletedTask;
+    }
 
     public async void Close()
     {
+        if(_isClosing || _isOpening) 
+            return;
+        
+        _isClosing = true;
+        
         await HandleClose();
+        
+        _isClosing = false;
         _baseWindow.gameObject.SetActive(false);
     }
 
