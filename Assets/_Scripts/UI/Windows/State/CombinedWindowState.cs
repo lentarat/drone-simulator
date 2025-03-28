@@ -9,11 +9,11 @@ public class CombinedWindowState : WindowState
         _windowStates = windowStates;
     }
 
-    public override void HandleOpen()
+    public override async UniTask HandleOpen()
     {
         foreach (WindowState state in _windowStates)
         {
-            state.HandleOpen();
+            await state.HandleOpen();
         }
     }
 
