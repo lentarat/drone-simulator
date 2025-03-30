@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FadedWindowState : WindowState
 {
-    private float _fadeTime = 2.5f;
+    private float _fadeTime = .25f;
     private CanvasGroup _canvasGroup;
 
     public FadedWindowState(BaseWindow baseWindow) : base(baseWindow)
