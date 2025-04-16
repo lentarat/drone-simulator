@@ -6,47 +6,27 @@ using Zenject;
 
 public class TargetSpawner<T> where T : Target
 {
-    /*[SerializeField]*/ private Transform _targetScopePrefab;
-    /*[SerializeField]*/ private Transform[] _targetsTransforms;
-
     private int _lastTargetIndex = -1;
     private Coroutine _changeTargetsCoroutine;
+    private Transform _targetScopePrefab;
+    private Transform[] _targetSpawnPositions;
     private Queue<GameObject> _targetScopesQueue = new();
     private DifficultyLevelType _difficultyLevelType;
     private ITargetFactory<T> _targetFactory;
 
-    public TargetSpawner()
-    {
-        int a = 5;
-    }
-
-    //[Inject]
-    //private void Construct(ITargetFactory<T> targetFactory, GameSettingsSO gameSettingsSO)
-    //{
-    //    Debug.Log("Test000");
-    //    _targetFactory = targetFactory;
-    //    _difficultyLevelType = gameSettingsSO.DifficultyLevelType;
-
-    //}
-    [Inject]
-    private void Construct(GameSettingsSO gameSettingsSO)
+    public TargetSpawner(ITargetFactory<T> targetFactory, GameSettingsSO gameSettingsSO, Transform[] targetSpawnPositions, Transform targetScopePrefab)
     {
         _difficultyLevelType = gameSettingsSO.DifficultyLevelType;
-        Debug.Log("Test");
+        _targetFactory = targetFactory;
+        _targetSpawnPositions = targetSpawnPositions;
+        _targetScopePrefab = targetScopePrefab;
+        new MonoBehaviour();
     }
 
-
-
-    [ContextMenu("CreateTarget")]
-    private void CreateTarget()
+    private void Awake()
     {
-        _targetFactory.Create(_difficultyLevelType, Vector3.zero);
+        //Invoke("ShowNewTarget", 1.25f);
     }
-
-    //private void Awake()
-    //{
-    //    Invoke("ShowNewTarget", 1.25f);
-    //}
 
     //private void ShowNewTarget()
     //{
@@ -68,38 +48,38 @@ public class TargetSpawner<T> where T : Target
     //    }
     //}
 
-    //private IEnumerator ChangeTargetsCoroutine()
-    //{
-    //    while (true)
-    //    {
-    //        yield return null;
-    //    }
-    //}
+    private IEnumerator ChangeTargetsCoroutine()
+    {
+        while (true)
+        {
+            yield return null;
+        }
+    }
 
-    //private int GetRandomTargetsIndex()
-    //{
-    //    int randomTargetIndex;
+    private int GetRandomTargetsIndex()
+    {
+        int randomTargetIndex;
 
-    //    if (_targetsTransforms.Length == 0)
-    //    {
-    //        throw new System.Exception("Targets transforms array is empty");
-    //    }
+        if (_targetSpawnPositions.Length == 0)
+        {
+            throw new System.Exception("Targets transforms array is empty");
+        }
 
-    //    if (_targetsTransforms.Length > 1)
-    //    {
-    //        do
-    //        {
-    //            randomTargetIndex = Random.Range(0, _targetsTransforms.Length);
-    //            Debug.Log("New random index: " + randomTargetIndex);
-    //        } while (randomTargetIndex == _lastTargetIndex);
-    //    }
-    //    else
-    //    {
-    //        randomTargetIndex = 0;
-    //    }
+        if (_targetSpawnPositions.Length > 1)
+        {
+            do
+            {
+                randomTargetIndex = Random.Range(0, _targetSpawnPositions.Length);
+                Debug.Log("New random index: " + randomTargetIndex);
+            } while (randomTargetIndex == _lastTargetIndex);
+        }
+        else
+        {
+            randomTargetIndex = 0;
+        }
 
-    //    return randomTargetIndex;
-    //}
+        return randomTargetIndex;
+    }
 
     //private void HideAllTargets()
     //{
