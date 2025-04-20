@@ -3,16 +3,17 @@ using Zenject;
 
 public class TargetSpawnerInstaller : MonoInstaller
 {
-    [SerializeField] private Transform _targetScopePrefab;
-    [SerializeField] private Transform[] _targetSpawnPositions;
+    [SerializeField] private Transform _targetsParent;
+    //[SerializeField] private Transform[] _targetSpawnTransforms;
+    [SerializeField] private GameObject[] _routesParents;
     [SerializeField] private GameSettingsSO _gameSettingsSO;
+    [SerializeField] private GroundTarget _groundTargetPrefab;
+    [SerializeField] private AirborneTarget _airborneTargetPrefab;
 
     public override void InstallBindings()
     {
         BindTargetFactoryAndTargetSpawner();
-        BindGameSettingsSO();
-        BindTargetSpawnPositions();
-        BindTargetScopePrefab();
+        BindOtherDependencies();
     }
 
     private void BindTargetFactoryAndTargetSpawner()
@@ -24,13 +25,13 @@ public class TargetSpawnerInstaller : MonoInstaller
             case GameModeType.GroundTargets:
             {
                 Container.Bind<ITargetFactory<GroundTarget>>().To<GroundTargetFactory>().AsSingle();
-                Container.Bind<TargetSpawner<GroundTarget>>().AsSingle().NonLazy();
+                Container.BindInterfacesAndSelfTo<TargetSpawner<GroundTarget>>().AsSingle().NonLazy();
                 break;
             }
             case GameModeType.AirborneTargets:
             {
                 Container.Bind<ITargetFactory<AirborneTarget>>().To<AirborneTargetFactory>().AsSingle();
-                Container.Bind<TargetSpawner<AirborneTarget>>().AsSingle().NonLazy();
+                Container.BindInterfacesAndSelfTo<TargetSpawner<AirborneTarget>>().AsSingle().NonLazy();
                 break;
             }
             default:
@@ -40,18 +41,12 @@ public class TargetSpawnerInstaller : MonoInstaller
         }
     }
 
-    private void BindGameSettingsSO()
+    private void BindOtherDependencies()
     {
-        Container.Bind<GameSettingsSO>().FromInstance(_gameSettingsSO).AsSingle();
-    }
-
-    private void BindTargetSpawnPositions()
-    {
-        Container.Bind<Transform[]>().FromInstance(_targetSpawnPositions).AsSingle();
-    }
-
-    private void BindTargetScopePrefab()
-    {
-        Container.Bind<Transform>().FromInstance(_targetScopePrefab).AsSingle();
+        Container.Bind<GameSettingsSO>().FromInstance(_gameSettingsSO);
+        Container.Bind<Transform>().WithId("TargetsParent").FromInstance(_targetsParent);
+        Container.Bind<GameObject[]>().WithId("RoutesParents").FromInstance(_routesParents);
+        Container.Bind<GroundTarget>().FromInstance(_groundTargetPrefab);
+        Container.Bind<AirborneTarget>().FromInstance(_airborneTargetPrefab);
     }
 }
