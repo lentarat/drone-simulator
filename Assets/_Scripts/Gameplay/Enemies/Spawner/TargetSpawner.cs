@@ -1,90 +1,90 @@
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using Zenject;
 
-public class TargetSpawner<T> where T : Target
+public class TargetSpawner<T> : IInitializable where T : Target
 {
+    private bool _isSpawning;
     private int _lastTargetIndex = -1;
-    private Coroutine _changeTargetsCoroutine;
-    private Transform _targetScopePrefab;
-    private Transform[] _targetSpawnPositions;
-    private Queue<GameObject> _targetScopesQueue = new();
+    private int _maxTargetsNumber = 5;
+    private Transform _targetsParent;
+    //private Transform[] _targetSpawnTransforms;
+    private Vector3[][] _routesPositions;
+    private Queue<GameObject> _targetsQueue = new();
     private DifficultyLevelType _difficultyLevelType;
     private ITargetFactory<T> _targetFactory;
 
-    public TargetSpawner(ITargetFactory<T> targetFactory, GameSettingsSO gameSettingsSO, Transform[] targetSpawnPositions, Transform targetScopePrefab)
+    public TargetSpawner(
+        ITargetFactory<T> targetFactory,
+        GameSettingsSO gameSettingsSO,
+        [Inject(Id = "TargetsParent")] Transform targetsParent,
+        [Inject(Id = "RoutesParents")] GameObject[] routesParents)
     {
         _difficultyLevelType = gameSettingsSO.DifficultyLevelType;
         _targetFactory = targetFactory;
-        _targetSpawnPositions = targetSpawnPositions;
-        _targetScopePrefab = targetScopePrefab;
-        new MonoBehaviour();
+        _targetsParent = targetsParent;
+        _routesPositions = RouteUtils.GetConvertedRoutesWaypointsPositions(routesParents);
+        //_maxTargetsNumber = (int)(_targetSpawnTransforms.Length * 1.5f);
     }
 
-    private void Awake()
+    private void SpawnTarget()
     {
-        //Invoke("ShowNewTarget", 1.25f);
+        if (_targetsQueue.Count > _maxTargetsNumber)
+            return;
+
+        int randomRouteIndex = Random.Range(0, _routesPositions.Length); //GetRandomRouteIndex();
+        int randomWaypointPositionIndex = Random.Range(0, _routesPositions[randomRouteIndex].Length);
+        Vector3 randomRouteWaypointPosition = _routesPositions[randomRouteIndex][randomWaypointPositionIndex];
+        Ray ray = new Ray(randomRouteWaypointPosition, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            Vector3 spawnPosition = hitInfo.point;
+            Quaternion spawnRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            Target target = _targetFactory.Create(_difficultyLevelType, spawnPosition, spawnRotation, _targetsParent);
+            _targetsQueue.Enqueue(target.gameObject);
+        }
     }
 
-    //private void ShowNewTarget()
+    //private int GetRandomRouteIndex()
     //{
-    //    if (_changeTargetsCoroutine == null)
+    //    int randomTargetIndex;
+
+    //    if (_targetSpawnTransforms.Length == 0)
     //    {
-    //        _changeTargetsCoroutine = StartCoroutine(ChangeTargetsCoroutine());
+    //        throw new System.Exception("Target spawn transforms array is empty");
     //    }
 
-    //    int randomTargetIndex = GetRandomTargetsIndex();
-    //    Vector3 randomTargetPosition = _targetsTransforms[randomTargetIndex].position;
-    //    Ray ray = new Ray(randomTargetPosition, Vector3.down);
-    //    if (Physics.Raycast(ray, out RaycastHit hitInfo))
+    //    if (_targetSpawnTransforms.Length > 1)
     //    {
-    //        Transform targetScope = Instantiate(_targetScopePrefab, transform);
-    //        targetScope.transform.position = hitInfo.point;
-    //        targetScope.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
-    //        targetScope.transform.position += targetScope.transform.up * 0.01f;
-    //        _targetScopesQueue.Enqueue(targetScope.gameObject);
+    //        do
+    //        {
+    //            randomTargetIndex = Random.Range(0, _targetSpawnTransforms.Length);
+    //            Debug.Log("New random index: " + randomTargetIndex);
+    //        } while (randomTargetIndex == _lastTargetIndex);
     //    }
+    //    else
+    //    {
+    //        randomTargetIndex = 0;
+    //    }
+
+    //    return randomTargetIndex;
     //}
 
-    private IEnumerator ChangeTargetsCoroutine()
+    void IInitializable.Initialize()
     {
-        while (true)
-        {
-            yield return null;
-        }
+        StartSpawning().Forget();
     }
 
-    private int GetRandomTargetsIndex()
+    private async UniTask StartSpawning()
     {
-        int randomTargetIndex;
+        _isSpawning = true;
 
-        if (_targetSpawnPositions.Length == 0)
+        while (_isSpawning)
         {
-            throw new System.Exception("Targets transforms array is empty");
-        }
+            SpawnTarget();
 
-        if (_targetSpawnPositions.Length > 1)
-        {
-            do
-            {
-                randomTargetIndex = Random.Range(0, _targetSpawnPositions.Length);
-                Debug.Log("New random index: " + randomTargetIndex);
-            } while (randomTargetIndex == _lastTargetIndex);
+            await UniTask.Delay(1000);
         }
-        else
-        {
-            randomTargetIndex = 0;
-        }
-
-        return randomTargetIndex;
     }
-
-    //private void HideAllTargets()
-    //{
-    //    StopCoroutine(_changeTargetsCoroutine);
-    //    Debug.Log("Stopped Coroutine " + _changeTargetsCoroutine);
-    //    _changeTargetsCoroutine = null;
-    //}
 }
