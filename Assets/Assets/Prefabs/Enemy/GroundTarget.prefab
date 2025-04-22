@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8154201407519063210}
   - component: {fileID: -1884348968145200936}
   - component: {fileID: 2906717210403674435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1467c8756ca0a642918f7d01027ec2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _routes: {fileID: 0}
+  _navMeshAgent: {fileID: 2906717210403674435}
 --- !u!195 &2906717210403674435
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -137,7 +137,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 0.00001
   m_BaseOffset: 1.11022296e-16
