@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5299006788870452563}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.18301274, y: 0.6830127, z: -0.18301274, w: 0.6830127}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2353863655772359033}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 90, z: 0}
 --- !u!20 &3940458946705801763
 Camera:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ Rigidbody:
   m_GameObject: {fileID: 6939467342495647376}
   serializedVersion: 4
   m_Mass: 5
-  m_Drag: 0.4
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -301,6 +301,7 @@ MonoBehaviour:
   _droneMovementSystem: {fileID: 3832685974097376641}
   _payloadPrefab: {fileID: 8636783697350530491, guid: 3692306d7289f5d429dab54b313d2ab2,
     type: 3}
+  _nextPayloadSpawnIntervalMS: 3000
 --- !u!114 &3832685974097376641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +317,6 @@ MonoBehaviour:
   _rigidbody: {fileID: 520594486710014193}
   _dronePropertiesHolderSO: {fileID: 11400000, guid: d783e14b927a2bd42a61521d070e1e7d,
     type: 2}
-  _throttleMultiplicator: 200
+  _throttleMultiplicator: 100
   _motorsAccelerationMultiplier: 12
   _motorsPowerClamp: 1.5

@@ -948,7 +948,7 @@ MonoBehaviour:
   - {fileID: 776300802}
   - {fileID: 1488937902}
   _gameSettingsSO: {fileID: 11400000, guid: cbeee14dc798a1241a0a63c2b866c7fc, type: 2}
-  _groundTargetPrefab: {fileID: -1884348968145200936, guid: 7b92b58c1471096409e940a8ac5fffb5,
+  _groundTargetPrefab: {fileID: 3363903450943350625, guid: 20a6e895619a4ac4bb9f70aa073aea85,
     type: 3}
   _airborneTargetPrefab: {fileID: 1809474307090263795, guid: 68063f364a0362a43871de11f74543a1,
     type: 3}
@@ -3533,26 +3533,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3361411635569036093, guid: 9755dda213f5dee4aab6c92b8e0f27a2,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.61237246
-      objectReference: {fileID: 0}
-    - target: {fileID: 3361411635569036093, guid: 9755dda213f5dee4aab6c92b8e0f27a2,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.3535534
-      objectReference: {fileID: 0}
-    - target: {fileID: 3361411635569036093, guid: 9755dda213f5dee4aab6c92b8e0f27a2,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.61237246
-      objectReference: {fileID: 0}
-    - target: {fileID: 3361411635569036093, guid: 9755dda213f5dee4aab6c92b8e0f27a2,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.3535534
       objectReference: {fileID: 0}
     - target: {fileID: 3361411635569036093, guid: 9755dda213f5dee4aab6c92b8e0f27a2,
         type: 3}
