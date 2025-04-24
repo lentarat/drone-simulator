@@ -39,7 +39,7 @@ public class TargetSpawner<T> : IInitializable where T : Target
         {
             SpawnTarget();
 
-            await UniTask.Delay(115000);
+            await UniTask.Delay(5000);
         }
     }
 

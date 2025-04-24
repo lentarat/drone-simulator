@@ -6,9 +6,9 @@ using UnityEngine;
 public class PayloadRealisticRotationAdjuster : MonoBehaviour
 {
     [SerializeField] private Rigidbody _payloadRigidbody;
-    [SerializeField, Range(0.1f, 3f)] private float _rotationSpeed = 1f;
+    [SerializeField] private float _rotationSpeed;
 
-    private void Update()
+    private void FixedUpdate()
     {
         AdjustRotation();
     }
@@ -18,7 +18,7 @@ public class PayloadRealisticRotationAdjuster : MonoBehaviour
         if (_payloadRigidbody.velocity.sqrMagnitude > 0.1f)
         {
             Vector3 targetDirection = _payloadRigidbody.velocity.normalized;
-            transform.up = Vector3.Lerp(transform.up, targetDirection, Time.deltaTime * _rotationSpeed);
+            transform.up = Vector3.Lerp(transform.up, targetDirection, Time.fixedDeltaTime * _rotationSpeed);
         }
     }
 }

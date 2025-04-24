@@ -6,6 +6,7 @@ using System.Threading;
 public abstract class Target : MonoBehaviour, IDamageable
 {
     [SerializeField] private NavMeshAgent _navMeshAgent;
+    [SerializeField] private float _hp;
 
     private int _waypointPositionIndex;
     private Vector3[] _routeWaypointsPositions;
@@ -59,8 +60,9 @@ public abstract class Target : MonoBehaviour, IDamageable
         _cancellationTokenSource.Dispose();
     }
 
-    void IDamageable.ApplyDamage()
+    void IDamageable.ApplyDamage(float damage)
     {
+        Debug.Log("Damage applied: " + damage);
         Die();
     }
 }
