@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -10,20 +11,32 @@ public class TargetSpawner<T> : IInitializable where T : Target
     private Transform _targetsParent;
     private Vector3[][] _routesPositions;
     private Queue<GameObject> _targetsQueue = new();
-    private DifficultyLevelType _difficultyLevelType;
     private ITargetFactory<T> _targetFactory;
+    private DifficultyLevelTargetSpawnerSettingsHolder _difficultyLevelTargetSpawnerSettingsHolder;
 
     public TargetSpawner(
         ITargetFactory<T> targetFactory,
         GameSettingsSO gameSettingsSO,
+        DifficultyLevelTargetSpawnerSettingsSO difficultyLevelTargetSpawnerSettingsSO,
         [Inject(Id = "TargetsParent")] Transform targetsParent,
         [Inject(Id = "RoutesParents")] GameObject[] routesParents)
     {
-        _difficultyLevelType = gameSettingsSO.DifficultyLevelType;
         _targetFactory = targetFactory;
         _targetsParent = targetsParent;
         _routesPositions = RouteUtils.GetConvertedRoutesWaypointsPositions(routesParents);
+        _difficultyLevelTargetSpawnerSettingsHolder =
+            GetSettingsRegardingDifficultyLevel(gameSettingsSO.DifficultyLevelType, difficultyLevelTargetSpawnerSettingsSO);
+        Debug.Log(_difficultyLevelTargetSpawnerSettingsHolder.DifficultyLevelType + " " + _difficultyLevelTargetSpawnerSettingsHolder.NextTargetSpawnIntervalMS);
+        Debug.Break();
         //_maxTargetsNumber = (int)(_targetSpawnTransforms.Length * 1.5f);
+    }
+
+    private DifficultyLevelTargetSpawnerSettingsHolder GetSettingsRegardingDifficultyLevel(
+        DifficultyLevelType difficultyLevelType,
+        DifficultyLevelTargetSpawnerSettingsSO difficultyLevelTargetSpawnerSettingsSO)
+    {
+        return difficultyLevelTargetSpawnerSettingsSO.DifficultyLevelTargetSpawnerSettingsHolder
+            .FirstOrDefault(e => e.DifficultyLevelType == difficultyLevelType);
     }
 
     void IInitializable.Initialize()
@@ -56,7 +69,7 @@ public class TargetSpawner<T> : IInitializable where T : Target
         {
             Vector3 spawnPosition = hitInfo.point;
             Quaternion spawnRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
-            Target target = _targetFactory.Create(_difficultyLevelType, spawnPosition, spawnRotation, _targetsParent);
+            Target target = _targetFactory.Create(spawnPosition, spawnRotation, _targetsParent);
             target.Init(_routesPositions[randomRouteIndex], randomWaypointPositionIndex);
             _targetsQueue.Enqueue(target.gameObject);
         }
