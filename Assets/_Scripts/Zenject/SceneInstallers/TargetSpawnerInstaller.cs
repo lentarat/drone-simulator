@@ -4,11 +4,11 @@ using Zenject;
 public class TargetSpawnerInstaller : MonoInstaller
 {
     [SerializeField] private Transform _targetsParent;
-    //[SerializeField] private Transform[] _targetSpawnTransforms;
     [SerializeField] private GameObject[] _routesParents;
-    [SerializeField] private GameSettingsSO _gameSettingsSO;
     [SerializeField] private GroundTarget _groundTargetPrefab;
     [SerializeField] private AirborneTarget _airborneTargetPrefab;
+    [SerializeField] private GameSettingsSO _gameSettingsSO;
+    [SerializeField] private DifficultyLevelTargetSpawnerSettingsSO _difficultyLevelTargetSpawnerSettingsSO;
 
     public override void InstallBindings()
     {
@@ -44,6 +44,7 @@ public class TargetSpawnerInstaller : MonoInstaller
     private void BindOtherDependencies()
     {
         Container.Bind<GameSettingsSO>().FromInstance(_gameSettingsSO);
+        Container.Bind<DifficultyLevelTargetSpawnerSettingsSO>().FromInstance(_difficultyLevelTargetSpawnerSettingsSO);
         Container.Bind<Transform>().WithId("TargetsParent").FromInstance(_targetsParent);
         Container.Bind<GameObject[]>().WithId("RoutesParents").FromInstance(_routesParents);
         Container.Bind<GroundTarget>().FromInstance(_groundTargetPrefab);

@@ -6,17 +6,31 @@ using UnityEngine;
 public class GroundTargetFactory : ITargetFactory<GroundTarget>
 {
     private GroundTarget _groundTargetPrefab;
+    private DifficultyLevelType _difficultyLevelType;
+    //private DifficultyLevelTargetSpawnerSettingsSO _difficultyLevelTargetSpawnerSettingsSO;
 
-    public GroundTargetFactory(GroundTarget groundTargetPrefab)
+    public GroundTargetFactory(
+        GroundTarget groundTargetPrefab,
+        GameSettingsSO gameSettingsSO)
+    //DifficultyLevelTargetSpawnerSettingsSO difficultyLevelTargetSpawnerSettingsSO)
     {
         _groundTargetPrefab = groundTargetPrefab;
+        _difficultyLevelType = gameSettingsSO.DifficultyLevelType;
+        //_difficultyLevelTargetSpawnerSettingsSO = difficultyLevelTargetSpawnerSettingsSO;
     }
 
-    GroundTarget ITargetFactory<GroundTarget>.Create(DifficultyLevelType difficultyLevelType, Vector3 position, Quaternion rotation, Transform parent)
+    GroundTarget ITargetFactory<GroundTarget>.Create(
+        Vector3 position,
+        Quaternion rotation,
+        Transform parent)
     {
         GroundTarget groundTarget = GameObject.Instantiate(_groundTargetPrefab, position, rotation, parent);
-        groundTarget.transform.position += groundTarget.transform.up * 0.01f;
-        Debug.Log(difficultyLevelType + GetType().Name);
+        Debug.Log(_difficultyLevelType + GetType().Name);
         return groundTarget;
     }
+
+    //private float GetTargetSpeedRegardingDifficulty(DifficultyLevelType)
+    //{ 
+        
+    //}
 }

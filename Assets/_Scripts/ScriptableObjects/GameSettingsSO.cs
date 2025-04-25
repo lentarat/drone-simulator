@@ -6,5 +6,5 @@ using UnityEngine;
 public class GameSettingsSO : ScriptableObject
 {
     public GameModeType GameModeType { get; set; } = GameModeType.GroundTargets;
-    public DifficultyLevelType DifficultyLevelType { get; set; }
+    public DifficultyLevelType DifficultyLevelType { get; set; } = DifficultyLevelType.Medium;
 }

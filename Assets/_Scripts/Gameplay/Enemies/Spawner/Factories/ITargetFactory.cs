@@ -5,5 +5,8 @@ using UnityEngine;
 
 public interface ITargetFactory<T> where T : Target
 {
-    public T Create(DifficultyLevelType difficultyLevelType, Vector3 position, Quaternion rotation, Transform parent);
+    public T Create(
+        Vector3 position,
+        Quaternion rotation,
+        Transform parent);
 }
