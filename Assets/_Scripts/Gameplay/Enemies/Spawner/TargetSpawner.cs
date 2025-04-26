@@ -11,11 +11,11 @@ public class TargetSpawner<T> : IInitializable where T : Target
     private Transform _targetsParent;
     private Vector3[][] _routesPositions;
     private Queue<GameObject> _targetsQueue = new();
-    private ITargetFactory<T> _targetFactory;
+    private TargetFactory<T> _targetFactory;
     private DifficultyLevelTargetSpawnerSettingsHolder _targetSpawnerSettings;
 
     public TargetSpawner(
-        ITargetFactory<T> targetFactory,
+        TargetFactory<T> targetFactory,
         GameSettingsSO gameSettingsSO,
         DifficultyLevelTargetSpawnerSettingsSO difficultyLevelTargetSpawnerSettingsSO,
         [Inject(Id = "TargetsParent")] Transform targetsParent,
@@ -27,7 +27,6 @@ public class TargetSpawner<T> : IInitializable where T : Target
         _targetSpawnerSettings =
             GetSettingsRegardingDifficultyLevel(gameSettingsSO.DifficultyLevelType, difficultyLevelTargetSpawnerSettingsSO);
         Debug.Log(_targetSpawnerSettings.DifficultyLevelType + " " + _targetSpawnerSettings.NextTargetSpawnIntervalMS);
-        Debug.Break();
         //_maxTargetsNumber = (int)(_targetSpawnTransforms.Length * 1.5f);
     }
 

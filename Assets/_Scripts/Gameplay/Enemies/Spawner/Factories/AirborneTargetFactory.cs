@@ -1,28 +1,24 @@
 using UnityEngine;
 
-public class AirborneTargetFactory : ITargetFactory<AirborneTarget>
+public class AirborneTargetFactory : TargetFactory<AirborneTarget>
 {
     private AirborneTarget _airborneTargetPrefab;
-    private DifficultyLevelType _difficultyLevelType;
-   //private DifficultyLevelTargetSpawnerSettingsSO _difficultyLevelTargetSpawnerSettingsSO;
 
     public AirborneTargetFactory(
-        AirborneTarget airborneTargetPrefab,
-        GameSettingsSO gameSettingsSO)
-        //DifficultyLevelTargetSpawnerSettingsSO difficultyLevelTargetSpawnerSettingsSO)
+        GameSettingsSO gameSettingsSO,
+        DifficultyLevelTargetSettingsSO difficultyLevelTargetSettingsSO,
+        AirborneTarget airborneTargetPrefab) : base(gameSettingsSO, difficultyLevelTargetSettingsSO)
     {
         _airborneTargetPrefab = airborneTargetPrefab;
-        _difficultyLevelType = gameSettingsSO.DifficultyLevelType;
-        //_difficultyLevelTargetSpawnerSettingsSO = difficultyLevelTargetSpawnerSettingsSO;
     }
 
-    AirborneTarget ITargetFactory<AirborneTarget>.Create(
+    public override AirborneTarget Create(
         Vector3 position,
         Quaternion rotation,
         Transform parent)
     {
         AirborneTarget airborneTarget = GameObject.Instantiate(_airborneTargetPrefab, position, rotation, parent);
-        Debug.Log(_difficultyLevelType + GetType().Name);
+        Debug.Log($"{GetType().Name} spawned with speedMultiplier: {_targetSettings.SpeedMultiplier}");
         return airborneTarget;
     }
 }
