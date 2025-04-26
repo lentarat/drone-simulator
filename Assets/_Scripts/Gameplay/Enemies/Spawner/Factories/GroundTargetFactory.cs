@@ -3,34 +3,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GroundTargetFactory : ITargetFactory<GroundTarget>
+public class GroundTargetFactory : TargetFactory<GroundTarget>
 {
     private GroundTarget _groundTargetPrefab;
-    private DifficultyLevelType _difficultyLevelType;
-    //private DifficultyLevelTargetSpawnerSettingsSO _difficultyLevelTargetSpawnerSettingsSO;
 
     public GroundTargetFactory(
-        GroundTarget groundTargetPrefab,
-        GameSettingsSO gameSettingsSO)
-    //DifficultyLevelTargetSpawnerSettingsSO difficultyLevelTargetSpawnerSettingsSO)
+        GameSettingsSO gameSettingsSO,
+        DifficultyLevelTargetSettingsSO difficultyLevelTargetSettingsSO,
+        GroundTarget groundTargetPrefab) : base(gameSettingsSO, difficultyLevelTargetSettingsSO)
     {
         _groundTargetPrefab = groundTargetPrefab;
-        _difficultyLevelType = gameSettingsSO.DifficultyLevelType;
-        //_difficultyLevelTargetSpawnerSettingsSO = difficultyLevelTargetSpawnerSettingsSO;
     }
 
-    GroundTarget ITargetFactory<GroundTarget>.Create(
+    public override GroundTarget Create(
         Vector3 position,
         Quaternion rotation,
         Transform parent)
     {
-        GroundTarget groundTarget = GameObject.Instantiate(_groundTargetPrefab, position, rotation, parent);
-        Debug.Log(_difficultyLevelType + GetType().Name);
-        return groundTarget;
+        GroundTarget airborneTarget = GameObject.Instantiate(_groundTargetPrefab, position, rotation, parent);
+        Debug.Log($"{GetType().Name} spawned with speedMultiplier: {_targetSettings.SpeedMultiplier}");
+        return airborneTarget;
     }
-
-    //private float GetTargetSpeedRegardingDifficulty(DifficultyLevelType)
-    //{ 
-        
-    //}
 }

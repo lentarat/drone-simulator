@@ -31,13 +31,13 @@ public class TargetSpawnerInstaller : MonoInstaller
         {
             case GameModeType.GroundTargets:
             {
-                Container.Bind<ITargetFactory<GroundTarget>>().To<GroundTargetFactory>().AsSingle();
+                Container.Bind<TargetFactory<GroundTarget>>().To<GroundTargetFactory>().AsSingle();
                 Container.BindInterfacesAndSelfTo<TargetSpawner<GroundTarget>>().AsSingle().NonLazy();
                 break;
             }
             case GameModeType.AirborneTargets:
             {
-                Container.Bind<ITargetFactory<AirborneTarget>>().To<AirborneTargetFactory>().AsSingle();
+                Container.Bind<TargetFactory<AirborneTarget>>().To<AirborneTargetFactory>().AsSingle();
                 Container.BindInterfacesAndSelfTo<TargetSpawner<AirborneTarget>>().AsSingle().NonLazy();
                 break;
             }
