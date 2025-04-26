@@ -943,17 +943,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c699b63ea098c4ca6ee9f3333b2519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetsParent: {fileID: 1411337394}
-  _routesParents:
-  - {fileID: 776300802}
-  - {fileID: 1488937902}
   _groundTargetPrefab: {fileID: 3363903450943350625, guid: 20a6e895619a4ac4bb9f70aa073aea85,
     type: 3}
   _airborneTargetPrefab: {fileID: 1809474307090263795, guid: 68063f364a0362a43871de11f74543a1,
     type: 3}
   _gameSettingsSO: {fileID: 11400000, guid: cbeee14dc798a1241a0a63c2b866c7fc, type: 2}
+  _difficultyLevelTargetSettingsSO: {fileID: 11400000, guid: 14fefd39e4f997242bee6a5ee494b5d8,
+    type: 2}
   _difficultyLevelTargetSpawnerSettingsSO: {fileID: 11400000, guid: c45796bcdbc5c9d4eb9f4e464d52dae4,
     type: 2}
+  _targetsParent: {fileID: 1411337394}
+  _routesParents:
+  - {fileID: 776300802}
+  - {fileID: 1488937902}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

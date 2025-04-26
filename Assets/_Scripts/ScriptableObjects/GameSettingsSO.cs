@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/GameSettings")]
+[CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/General/GameSettings")]
 public class GameSettingsSO : ScriptableObject
 {
     public GameModeType GameModeType { get; set; } = GameModeType.GroundTargets;

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DifficultyLevelTargetSpawnerSettingsHolder", menuName = "ScriptableObjects/DifficultyLevelTargetSpawnerSettingsHolder")]
+[CreateAssetMenu(fileName = "DifficultyLevelTargetSpawnerSettingsHolder", menuName = "ScriptableObjects/DifficultyLevel/DifficultyLevelTargetSpawnerSettingsHolder")]
 public class DifficultyLevelTargetSpawnerSettingsSO : ScriptableObject
 {
     [SerializeField] private DifficultyLevelTargetSpawnerSettingsHolder[] _difficultyLevelTargetSpawnerSettingsHolder;

@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d36205be2eb61479f460d441679311, type: 3}
-  m_Name: DifficultyLevelTargetSpawnerSettings
+  m_Script: {fileID: 11500000, guid: df9a865c0d7d30b4098d4fc98919cfc8, type: 3}
+  m_Name: DifficultyLevelTargetSettingsSO
   m_EditorClassIdentifier: 
-  _difficultyLevelTargetSpawnerSettingsHolder:
+  _difficultyLevelTargetSettingsHolder:
   - _difficultyLevelType: 0
-    _nextTargetSpawnIntervalMS: 5000
+    _speedMultiplier: 0.8
   - _difficultyLevelType: 1
-    _nextTargetSpawnIntervalMS: 3000
+    _speedMultiplier: 1
   - _difficultyLevelType: 2
-    _nextTargetSpawnIntervalMS: 1000
+    _speedMultiplier: 1.2

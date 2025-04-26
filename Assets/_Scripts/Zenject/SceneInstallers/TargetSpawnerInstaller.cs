@@ -3,17 +3,24 @@ using Zenject;
 
 public class TargetSpawnerInstaller : MonoInstaller
 {
-    [SerializeField] private Transform _targetsParent;
-    [SerializeField] private GameObject[] _routesParents;
+    [Header("Targets")]
     [SerializeField] private GroundTarget _groundTargetPrefab;
     [SerializeField] private AirborneTarget _airborneTargetPrefab;
+    [Header("ScriptableObjects")]
     [SerializeField] private GameSettingsSO _gameSettingsSO;
+    [SerializeField] private DifficultyLevelTargetSettingsSO _difficultyLevelTargetSettingsSO;
     [SerializeField] private DifficultyLevelTargetSpawnerSettingsSO _difficultyLevelTargetSpawnerSettingsSO;
+    [Header("Other")]
+    [SerializeField] private Transform _targetsParent;
+    [SerializeField] private GameObject[] _routesParents;
 
     public override void InstallBindings()
     {
         BindTargetFactoryAndTargetSpawner();
-        BindOtherDependencies();
+        BindTargetsParent();
+        BindRoutesParent();
+        BindTargets();
+        BindScriptableObjects();
     }
 
     private void BindTargetFactoryAndTargetSpawner()
@@ -41,13 +48,26 @@ public class TargetSpawnerInstaller : MonoInstaller
         }
     }
 
-    private void BindOtherDependencies()
+    private void BindTargetsParent()
     {
-        Container.Bind<GameSettingsSO>().FromInstance(_gameSettingsSO);
-        Container.Bind<DifficultyLevelTargetSpawnerSettingsSO>().FromInstance(_difficultyLevelTargetSpawnerSettingsSO);
         Container.Bind<Transform>().WithId("TargetsParent").FromInstance(_targetsParent);
+    }
+
+    private void BindRoutesParent()
+    {
         Container.Bind<GameObject[]>().WithId("RoutesParents").FromInstance(_routesParents);
+    }
+
+    private void BindTargets()
+    {
         Container.Bind<GroundTarget>().FromInstance(_groundTargetPrefab);
         Container.Bind<AirborneTarget>().FromInstance(_airborneTargetPrefab);
+    }
+
+    private void BindScriptableObjects()
+    {
+        Container.Bind<GameSettingsSO>().FromInstance(_gameSettingsSO);
+        Container.Bind<DifficultyLevelTargetSettingsSO>().FromInstance(_difficultyLevelTargetSettingsSO);
+        Container.Bind<DifficultyLevelTargetSpawnerSettingsSO>().FromInstance(_difficultyLevelTargetSpawnerSettingsSO);
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DroneProperties", menuName = "ScriptableObjects/DroneProperties")]
+[CreateAssetMenu(fileName = "DroneProperties", menuName = "ScriptableObjects/Drone/DroneProperties")]
 public class DronePropertiesHolderSO : ScriptableObject
 {
     [SerializeField] private string _name = "DefaultDroneName";
