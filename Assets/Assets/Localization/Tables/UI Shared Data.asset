@@ -16,19 +16,35 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: a66f16388beec6a4bb3334c8e716c2d6
   m_Entries:
   - m_Id: 3185040007168
-    m_Key: PlayButton
+    m_Key: PlayButtonText
     m_Metadata:
       m_Items: []
   - m_Id: 53389905181384704
-    m_Key: WorkshopButton
+    m_Key: WorkshopButtonText
     m_Metadata:
       m_Items: []
   - m_Id: 4226468913152
-    m_Key: SettingsButton
+    m_Key: SettingsButtonText
     m_Metadata:
       m_Items: []
   - m_Id: 4279602356224
-    m_Key: QuitButton
+    m_Key: QuitButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71704332364259328
+    m_Key: EasyButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71704639391506432
+    m_Key: MediumButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71704671150776320
+    m_Key: HardButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71711808958603264
+    m_Key: DifficultySuggestionText
     m_Metadata:
       m_Items: []
   m_Metadata:

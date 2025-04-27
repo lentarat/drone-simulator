@@ -51,7 +51,7 @@ public class TargetSpawner<T> : IInitializable where T : Target
         {
             SpawnTarget();
 
-            await UniTask.Delay(5000);
+            await UniTask.Delay(_targetSpawnerSettings.NextTargetSpawnIntervalMS);
         }
     }
 

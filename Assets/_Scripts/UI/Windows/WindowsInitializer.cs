@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WindowsInitializator : MonoBehaviour
+public class WindowsInitializer : MonoBehaviour
 {
     [SerializeField] private BaseWindow[] _windows;
 

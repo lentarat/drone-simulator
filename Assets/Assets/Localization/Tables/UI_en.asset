@@ -34,6 +34,22 @@ MonoBehaviour:
     m_Localized: Workshop
     m_Metadata:
       m_Items: []
+  - m_Id: 71704332364259328
+    m_Localized: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71704639391506432
+    m_Localized: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71704671150776320
+    m_Localized: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71711808958603264
+    m_Localized: Choose difficulty level
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

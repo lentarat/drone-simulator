@@ -33,12 +33,10 @@ public class GameModeWindow : BackableWindow
     private void HandleGroundTargetsModeButtonClicked()
     {
         _gameSettingsSO.GameModeType = GameModeType.GroundTargets;
-        SceneManager.LoadScene(1);
     }
 
     private void HandleAirborneModeButtonClicked()
     {
         _gameSettingsSO.GameModeType = GameModeType.AirborneTargets;
-        SceneManager.LoadScene(1);
     }
 }
