@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: UI_en
+  m_Name: UI_Menu_en
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: en
-  m_SharedData: {fileID: 11400000, guid: a66f16388beec6a4bb3334c8e716c2d6, type: 2}
+  m_SharedData: {fileID: 11400000, guid: aa4277748fe6e0a4ea382e8af7dc96cd, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
   - m_Id: 3185040007168
     m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53389905181384704
+    m_Localized: Workshop
     m_Metadata:
       m_Items: []
   - m_Id: 4226468913152
@@ -28,10 +32,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4279602356224
     m_Localized: Quit
-    m_Metadata:
-      m_Items: []
-  - m_Id: 53389905181384704
-    m_Localized: Workshop
     m_Metadata:
       m_Items: []
   - m_Id: 71704332364259328
@@ -48,6 +48,30 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 71711808958603264
     m_Localized: Choose difficulty level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2274565660672
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2449770127360
+    m_Localized: Drone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2474357137408
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2489347579904
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2580972150784
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 355702374506496
+    m_Localized: English
     m_Metadata:
       m_Items: []
   references:
