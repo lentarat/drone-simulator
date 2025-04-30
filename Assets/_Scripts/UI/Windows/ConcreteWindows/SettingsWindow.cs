@@ -5,21 +5,21 @@ using UnityEngine.EventSystems;
 public class SettingsWindow : BackableWindow
 {
     [Header("SettingsWindow fields")]
-    [SerializeField] private SettingsTab[] _settingsTabs;
+    [SerializeField] private ButtonToSettingsTab[] _buttonToSettingsTabs;
     [SerializeField] private SettingsTab _openedTab;
 
     protected override void Awake()
     {
         base.Awake();
 
-        SubscribeToTabs();
+        SubscribeToTabsHeaderButtons();
     }
 
-    private void SubscribeToTabs()
-    { 
-        foreach(SettingsTab tab in _settingsTabs) 
+    private void SubscribeToTabsHeaderButtons()
+    {
+        foreach (ButtonToSettingsTab buttonToSettingsTab in _buttonToSettingsTabs)
         {
-            tab.OnTabStateChanged += ChangeOpenedTab;
+            buttonToSettingsTab.HeaderButton.onClick.AddListener(() => ChangeOpenedTab(buttonToSettingsTab.SettingsTab));
         }
     }
 
@@ -28,18 +28,5 @@ public class SettingsWindow : BackableWindow
         _openedTab.Hide();
         tab.Show();
         _openedTab = tab;
-    }
-
-    private void OnDestroy()
-    {
-        UnsubscribeToTabs();
-    }
-
-    private void UnsubscribeToTabs()
-    {
-        foreach (SettingsGeneralTab tab in _settingsTabs)
-        {
-            tab.OnTabStateChanged -= ChangeOpenedTab;
-        }
     }
 }

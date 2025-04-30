@@ -1,12 +1,10 @@
 using UnityEngine;
-using System;
-using UnityEngine.EventSystems;
 using TMPro;
 
-public abstract class SettingsTab : MonoBehaviour, IPointerClickHandler
+public abstract class SettingsTab : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _headerText;
-    public event Action<SettingsTab> OnTabStateChanged;
+    [SerializeField] protected TextMeshProUGUI _headerText;
+
     public void Show()
     {
         gameObject.SetActive(true);
@@ -15,7 +13,7 @@ public abstract class SettingsTab : MonoBehaviour, IPointerClickHandler
 
     private void ChangeFontToSelected()
     {
-        _headerText.fontStyle = FontStyles.Bold | FontStyles.Italic;
+        _headerText.fontStyle = FontStyles.Bold | FontStyles.Underline;
     }
 
     public void Hide()
@@ -27,10 +25,5 @@ public abstract class SettingsTab : MonoBehaviour, IPointerClickHandler
     private void ChangeFontToUnselected()
     {
         _headerText.fontStyle = FontStyles.Normal;
-    }
-
-    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
-    {
-        OnTabStateChanged?.Invoke(this);
     }
 }
