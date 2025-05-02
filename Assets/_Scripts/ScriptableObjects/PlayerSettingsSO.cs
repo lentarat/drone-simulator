@@ -7,8 +7,8 @@ public class PlayerSettingsSO : ScriptableObject
     public ToggleType HUD { get; set; }
 
     public DroneFlightModeType DroneFlightMode { get; set; }
-    public float FOV { get; set; }
-    public float CameraAngle { get; set; }
+    public int FOV { get; set; }
+    public int CameraAngle { get; set; }
     public ToggleType AnalogCamera { get; set; }
     public ToggleType SignalLoss { get; set; }
 

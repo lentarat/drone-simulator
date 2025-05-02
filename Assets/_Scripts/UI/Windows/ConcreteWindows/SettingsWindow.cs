@@ -1,6 +1,4 @@
-using System.Threading;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SettingsWindow : BackableWindow
@@ -9,23 +7,40 @@ public class SettingsWindow : BackableWindow
     [SerializeField] private ButtonToSettingsTab[] _buttonToSettingsTabs;
     [SerializeField] private SettingsTab _openedTab;
     [SerializeField] private Button _applyChangesButton;
+    [SerializeField] private PlayerSettingsSO _playerSettingsSO;
+
+    private PlayerSettingsStorage _playerSettingsStorage;
 
     protected override void Awake()
     {
         base.Awake();
 
-        SubscribeToTabsHeaderButtons();
+        _playerSettingsStorage = new PlayerSettingsStorage();
+        _playerSettingsStorage.LoadTo(_playerSettingsSO);
+
+        ManageEachSettingsTab();
         SubcribeToAnySettingsValuesChanged();
         SubscribeToApplyChangesButtonClick();
     }
 
-    private void SubscribeToTabsHeaderButtons()
+    private void ManageEachSettingsTab()
     {
         foreach (ButtonToSettingsTab buttonToSettingsTab in _buttonToSettingsTabs)
         {
-            SettingsTab tab = buttonToSettingsTab.SettingsTab;
-            buttonToSettingsTab.HeaderButton.onClick.AddListener(() => ChangeOpenedTab(tab));
+            SubscribeToTabHeaderButton(buttonToSettingsTab);
+            InitializeSettingsTab(buttonToSettingsTab.SettingsTab);
         }
+    }
+
+    private void SubscribeToTabHeaderButton(ButtonToSettingsTab buttonToSettingsTab)
+    {
+        SettingsTab tab = buttonToSettingsTab.SettingsTab;
+        buttonToSettingsTab.HeaderButton.onClick.AddListener(() => ChangeOpenedTab(tab));
+    }
+
+    private void InitializeSettingsTab(SettingsTab settingsTab)
+    {
+        settingsTab.Initialize(_playerSettingsSO);
     }
 
     private void ChangeOpenedTab(SettingsTab tab)
@@ -52,7 +67,17 @@ public class SettingsWindow : BackableWindow
 
     private void ApplyChanges()
     {
+        SaveEachSettingsTab();
+        _playerSettingsStorage.Save(_playerSettingsSO);
         HideApplyChangesButton();
+    }
+
+    private void SaveEachSettingsTab()
+    {
+        foreach (ButtonToSettingsTab buttonToSettingsTab in _buttonToSettingsTabs)
+        {
+            buttonToSettingsTab.SettingsTab.SaveConcretePlayerSettings();
+        }
     }
 
     private void HideApplyChangesButton()
