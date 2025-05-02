@@ -66,8 +66,8 @@ public class TargetSpawnerInstaller : MonoInstaller
 
     private void BindScriptableObjects()
     {
-        Container.Bind<GameSettingsSO>().FromInstance(_gameSettingsSO);
-        Container.Bind<DifficultyLevelTargetSettingsSO>().FromInstance(_difficultyLevelTargetSettingsSO);
-        Container.Bind<DifficultyLevelTargetSpawnerSettingsSO>().FromInstance(_difficultyLevelTargetSpawnerSettingsSO);
+        Container.Bind<GameSettingsSO>().FromScriptableObject(_gameSettingsSO);
+        Container.Bind<DifficultyLevelTargetSettingsSO>().FromScriptableObject(_difficultyLevelTargetSettingsSO);
+        Container.Bind<DifficultyLevelTargetSpawnerSettingsSO>().FromScriptableObject(_difficultyLevelTargetSpawnerSettingsSO);
     }
 }

@@ -50,30 +50,6 @@ MonoBehaviour:
     m_Localized: Choose difficulty level
     m_Metadata:
       m_Items: []
-  - m_Id: 2274565660672
-    m_Localized: General
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2449770127360
-    m_Localized: Drone
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2474357137408
-    m_Localized: Audio
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2489347579904
-    m_Localized: Controls
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2580972150784
-    m_Localized: Language
-    m_Metadata:
-      m_Items: []
-  - m_Id: 355702374506496
-    m_Localized: English
-    m_Metadata:
-      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI_Settings Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UI_Settings
+  m_TableCollectionNameGuidString: 08e49c39622e1f94dbf8920e6af93360
+  m_Entries:
+  - m_Id: 2274565660672
+    m_Key: SettingsWindow.General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2449770127360
+    m_Key: SettingsWindow.Drone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2474357137408
+    m_Key: SettingsWindow.Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2489347579904
+    m_Key: SettingsWindow.Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2580972150784
+    m_Key: SettingsWindow.General.Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 355702374506496
+    m_Key: SettingsWindow.General.Language.English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100760594259968
+    m_Key: SettingsWindow.Drone.FlightMode.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 99792485982208
+    m_Key: SettingsWindow.Drone.FlightMode.Acro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100247035289600
+    m_Key: SettingsWindow.Drone.FlightMode.Horizon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100307550707712
+    m_Key: SettingsWindow.Drone.FlightMode.Angle
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 259639809879834626
+  references:
+    version: 2
+    RefIds:
+    - rid: 259639809879834626
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1746103596823

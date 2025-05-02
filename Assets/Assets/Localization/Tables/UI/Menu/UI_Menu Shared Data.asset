@@ -47,30 +47,6 @@ MonoBehaviour:
     m_Key: DifficultyLevelWindow.DifficultySuggestion
     m_Metadata:
       m_Items: []
-  - m_Id: 2274565660672
-    m_Key: SettingsWindow.General
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2449770127360
-    m_Key: SettingsWindow.Drone
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2474357137408
-    m_Key: SettingsWindow.Audio
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2489347579904
-    m_Key: SettingsWindow.Controls
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2580972150784
-    m_Key: SettingsWindow.General.Language
-    m_Metadata:
-      m_Items: []
-  - m_Id: 355702374506496
-    m_Key: SettingsWindow.General.Language.English
-    m_Metadata:
-      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

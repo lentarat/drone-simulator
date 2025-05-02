@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TabsHeaderColorsHandler : MonoBehaviour,
+public class SettingsTabHeaderColorsHandler : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler,
     IPointerDownHandler, IPointerUpHandler
 {
