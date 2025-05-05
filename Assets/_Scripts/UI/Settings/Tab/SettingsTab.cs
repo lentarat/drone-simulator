@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System;
 
 public abstract class SettingsTab : MonoBehaviour
 {
@@ -37,17 +36,17 @@ public abstract class SettingsTab : MonoBehaviour
         _headerText.fontStyle = FontStyles.Normal;
     }
 
-    protected TEnum GetAdjustedEnumValue<TEnum>(SettingsOptionController settingsOptionController) where TEnum : Enum
-    {
-        int value = settingsOptionController.CurrentValue;
-        int length = Enum.GetValues(typeof(TEnum)).Length;
-        int adjustedIndex = (value % length + length) % length;
-        return (TEnum)Enum.GetValues(typeof(TEnum)).GetValue(adjustedIndex);
-    }
+    //protected TEnum GetAdjustedEnumValue<TEnum>(SettingsElementController settingsOptionController) where TEnum : Enum
+    //{
+    //    int value = settingsOptionController.CurrentValue;
+    //    int length = Enum.GetValues(typeof(TEnum)).Length;
+    //    int adjustedIndex = (value % length + length) % length;
+    //    return (TEnum)Enum.GetValues(typeof(TEnum)).GetValue(adjustedIndex);
+    //}
 
-    protected int GetAdjustedIntValue(int value, int minValue, int maxValue)
-    { 
-        value = Math.Clamp(value, minValue, maxValue);
-        return value;
-    }
+    //protected int GetAdjustedIntValue(int value, int minValue, int maxValue)
+    //{ 
+    //    value = Math.Clamp(value, minValue, maxValue);
+    //    return value;
+    //}
 }

@@ -1,15 +1,33 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
-public class SettingsOptionController : MonoBehaviour
+public abstract class SettingsElementController : MonoBehaviour
 {
     [SerializeField] private Button _leftArrowButton;
     [SerializeField] private Button _rightArrowButton;
 
-    public int CurrentValue { get; private set; }
+    private int _currentValue;
+    public int CurrentValue 
+    { 
+        get => _currentValue;
+        private set
+        { 
+            int adjustedValue = GetAdjustedCurrentValue(value);
+            _currentValue = adjustedValue;
+        }
+    }
 
     public static event Action OnValueChanged;
+
+    public void Init(int currentValue)
+    {
+        CurrentValue = currentValue;
+    }
+
+    protected abstract int GetAdjustedCurrentValue(int currentValue);
 
     protected virtual void HandleArrowButtonClicked(int offset)
     {

@@ -8,6 +8,6 @@ public struct IntToSettingsOptionController
     public int MinValue => _minValue;
     [SerializeField] private int _maxValue;
     public int MaxValue => _maxValue;
-    [SerializeField] private SettingsOptionController _controller;
-    public SettingsOptionController Controller => _controller;
+    [SerializeField] private SettingsElementSliderController _controller;
+    public SettingsElementSliderController Controller => _controller;
 }

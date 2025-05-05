@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Cysharp.Threading.Tasks.Triggers;
 
 public class SettingsDroneTab : SettingsTab
 {
@@ -8,7 +9,28 @@ public class SettingsDroneTab : SettingsTab
 
     public override void SaveConcretePlayerSettings()
     {
-        PlayerSettingsSO.DroneFlightMode =  GetAdjustedEnumValue<PlayerSettingsSO.DroneFlightModeType>(_flightModeController.Controller);
-        PlayerSettingsSO.FOV = GetAdjustedIntValue(_fovController.Controller.CurrentValue, _fovController.MinValue, _fovController.MaxValue);
+        PlayerSettingsSO.DroneFlightMode = (PlayerSettingsSO.DroneFlightModeType)_flightModeController.Controller.GetEnumCurrentValue();
+        
+
+
+        
+        //PlayerSettingsSO.DroneFlightMode = _flightModeController.Controller.GetAdjustedEnumValue<PlayerSettingsSO.DroneFlightModeType>();
+        //PlayerSettingsSO.FOV = _fovController.Controller.GetAdjustedIntValue(_fovController.MinValue, _fovController.MaxValue);
+        
+        //GetAdjustedEnumValue<PlayerSettingsSO.DroneFlightModeType>(_flightModeController.Controller);
+        //PlayerSettingsSO.FOV = GetAdjustedIntValue(_fovController.Controller.CurrentValue, _fovController.MinValue, _fovController.MaxValue);
+    }
+
+    private void Awake()
+    {
+        ProvideCurrentValuesToControllers();
+    }
+
+    private void ProvideCurrentValuesToControllers()
+    {
+        int droneFlightModeCurrentValue = Convert.ToInt32(PlayerSettingsSO.DroneFlightMode);
+        _flightModeController.Controller.Init<PlayerSettingsSO.DroneFlightModeType>(droneFlightModeCurrentValue);
+        //int adjustedFOVValue = _fovController.Controller.GetAdjustedIntValue(_fovController.MinValue, _fovController.MaxValue);
+        //_fovController.Controller.Init(adjustedFOVValue);
     }
 }

@@ -15,12 +15,16 @@ public class SettingsWindow : BackableWindow
     {
         base.Awake();
 
-        _playerSettingsStorage = new PlayerSettingsStorage();
-        _playerSettingsStorage.LoadTo(_playerSettingsSO);
-
+        LoadPlayerSettings();
         ManageEachSettingsTab();
         SubcribeToAnySettingsValuesChanged();
         SubscribeToApplyChangesButtonClick();
+    }
+
+    private void LoadPlayerSettings()
+    {
+        _playerSettingsStorage = new PlayerSettingsStorage();
+        _playerSettingsStorage.LoadTo(_playerSettingsSO);
     }
 
     private void ManageEachSettingsTab()
@@ -52,7 +56,7 @@ public class SettingsWindow : BackableWindow
 
     private void SubcribeToAnySettingsValuesChanged()
     {
-        SettingsOptionController.OnValueChanged += ShowApplyChangesButton;
+        SettingsElementController.OnValueChanged += ShowApplyChangesButton;
     }
 
     private void ShowApplyChangesButton()
@@ -93,7 +97,7 @@ public class SettingsWindow : BackableWindow
 
     private void UnsubcribeToAnySettingsValuesChanged()
     {
-        SettingsOptionController.OnValueChanged -= ShowApplyChangesButton;
+        SettingsElementController.OnValueChanged -= ShowApplyChangesButton;
     }
 
     private void UnsubscribeToApplyChangesButtonClick()
