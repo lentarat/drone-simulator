@@ -16,8 +16,7 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 08e49c39622e1f94dbf8920e6af93360, type: 2}
   m_Metadata:
-    m_Items:
-    - rid: 259639809879834644
+    m_Items: []
   m_TableData:
   - m_Id: 2274565660672
     m_Localized: General
@@ -55,17 +54,14 @@ MonoBehaviour:
     m_Localized: Angle
     m_Metadata:
       m_Items: []
-  - m_Id: 100760594259968
-    m_Localized: '{FlightMode}'
+  - m_Id: 1550041373057024
+    m_Localized: Flight Mode
     m_Metadata:
-      m_Items:
-      - rid: 259639809879834644
+      m_Items: []
+  - m_Id: 1554168710799360
+    m_Localized: Ukrainian
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds:
-    - rid: 259639809879834644
-      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries: 
-        m_SharedEntries:
-        - id: 100760594259968
+    RefIds: []

@@ -8,8 +8,9 @@ public abstract class SettingsTab : MonoBehaviour
     protected PlayerSettingsSO PlayerSettingsSO { get; private set; }
 
     public abstract void SaveConcretePlayerSettings();
+    protected abstract void ProvideCurrentValuesToControllers();
 
-    public void Initialize(PlayerSettingsSO playerSettingsSO)
+    public void Init(PlayerSettingsSO playerSettingsSO)
     {
         PlayerSettingsSO = playerSettingsSO;
     }
@@ -34,6 +35,11 @@ public abstract class SettingsTab : MonoBehaviour
     private void ChangeFontToUnselected()
     {
         _headerText.fontStyle = FontStyles.Normal;
+    }
+
+    private void Start()
+    {
+        ProvideCurrentValuesToControllers();
     }
 
     //protected TEnum GetAdjustedEnumValue<TEnum>(SettingsElementController settingsOptionController) where TEnum : Enum

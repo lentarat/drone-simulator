@@ -39,8 +39,12 @@ MonoBehaviour:
     m_Key: SettingsWindow.General.Language.English
     m_Metadata:
       m_Items: []
-  - m_Id: 100760594259968
-    m_Key: SettingsWindow.Drone.FlightMode.Value
+  - m_Id: 1554168710799360
+    m_Key: SettingsWindow.General.Language.Ukrainian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1550041373057024
+    m_Key: SettingsWindow.Drone.FlightMode
     m_Metadata:
       m_Items: []
   - m_Id: 99792485982208

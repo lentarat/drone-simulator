@@ -1,5 +1,7 @@
+using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class SettingsWindow : BackableWindow
 {
@@ -9,7 +11,14 @@ public class SettingsWindow : BackableWindow
     [SerializeField] private Button _applyChangesButton;
     [SerializeField] private PlayerSettingsSO _playerSettingsSO;
 
-    private PlayerSettingsStorage _playerSettingsStorage;
+    private SignalBus _signalBus;
+    private IPlayerSettingsStorageProvider _playerSettingsStorageProvider;
+
+    [Inject]
+    private void Construct(SignalBus signalBus)
+    { 
+        _signalBus = signalBus;
+    }
 
     protected override void Awake()
     {
@@ -23,8 +32,8 @@ public class SettingsWindow : BackableWindow
 
     private void LoadPlayerSettings()
     {
-        _playerSettingsStorage = new PlayerSettingsStorage();
-        _playerSettingsStorage.LoadTo(_playerSettingsSO);
+        _playerSettingsStorageProvider = new PlayerSettingsStorageJSON();
+        _playerSettingsStorageProvider.LoadTo(_playerSettingsSO);
     }
 
     private void ManageEachSettingsTab()
@@ -44,7 +53,7 @@ public class SettingsWindow : BackableWindow
 
     private void InitializeSettingsTab(SettingsTab settingsTab)
     {
-        settingsTab.Initialize(_playerSettingsSO);
+        settingsTab.Init(_playerSettingsSO);
     }
 
     private void ChangeOpenedTab(SettingsTab tab)
@@ -71,17 +80,25 @@ public class SettingsWindow : BackableWindow
 
     private void ApplyChanges()
     {
-        SaveEachSettingsTab();
-        _playerSettingsStorage.Save(_playerSettingsSO);
+        SaveOpenedSettingsTab();
+        InformPlayerSettingsSettingChanged();
+        SavePlayerSettingsIntoStorage();
         HideApplyChangesButton();
     }
 
-    private void SaveEachSettingsTab()
+    private void SaveOpenedSettingsTab()
     {
-        foreach (ButtonToSettingsTab buttonToSettingsTab in _buttonToSettingsTabs)
-        {
-            buttonToSettingsTab.SettingsTab.SaveConcretePlayerSettings();
-        }
+        _openedTab.SaveConcretePlayerSettings();
+    }
+
+    private void InformPlayerSettingsSettingChanged()
+    {
+        _signalBus.Fire(new PlayerSettingsChangedSignal(_playerSettingsSO));
+    }
+
+    private void SavePlayerSettingsIntoStorage()
+    {
+        _playerSettingsStorageProvider.Save(_playerSettingsSO);
     }
 
     private void HideApplyChangesButton()

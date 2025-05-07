@@ -21,12 +21,7 @@ public class SettingsDroneTab : SettingsTab
         //PlayerSettingsSO.FOV = GetAdjustedIntValue(_fovController.Controller.CurrentValue, _fovController.MinValue, _fovController.MaxValue);
     }
 
-    private void Awake()
-    {
-        ProvideCurrentValuesToControllers();
-    }
-
-    private void ProvideCurrentValuesToControllers()
+    protected override void ProvideCurrentValuesToControllers()
     {
         int droneFlightModeCurrentValue = Convert.ToInt32(PlayerSettingsSO.DroneFlightMode);
         _flightModeController.Controller.Init<PlayerSettingsSO.DroneFlightModeType>(droneFlightModeCurrentValue);
