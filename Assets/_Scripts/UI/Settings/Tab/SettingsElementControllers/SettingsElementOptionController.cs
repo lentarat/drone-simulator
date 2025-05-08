@@ -1,7 +1,6 @@
 using System;
 using UnityEngine.Localization.Components;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.Settings;
 using Cysharp.Threading.Tasks;
@@ -26,16 +25,6 @@ public class SettingsElementOptionController : SettingsElementController
         FindTableAsync().Forget();
     }
 
-    //private void FindTable()
-    //{
-    //    var tableOperation = LocalizationSettings.StringDatabase.GetTableAsync(_localizationTableName);
-    //    tableOperation.Completed += handle =>
-    //    {
-    //        _localizationTable = handle.Result;
-    //        UpdateOption(CurrentValue);
-    //    };
-    //}
-
     private async UniTask FindTableAsync()
     {
         try
@@ -54,7 +43,6 @@ public class SettingsElementOptionController : SettingsElementController
     private void UpdateOption()
     {
         string localizedStringKey = GetUpdatedLocalizedStringKey();
-        //string localizedStringKey = $"SettingsWindow.Drone.FlightMode.{value}";
         Debug.Log("Option Updated to key: " + localizedStringKey);
         _localizedStringEvent.StringReference.TableEntryReference = localizedStringKey;
     }
@@ -97,14 +85,6 @@ public class SettingsElementOptionController : SettingsElementController
         int enumValue = Convert.ToInt32(enumObject);
         return enumValue; 
     }
-
-    //public TEnum GetAdjustedEnumValue<TEnum>() where TEnum : Enum
-    //{
-    //    int value = CurrentValue;
-    //    int length = Enum.GetValues(typeof(TEnum)).Length;
-    //    int adjustedIndex = (value % length + length) % length;
-    //    return (TEnum)Enum.GetValues(typeof(TEnum)).GetValue(adjustedIndex);
-    //}
 
     protected override int GetAdjustedCurrentValue(int currentValue)
     {

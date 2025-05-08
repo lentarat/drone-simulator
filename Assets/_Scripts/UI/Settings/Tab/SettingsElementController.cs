@@ -1,7 +1,5 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.UI;
 
 public abstract class SettingsElementController : MonoBehaviour

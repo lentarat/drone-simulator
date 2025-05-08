@@ -59,6 +59,10 @@ MonoBehaviour:
     m_Key: SettingsWindow.Drone.FlightMode.Angle
     m_Metadata:
       m_Items: []
+  - m_Id: 2667240062033920
+    m_Key: SettingsWindow.Apply
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

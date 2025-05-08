@@ -5,6 +5,7 @@ public abstract class SettingsTab : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI _headerText;
 
+    public bool WasEnabled { get; set; }
     protected PlayerSettingsSO PlayerSettingsSO { get; private set; }
 
     public abstract void SaveConcretePlayerSettings();
@@ -42,17 +43,8 @@ public abstract class SettingsTab : MonoBehaviour
         ProvideCurrentValuesToControllers();
     }
 
-    //protected TEnum GetAdjustedEnumValue<TEnum>(SettingsElementController settingsOptionController) where TEnum : Enum
-    //{
-    //    int value = settingsOptionController.CurrentValue;
-    //    int length = Enum.GetValues(typeof(TEnum)).Length;
-    //    int adjustedIndex = (value % length + length) % length;
-    //    return (TEnum)Enum.GetValues(typeof(TEnum)).GetValue(adjustedIndex);
-    //}
-
-    //protected int GetAdjustedIntValue(int value, int minValue, int maxValue)
-    //{ 
-    //    value = Math.Clamp(value, minValue, maxValue);
-    //    return value;
-    //}
+    private void OnEnable()
+    {
+        WasEnabled = true;
+    }
 }

@@ -7,7 +7,6 @@ public class DroneInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<InputActions>().AsSingle();
         Container.Bind<IDroneMoveable>().To<DroneMovementInputActionsReader>().AsSingle();
         Container.Bind<IPayloadReleaseInvoker>().To<DroneAttackInputActionsReader>().AsSingle();
     }

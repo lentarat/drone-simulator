@@ -1,4 +1,3 @@
-using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -40,12 +39,12 @@ public class SettingsWindow : BackableWindow
     {
         foreach (ButtonToSettingsTab buttonToSettingsTab in _buttonToSettingsTabs)
         {
-            SubscribeToTabHeaderButton(buttonToSettingsTab);
+            SubscribeToSettingsTabHeaderButton(buttonToSettingsTab);
             InitializeSettingsTab(buttonToSettingsTab.SettingsTab);
         }
     }
 
-    private void SubscribeToTabHeaderButton(ButtonToSettingsTab buttonToSettingsTab)
+    private void SubscribeToSettingsTabHeaderButton(ButtonToSettingsTab buttonToSettingsTab)
     {
         SettingsTab tab = buttonToSettingsTab.SettingsTab;
         buttonToSettingsTab.HeaderButton.onClick.AddListener(() => ChangeOpenedTab(tab));
@@ -80,15 +79,27 @@ public class SettingsWindow : BackableWindow
 
     private void ApplyChanges()
     {
-        SaveOpenedSettingsTab();
+        SaveSettingsTabsEnabledBefore();
         InformPlayerSettingsSettingChanged();
         SavePlayerSettingsIntoStorage();
         HideApplyChangesButton();
     }
 
-    private void SaveOpenedSettingsTab()
+    private void SaveSettingsTabsEnabledBefore()
     {
-        _openedTab.SaveConcretePlayerSettings();
+        foreach (ButtonToSettingsTab buttonToSettingsTab in _buttonToSettingsTabs)
+        {
+            SettingsTab tab = buttonToSettingsTab.SettingsTab;
+
+            if (tab.WasEnabled)
+            {
+                tab.SaveConcretePlayerSettings();
+                tab.WasEnabled = false;
+                Debug.Log(tab + " saved");
+            }
+        }
+
+        _openedTab.WasEnabled = true;
     }
 
     private void InformPlayerSettingsSettingChanged()
