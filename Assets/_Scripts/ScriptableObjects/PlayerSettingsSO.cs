@@ -5,7 +5,6 @@ public class PlayerSettingsSO : ScriptableObject
 {
     public LanguageType Language { get; set; }
     public ToggleType HUD { get; set; }
-
     public DroneFlightModeType DroneFlightMode { get; set; }
     public int FOV { get; set; }
     public int CameraAngle { get; set; }
