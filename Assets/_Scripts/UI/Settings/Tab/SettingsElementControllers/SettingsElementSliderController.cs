@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Localization.Tables;
 using UnityEngine.UI;
 
 public class SettingsElementSliderController : SettingsElementController
@@ -8,9 +9,9 @@ public class SettingsElementSliderController : SettingsElementController
     private int _minValue;
     private int _maxValue;
 
-    public void Init(int currentValue, int minValue, int maxValue)
+    public void Init(StringTable localizationTable, int currentValue, int minValue, int maxValue)
     {
-        base.Init(currentValue);
+        base.Init(localizationTable, currentValue);
         _minValue = minValue; 
         _maxValue = maxValue;
     }

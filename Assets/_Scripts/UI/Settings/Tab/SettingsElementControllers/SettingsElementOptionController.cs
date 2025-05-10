@@ -10,34 +10,14 @@ public class SettingsElementOptionController : SettingsElementController
 {
     [SerializeField] private LocalizeStringEvent _localizedStringEvent;
 
-    private string _localizationTableName = "UI_Settings";
-    private StringTable _localizationTable;
     private Type _enumType;
 
-    public void Init<TEnum>(int currentValue) where TEnum : Enum
+    public void Init<TEnum>(StringTable localizationTable, int currentValue) where TEnum : Enum
     {
         _enumType = typeof(TEnum);
-        base.Init(currentValue);
-    }
+        base.Init(localizationTable, currentValue);
 
-    private void Start()
-    {
-        FindTableAsync().Forget();
-    }
-
-    private async UniTask FindTableAsync()
-    {
-        try
-        {
-            AsyncOperationHandle<StringTable> tableOperation = LocalizationSettings.StringDatabase.GetTableAsync(_localizationTableName);
-            _localizationTable = await tableOperation.Task;
-
-            UpdateOption();
-        }
-        catch (Exception ex)
-        { 
-            Debug.LogError($"Failed to load localization table: {ex.Message}");
-        }
+        UpdateOption();
     }
 
     private void UpdateOption()
@@ -55,11 +35,11 @@ public class SettingsElementOptionController : SettingsElementController
         if (keyId == 0)
         {
             string key = _localizedStringEvent.StringReference.TableEntryReference.Key;
-            localizedStringKey = _localizationTable.GetEntry(key).Key;
+            localizedStringKey = LocalizationTable.GetEntry(key).Key;
         }
         else
         {
-            localizedStringKey = _localizationTable.GetEntry(keyId).Key;
+            localizedStringKey = LocalizationTable.GetEntry(keyId).Key;
         }
 
         int lastDotIndex = localizedStringKey.LastIndexOf('.');

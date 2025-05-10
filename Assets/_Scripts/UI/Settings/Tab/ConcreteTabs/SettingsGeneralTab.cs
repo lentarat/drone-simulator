@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -10,9 +11,11 @@ public class SettingsGeneralTab : SettingsTab
         PlayerSettingsSO.Language = (PlayerSettingsSO.LanguageType)_languageController.Controller.GetEnumCurrentValue();
     }
 
-    protected override void ProvideCurrentValuesToControllers()
+    protected override async UniTask ProvideCurrentValuesToControllers()
     {
+        await base.ProvideCurrentValuesToControllers();
+
         int languageCurrentValue = Convert.ToInt32(PlayerSettingsSO.Language);
-        _languageController.Controller.Init<PlayerSettingsSO.LanguageType>(languageCurrentValue);
+        _languageController.Controller.Init<PlayerSettingsSO.LanguageType>(LocalizationTable, languageCurrentValue);
     }
 }

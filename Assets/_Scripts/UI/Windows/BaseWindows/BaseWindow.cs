@@ -52,6 +52,9 @@ public abstract class BaseWindow : MonoBehaviour
 
     private void OpenWindow(WindowState newWindowState)
     {
+        if (CanCloseWindow() == false)
+            return;
+
         newWindowState.Open();
 
         if (newWindowState.ShouldClosePreviousWindow())
@@ -59,4 +62,6 @@ public abstract class BaseWindow : MonoBehaviour
             _windowState.Close();
         }
     }
+
+    protected virtual bool CanCloseWindow() => true;
 }

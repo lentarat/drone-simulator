@@ -21,6 +21,9 @@ public abstract class BackableWindow : BaseWindow
 
     private void OpenPreviousWindow()
     {
+        if (CanCloseWindow() == false)
+            return;
+
         _previousWindow.WindowState.Open();
         WindowState.Close();
     }

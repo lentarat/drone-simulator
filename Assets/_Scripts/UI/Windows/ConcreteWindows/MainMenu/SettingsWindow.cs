@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -10,7 +11,9 @@ public class SettingsWindow : BackableWindow
     [SerializeField] private Button _applyChangesButton;
     [SerializeField] private PlayerSettingsSO _playerSettingsSO;
 
+    private bool _hasUnsavedChanges;
     private SignalBus _signalBus;
+    private ApplyChangesButtonHighlighter _applyChangesButtonHighlighter;
     private IPlayerSettingsStorageProvider _playerSettingsStorageProvider;
 
     [Inject]
@@ -23,10 +26,16 @@ public class SettingsWindow : BackableWindow
     {
         base.Awake();
 
+        Init();
         LoadPlayerSettings();
         ManageEachSettingsTab();
         SubcribeToAnySettingsValuesChanged();
         SubscribeToApplyChangesButtonClick();
+    }
+    
+    private void Init()
+    {
+        _applyChangesButtonHighlighter = new ApplyChangesButtonHighlighter(_applyChangesButton);
     }
 
     private void LoadPlayerSettings()
@@ -70,6 +79,7 @@ public class SettingsWindow : BackableWindow
     private void ShowApplyChangesButton()
     {
         _applyChangesButton.gameObject.SetActive(true);
+        _hasUnsavedChanges = true;
     }
 
     private void SubscribeToApplyChangesButtonClick()
@@ -83,6 +93,8 @@ public class SettingsWindow : BackableWindow
         InformPlayerSettingsSettingChanged();
         SavePlayerSettingsIntoStorage();
         HideApplyChangesButton();
+
+        _hasUnsavedChanges = false;
     }
 
     private void SaveSettingsTabsEnabledBefore()
@@ -115,6 +127,22 @@ public class SettingsWindow : BackableWindow
     private void HideApplyChangesButton()
     {
         _applyChangesButton.gameObject.SetActive(false);
+    }
+
+    protected override bool CanCloseWindow()
+    {
+        if (_hasUnsavedChanges)
+        {
+            HighlightApplyChangesButton();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void HighlightApplyChangesButton()
+    {
+        _applyChangesButtonHighlighter.HighlightButton();
     }
 
     private void OnDestroy()

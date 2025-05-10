@@ -1213,6 +1213,7 @@ MonoBehaviour:
   _buttonClicksToWindowStates:
   - _button: {fileID: 447008512}
     _window: {fileID: 858159172}
+  _exitToMainMenuButton: {fileID: 1247086671}
 --- !u!1 &709816422
 GameObject:
   m_ObjectHideFlags: 0
@@ -5251,41 +5252,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsWindow
       objectReference: {fileID: 0}
-    - target: {fileID: 2434238063266469830, guid: 8888f3e3e53e09640be620bb6d442ba6,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2744348125172702659, guid: 8888f3e3e53e09640be620bb6d442ba6,
         type: 3}
       propertyPath: _previousWindow
       value: 
       objectReference: {fileID: 520508936}
-    - target: {fileID: 3969892624984694716, guid: 8888f3e3e53e09640be620bb6d442ba6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3969892624984694716, guid: 8888f3e3e53e09640be620bb6d442ba6,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3969892624984694716, guid: 8888f3e3e53e09640be620bb6d442ba6,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3969892624984694716, guid: 8888f3e3e53e09640be620bb6d442ba6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3969892624984694716, guid: 8888f3e3e53e09640be620bb6d442ba6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7938628475113349008, guid: 8888f3e3e53e09640be620bb6d442ba6,
         type: 3}
       propertyPath: m_Pivot.x
