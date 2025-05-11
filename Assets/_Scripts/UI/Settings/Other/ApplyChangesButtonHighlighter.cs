@@ -16,11 +16,7 @@ public class ApplyChangesButtonHighlighter
     {
         _applyChangesButton = applyChangesButton;
     }
-    /// <summary>
-    /// Видалити компонент
-    /// </summary>
-    /// <returns></returns>
-    /// 
+
     public void HighlightButton()
     {
         HighlightButtonAsync().Forget();
