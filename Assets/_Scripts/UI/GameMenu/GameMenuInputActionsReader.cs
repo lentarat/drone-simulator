@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class GameMenuInputActionsReader
 {
-    public event Action OnOpenButtonClicked;
+    public event Action OnOpenWindowButtonClicked;
 
     private InputActions _inputActions;
 
@@ -15,7 +15,7 @@ public class GameMenuInputActionsReader
 
     private void HandleGameMenuOpenButtonClicked(InputAction.CallbackContext context)
     {
-        OnOpenButtonClicked?.Invoke();
+        OnOpenWindowButtonClicked?.Invoke();
     }
 
     ~GameMenuInputActionsReader()

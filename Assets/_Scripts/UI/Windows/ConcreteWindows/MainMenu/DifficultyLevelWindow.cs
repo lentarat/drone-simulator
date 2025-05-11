@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 public class DifficultyLevelWindow : BackableWindow
 {
@@ -9,6 +10,14 @@ public class DifficultyLevelWindow : BackableWindow
     [SerializeField] private Button _mediumDifficultyModeButton;
     [SerializeField] private Button _hardDifficultyButton;
     [SerializeField] private GameSettingsSO _gameSettingsSO;
+
+    private ISceneLoader _sceneLoader;
+
+    [Inject]
+    private void Construct(ISceneLoader sceneLoader)
+    {
+        _sceneLoader = sceneLoader;
+    }
 
     protected override void Awake()
     {
@@ -27,6 +36,6 @@ public class DifficultyLevelWindow : BackableWindow
     private void HandleDifficultyClicked(DifficultyLevelType difficultyLevelType)
     {
         _gameSettingsSO.DifficultyLevelType = difficultyLevelType;
-        SceneManager.LoadScene(1);
+        _sceneLoader.LoadScene(SceneType.Map1);
     }
 }

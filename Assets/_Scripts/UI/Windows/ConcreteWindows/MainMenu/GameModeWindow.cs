@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 public class GameModeWindow : BackableWindow
 {
@@ -9,6 +10,14 @@ public class GameModeWindow : BackableWindow
     [SerializeField] private Button _groundTargetsModeButton;
     [SerializeField] private Button _airborneTargetsModeButton;
     [SerializeField] private GameSettingsSO _gameSettingsSO;
+
+    private ISceneLoader _sceneLoader;
+
+    [Inject]
+    private void Construct(ISceneLoader sceneLoader)
+    {
+        _sceneLoader = sceneLoader;
+    }
 
     protected override void Awake()
     {
@@ -27,7 +36,7 @@ public class GameModeWindow : BackableWindow
     private void HandleFreeFlyingModeButtonClicked()
     {
         _gameSettingsSO.GameModeType = GameModeType.FreeFlying;
-        SceneManager.LoadScene(1);
+        _sceneLoader.LoadScene(SceneType.Map1);
     }
 
     private void HandleGroundTargetsModeButtonClicked()

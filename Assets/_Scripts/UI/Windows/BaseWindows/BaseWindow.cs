@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
+using System.Linq;
 
 public abstract class BaseWindow : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public abstract class BaseWindow : MonoBehaviour
     public WindowState WindowState => _windowState;
 
     [Serializable]
-    public struct ButtonClickToWindow
+    public class ButtonClickToWindow
     {
         [SerializeField] private Button _button;
         public Button Button => _button;
@@ -64,4 +66,14 @@ public abstract class BaseWindow : MonoBehaviour
     }
 
     protected virtual bool CanCloseWindow() => true;
+
+    protected bool IsWindowActive<T>() where T : BaseWindow
+    {
+        ButtonClickToWindow buttonClickToWindow =
+            _buttonClicksToWindowStates.FirstOrDefault(
+                buttonClickToWindowState => buttonClickToWindowState.Window.GetType() == typeof(T));
+
+        bool isWindowActive = buttonClickToWindow != null && buttonClickToWindow.Window.gameObject.activeInHierarchy;
+        return isWindowActive;
+    }
 }

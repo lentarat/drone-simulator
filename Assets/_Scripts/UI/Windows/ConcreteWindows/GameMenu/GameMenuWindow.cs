@@ -5,25 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class GameMenuWindow : BaseWindow
 {
+    [SerializeField] private Button _resumeGameButton;
+    [SerializeField] private Button _restartGameButton;
     [SerializeField] private Button _exitToMainMenuButton;
     
     private GameMenuInputActionsReader _inputActionsReader;
+    private ISceneLoader _sceneLoader;
 
     [Inject]
-    private void Construct(GameMenuInputActionsReader inputActionsReader)
+    private void Construct(GameMenuInputActionsReader inputActionsReader, ISceneLoader sceneLoader)
     {
         _inputActionsReader = inputActionsReader;
+        _sceneLoader = sceneLoader;
+
         SubscribeToOpenWindowEvent();
     }
 
     private void SubscribeToOpenWindowEvent()
     {
-        _inputActionsReader.OnOpenButtonClicked += ShowWindow;
+        _inputActionsReader.OnOpenWindowButtonClicked += HandleOpenWindowButtonClicked;
     }
 
-    private void ShowWindow()
+    private void HandleOpenWindowButtonClicked()
     {
-        gameObject.SetActive(true);
+        if (IsWindowActive<SettingsWindow>())
+        {
+            return;
+        }
+        else
+        { 
+            gameObject.SetActive(!gameObject.activeInHierarchy);
+        }
     }
 
     protected override WindowState[] GetChosenWindowStates()
@@ -45,7 +57,7 @@ public class GameMenuWindow : BaseWindow
 
     private void ExitToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        _sceneLoader.LoadScene(SceneType.MainMenu);
     }
 
     private void OnDestroy()
@@ -55,6 +67,6 @@ public class GameMenuWindow : BaseWindow
 
     private void UnsubscribeToOpenWindowEvent()
     {
-        _inputActionsReader.OnOpenButtonClicked += ShowWindow;
+        _inputActionsReader.OnOpenWindowButtonClicked -= HandleOpenWindowButtonClicked;
     }
 }
