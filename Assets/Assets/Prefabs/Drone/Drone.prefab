@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5299006788870452563}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18301274, y: 0.6830127, z: -0.18301274, w: 0.6830127}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2353863655772359033}
-  m_LocalEulerAnglesHint: {x: 30, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!20 &3940458946705801763
 Camera:
   m_ObjectHideFlags: 0
@@ -150,9 +150,11 @@ GameObject:
   - component: {fileID: 318228524029876893}
   - component: {fileID: 520594486710014193}
   - component: {fileID: 3140482109115698981}
+  - component: {fileID: 5461428798790309796}
   - component: {fileID: 4525841584679973798}
   - component: {fileID: -2424482211641165078}
   - component: {fileID: 3832685974097376641}
+  - component: {fileID: 7071252409927163374}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -235,7 +237,7 @@ Rigidbody:
   m_GameObject: {fileID: 6939467342495647376}
   serializedVersion: 4
   m_Mass: 5
-  m_Drag: 0.1
+  m_Drag: 0.3
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -274,6 +276,103 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &5461428798790309796
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6939467342495647376}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8834902735854117755, guid: 804ad62caa3a4dd4ba28087e2f4d8897,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 89c4e7ec8675cdb4dbd0db80d409966e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.15
+  m_Pitch: 1.1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &4525841584679973798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +416,25 @@ MonoBehaviour:
   _rigidbody: {fileID: 520594486710014193}
   _dronePropertiesHolderSO: {fileID: 11400000, guid: d783e14b927a2bd42a61521d070e1e7d,
     type: 2}
-  _throttleMultiplicator: 100
+  _motorsPowerClamp: 2.66
+  _throttleMultiplier: 75
   _motorsAccelerationMultiplier: 12
-  _motorsPowerClamp: 1.5
+  _pitchAndRollAccelerationMultiplier: 0.1
+--- !u!114 &7071252409927163374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6939467342495647376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0bb335476bd4640a13baceb8a624db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _droneMovementSystem: {fileID: 3832685974097376641}
+  _motorsAudioSource: {fileID: 5461428798790309796}
+  _minMotorsAudioSourcePitch: 1.1
+  _maxMotorsAudioSourcePitch: 2
+  _minMotorsAudioSourceVolume: 0.15
+  _maxMotorsAudioSourceVolume: 0.25

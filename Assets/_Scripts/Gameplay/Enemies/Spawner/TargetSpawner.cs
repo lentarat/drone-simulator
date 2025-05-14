@@ -7,7 +7,7 @@ using Zenject;
 public class TargetSpawner<T> : IInitializable where T : Target
 {
     private bool _isSpawning;
-    //private int _maxTargetsNumber = 5;
+    private int _maxTargetsNumber = 1;
     private Transform _targetsParent;
     private Vector3[][] _routesPositions;
     private Queue<GameObject> _targetsQueue = new();
@@ -57,8 +57,8 @@ public class TargetSpawner<T> : IInitializable where T : Target
 
     private void SpawnTarget()
     {
-        //if (_targetsQueue.Count > _maxTargetsNumber)
-        //    return;
+        if (_targetsQueue.Count >= _maxTargetsNumber)
+            return;
 
         int randomRouteIndex = Random.Range(0, _routesPositions.Length);
         int randomWaypointPositionIndex = Random.Range(0, _routesPositions[randomRouteIndex].Length);

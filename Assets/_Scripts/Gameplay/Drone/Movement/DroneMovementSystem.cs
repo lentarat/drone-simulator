@@ -12,9 +12,12 @@ public class DroneMovementSystem : MonoBehaviour
     [SerializeField] private DronePropertiesHolderSO _dronePropertiesHolderSO;
 
     [Header("Motors")]
-    [SerializeField] private float _throttleMultiplicator;
-    [SerializeField] private float _motorsAccelerationMultiplier;
     [SerializeField] private float _motorsPowerClamp;
+    [SerializeField] private float _throttleMultiplier;
+    [SerializeField] private float _motorsAccelerationMultiplier;
+    //[SerializeField] private float _pitchAndRollAccelerationMultiplier;
+
+    //RC Rate, Super Rate, RC Expo ... 
 
     public Vector3 Velocity => _rigidbody.velocity;
 
@@ -29,6 +32,12 @@ public class DroneMovementSystem : MonoBehaviour
     private void Construct(IDroneMoveable droneMoveable)
     { 
         _droneMoveable = droneMoveable;
+    }
+
+    public float GetThrottleMotorPowerNormalized()
+    { 
+        float value = _throttleMotorPower / _motorsPowerClamp;
+        return value;
     }
 
     private void Awake()
@@ -53,8 +62,8 @@ public class DroneMovementSystem : MonoBehaviour
                 return;
         }
 
-        _pitchAndRollMotorPower.x = GetAdjustedMotorPowerAccordingInputValue(inputVector.x, _pitchAndRollMotorPower.x);
-        _pitchAndRollMotorPower.y = GetAdjustedMotorPowerAccordingInputValue(inputVector.y, _pitchAndRollMotorPower.y);
+        _pitchAndRollMotorPower.x = GetAdjustedMotorPowerAccordingInputValue(inputVector.x, _pitchAndRollMotorPower.x/*, _pitchAndRollAccelerationMultiplier*/);
+        _pitchAndRollMotorPower.y = GetAdjustedMotorPowerAccordingInputValue(inputVector.y, _pitchAndRollMotorPower.y/*, _pitchAndRollAccelerationMultiplier*/);
 
         if (_pitchAndRollMotorPower != Vector2.zero)
         {
@@ -62,10 +71,10 @@ public class DroneMovementSystem : MonoBehaviour
         }
     }
 
-    private float GetAdjustedMotorPowerAccordingInputValue(float inputValue, float currentMotorPowerValue)
+    private float GetAdjustedMotorPowerAccordingInputValue(float inputValue, float currentMotorPowerValue/*, float additionalAccelerationMultiplier = 1f*/)
     {
         float normalizedMotorPower = currentMotorPowerValue / _motorsPowerClamp;
-        float t = _motorsAccelerationMultiplier * Time.fixedDeltaTime;
+        float t = _motorsAccelerationMultiplier /** additionalAccelerationMultiplier */* Time.fixedDeltaTime;
         normalizedMotorPower = Mathf.Lerp(normalizedMotorPower, inputValue, t);
         return normalizedMotorPower * _motorsPowerClamp;
     }
@@ -90,15 +99,18 @@ public class DroneMovementSystem : MonoBehaviour
     {
         float inputValue = Mathf.Clamp01(_droneMoveable.GetThrottleInputValue);
         if (inputValue == 0f)
-        { 
-            if(_throttleMotorPower < 0.01f)
+        {
+            if (_throttleMotorPower < 0.01f)
+            {
+                _throttleMotorPower = 0f;
                 return;
+            }
         }
 
         _throttleMotorPower = GetAdjustedMotorPowerAccordingInputValue(inputValue, _throttleMotorPower);
         if (_throttleMotorPower != 0f)
         {
-            _rigidbody.AddForce(transform.up * _throttleMultiplicator * _throttleMotorPower * _droneSpeed);
+            _rigidbody.AddForce(transform.up * _throttleMultiplier * _throttleMotorPower * _droneSpeed);
         }
     }
 }
