@@ -1,8 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public class Explosive : DronePayload
 {
-    [SerializeField] private ParticleSystem _explosionVFX;
+    [SerializeField] private ParticleSystem _explosionParticleSystem;
+    [SerializeField] private AudioClip _explosionAudioClip;
+    [SerializeField] private float _explosionAudioCiipVolume;
     [SerializeField] private float _damage;
     [SerializeField] private float _maxDistanceDealingDamage;
     [SerializeField] private LayerMask _damageableLayerMask;
@@ -17,7 +21,8 @@ public class Explosive : DronePayload
     private void Explode()
     {
         FindDamageables();
-        Instantiate(_explosionVFX, transform.position, _explosionVFX.transform.rotation);
+        Instantiate(_explosionParticleSystem, transform.position, _explosionParticleSystem.transform.rotation);
+        PlaySound();
         Destroy(gameObject);
     }
 
@@ -56,6 +61,11 @@ public class Explosive : DronePayload
             float calculatedDamage = _damage * multiplier;
             return calculatedDamage;
         }
+    }
+
+    private void PlaySound()
+    {
+        AudioManager.Play(_explosionAudioClip, volume: _explosionAudioCiipVolume);
     }
 
     private void OnDrawGizmos()

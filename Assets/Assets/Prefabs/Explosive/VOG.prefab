@@ -150,10 +150,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 3982611750919996521}
-  _explosionVFX: {fileID: 1370505974204788713, guid: c7c10f98b57b1ec4894a0f173e45ce27,
+  _explosionParticleSystem: {fileID: 1370505974204788713, guid: c7c10f98b57b1ec4894a0f173e45ce27,
     type: 3}
+  _explosionAudioClip: {fileID: 8300000, guid: 58302889756e08c48b53cd78444c731e, type: 3}
+  _explosionAudioCiipVolume: 0.2
   _damage: 10
-  _maxDistanceDealingDamage: 2
+  _maxDistanceDealingDamage: 3
   _damageableLayerMask:
     serializedVersion: 2
     m_Bits: 64

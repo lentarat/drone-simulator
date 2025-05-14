@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneSFXController : MonoBehaviour
+public class DroneMotorsAudioController : MonoBehaviour
 {
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
     [SerializeField] private AudioSource _motorsAudioSource;

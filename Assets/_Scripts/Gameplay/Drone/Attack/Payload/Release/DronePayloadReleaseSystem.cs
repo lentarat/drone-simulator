@@ -14,13 +14,15 @@ public class DronePayloadReleaseSystem : MonoBehaviour
     [SerializeField] private int _nextPayloadSpawnIntervalMS;
 
     private IPayloadReleaseInvoker _payloadReleasable;
-    private DronePayload _payload;
     private CancellationToken _token;
+    private DronePayload _payload;
+    private AudioManager _audioManager;
 
     [Inject]
-    private void Construct(IPayloadReleaseInvoker payload)
+    private void Construct(IPayloadReleaseInvoker payload, AudioManager audioManager)
     {
         _payloadReleasable = payload;
+        _audioManager = audioManager;
     }
 
     private void Awake()
@@ -50,7 +52,8 @@ public class DronePayloadReleaseSystem : MonoBehaviour
     private async UniTaskVoid DelayedSpawnPayload()
     {
         await UniTask.Delay(_nextPayloadSpawnIntervalMS, cancellationToken: _token);
-        _payload = Instantiate(_payloadPrefab, transform);    
+        _payload = Instantiate(_payloadPrefab, transform);
+        _payload.Init(_audioManager);
     }
 
     private void OnDisable()

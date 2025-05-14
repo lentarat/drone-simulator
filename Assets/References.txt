@@ -3,3 +3,4 @@ tektur font - https://fonts.google.com/specimen/Tektur?preview.text=%D0%9C%D0%B0
 main background - https://unsplash.com/photos/selective-focus-photography-of-black-drone-copter-oHY0NfxZsJc
 google icons - https://fonts.google.com/icons
 map - https://assetstore.unity.com/packages/3d/props/lowpoly-style-large-content-pack-293243
+drone throttle sound - https://freesound.org/people/Sadiquecat/sounds/677833/
