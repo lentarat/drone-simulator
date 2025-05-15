@@ -7,12 +7,12 @@ using Zenject;
 public class TargetSpawner<T> : IInitializable where T : Target
 {
     private bool _isSpawning;
-    private int _maxTargetsNumber = 1;
-    private Transform _targetsParent;
-    private Vector3[][] _routesPositions;
-    private Queue<GameObject> _targetsQueue = new();
-    private TargetFactory<T> _targetFactory;
-    private DifficultyLevelTargetSpawnerSettingsHolder _targetSpawnerSettings;
+    private readonly int _maxTargetsNumber = 1;
+    private readonly Transform _targetsParent;
+    private readonly Vector3[][] _routesPositions;
+    private readonly HashSet<T> _targetsHashSet = new();
+    private readonly TargetFactory<T> _targetFactory;
+    private readonly DifficultyLevelTargetSpawnerSettingsHolder _targetSpawnerSettings;
 
     public TargetSpawner(
         TargetFactory<T> targetFactory,
@@ -57,20 +57,32 @@ public class TargetSpawner<T> : IInitializable where T : Target
 
     private void SpawnTarget()
     {
-        if (_targetsQueue.Count >= _maxTargetsNumber)
+        if (_targetsHashSet.Count >= _maxTargetsNumber)
+        {
             return;
+        }
 
         int randomRouteIndex = Random.Range(0, _routesPositions.Length);
         int randomWaypointPositionIndex = Random.Range(0, _routesPositions[randomRouteIndex].Length);
         Vector3 randomRouteWaypointPosition = _routesPositions[randomRouteIndex][randomWaypointPositionIndex];
+
         Ray ray = new Ray(randomRouteWaypointPosition, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
             Vector3 spawnPosition = hitInfo.point;
             Quaternion spawnRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
             Target target = _targetFactory.Create(spawnPosition, spawnRotation, _targetsParent);
-            target.Init(_routesPositions[randomRouteIndex], randomWaypointPositionIndex);
-            _targetsQueue.Enqueue(target.gameObject);
+
+            Vector3[] routeWaypointPositions = _routesPositions[randomRouteIndex];
+            target.Init(routeWaypointPositions, randomWaypointPositionIndex, () => RemoveTargetFromHashSet(target));
+
+            _targetsHashSet.Add((T)target);
         }
     }
+
+    private void RemoveTargetFromHashSet(Target target)
+    {
+        _targetsHashSet.Remove((T)target);
+    }
 }
+

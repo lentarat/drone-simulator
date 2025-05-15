@@ -1,9 +1,5 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -27,14 +23,15 @@ public class DronePayloadReleaseSystem : MonoBehaviour
 
     private void Awake()
     {
-        _payloadReleasable.OnReleaseCalled += HandleBombReleaseCall;
+        _payloadReleasable.OnReleaseCalled += HandleBombReleaseCalled;
 
         _token = this.GetCancellationTokenOnDestroy();
         DelayedSpawnPayload().Forget();
     }
 
-    private void HandleBombReleaseCall()
+    private void HandleBombReleaseCalled()
     {
+        Debug.Log(_payload);
         if (_payload == null)
             return;
 
@@ -51,13 +48,20 @@ public class DronePayloadReleaseSystem : MonoBehaviour
 
     private async UniTaskVoid DelayedSpawnPayload()
     {
-        await UniTask.Delay(_nextPayloadSpawnIntervalMS, cancellationToken: _token);
-        _payload = Instantiate(_payloadPrefab, transform);
-        _payload.Init(_audioManager);
+        try
+        {
+            await UniTask.Delay(_nextPayloadSpawnIntervalMS, cancellationToken: _token);
+            _payload = Instantiate(_payloadPrefab, transform);
+            _payload.Init(_audioManager);
+        }
+        catch(System.Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
     private void OnDisable()
     {
-        _payloadReleasable.OnReleaseCalled -= HandleBombReleaseCall;
+        _payloadReleasable.OnReleaseCalled -= HandleBombReleaseCalled;
     }
 }

@@ -31,7 +31,7 @@ public class Explosive : DronePayload
         Collider[] colliders = Physics.OverlapSphere(transform.position, _maxDistanceDealingDamage, _damageableLayerMask);
         if (colliders != null)
         {
-            Debug.Log(colliders.Length);
+            //Debug.Log(colliders.Length);
             foreach (Collider collider in colliders)
             {
                 float damageToApply = GetCalculatedDamage(collider.transform.position);

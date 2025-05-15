@@ -21,7 +21,7 @@ public class GroundTargetFactory : TargetFactory<GroundTarget>
         Transform parent)
     {
         GroundTarget airborneTarget = GameObject.Instantiate(_groundTargetPrefab, position, rotation, parent);
-        Debug.Log($"{GetType().Name} spawned with speedMultiplier: {_targetSettings.SpeedMultiplier}");
+        //Debug.Log($"{GetType().Name} spawned with speedMultiplier: {_targetSettings.SpeedMultiplier}");
         return airborneTarget;
     }
 }

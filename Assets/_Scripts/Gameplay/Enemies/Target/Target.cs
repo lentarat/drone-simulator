@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using System;
 
 public abstract class Target : MonoBehaviour, IDamageable
 {
@@ -10,17 +11,19 @@ public abstract class Target : MonoBehaviour, IDamageable
 
     private int _waypointPositionIndex;
     private Vector3[] _routeWaypointsPositions;
+    private Action _onDeathAction;
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    public void Init(Vector3[] routeWaypointsPositions, int waypointPositionIndex)
+    public void Init(Vector3[] routeWaypointsPositions, int waypointPositionIndex, Action onDeathAction)
     {
         _routeWaypointsPositions = routeWaypointsPositions;
         _waypointPositionIndex = waypointPositionIndex;
+        _onDeathAction = onDeathAction;
     }
 
     protected virtual void Die()
     {
-        Debug.Log("Target died");
+        _onDeathAction?.Invoke();
         Destroy(gameObject);
     }
 
@@ -32,7 +35,7 @@ public abstract class Target : MonoBehaviour, IDamageable
     private async UniTask StartRoute()
     {
         int i = _waypointPositionIndex;
-        bool goingForward = Random.Range(0, 2) == 1;
+        bool goingForward = UnityEngine.Random.Range(0, 2) == 1;
 
         while (_cancellationTokenSource.IsCancellationRequested == false) 
         {
