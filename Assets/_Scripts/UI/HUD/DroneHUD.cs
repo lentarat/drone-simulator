@@ -14,13 +14,13 @@ public class DroneHUD : MonoBehaviour
     [SerializeField] private int _updateHUDIntervalMS;
 
     private bool _isUpdatingHUD = true;
-    private SignalBus _playerSettingsSignalBus;
+    private SignalBus _signalBus;
 
     [Inject]
-    private void Construct(SignalBus playerSettingsSignalBus)
+    private void Construct(SignalBus signalBus)
     {
-        _playerSettingsSignalBus = playerSettingsSignalBus;
-        _playerSettingsSignalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus = signalBus;
+        _signalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
     }
 
     private void HandlePlayerSettingsChanged(PlayerSettingsChangedSignal signal)
@@ -35,7 +35,7 @@ public class DroneHUD : MonoBehaviour
 
     private void OnDestroy()
     {
-        _playerSettingsSignalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
     }
 
     private void Start()

@@ -7,7 +7,7 @@ using Zenject;
 public class TargetSpawner<T> : IInitializable where T : Target
 {
     private bool _isSpawning;
-    private readonly int _maxTargetsNumber = 1;
+    private readonly int _maxTargetsNumber = 10;
     private readonly Transform _targetsParent;
     private readonly Vector3[][] _routesPositions;
     private readonly HashSet<T> _targetsHashSet = new();

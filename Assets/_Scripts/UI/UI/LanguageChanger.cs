@@ -8,21 +8,21 @@ using Zenject;
 
 public class LanguageChanger : IInitializable, IDisposable
 {
-    private SignalBus _playerSettingsSignalBus;
+    private SignalBus _signalBus;
     private Dictionary<PlayerSettingsSO.LanguageType, string> _languagesToCodes = new()
     {
         { PlayerSettingsSO.LanguageType.English, "en" },
         { PlayerSettingsSO.LanguageType.Ukrainian, "uk" }
     };
 
-    public LanguageChanger(SignalBus playerSettingsSignalBus)
+    public LanguageChanger(SignalBus signalBus)
     {
-        _playerSettingsSignalBus = playerSettingsSignalBus;
+        _signalBus = signalBus;
     }
 
     void IInitializable.Initialize()
     {
-        _playerSettingsSignalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
     }
 
     private void HandlePlayerSettingsChanged(PlayerSettingsChangedSignal signal)
@@ -49,6 +49,6 @@ public class LanguageChanger : IInitializable, IDisposable
 
     void IDisposable.Dispose()
     {
-        _playerSettingsSignalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
     }
 }

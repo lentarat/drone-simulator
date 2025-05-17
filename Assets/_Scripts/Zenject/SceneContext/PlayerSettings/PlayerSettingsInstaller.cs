@@ -7,12 +7,11 @@ public class PlayerSettingsInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Install<PlayerSettingsSignalBusInstaller>();
-        Debug.Log("Installed");
         Container.Install<PlayerSettingsHandlersInstaller>();
 
         Container.BindInterfacesAndSelfTo<PlayerSettingsChangesInformer>().AsSingle().NonLazy();
-        Container.Bind<PlayerSettingsSO>().FromScriptableObject(_playerSettingsSO).AsSingle();
+
         Container.Bind<IPlayerSettingsStorageProvider>().To<PlayerSettingsStorageJSON>().AsSingle();
+        Container.Bind<PlayerSettingsSO>().FromScriptableObject(_playerSettingsSO).AsSingle();
     }
 }
