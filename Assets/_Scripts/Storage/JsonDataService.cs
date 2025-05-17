@@ -15,7 +15,7 @@ public static class JsonDataService
 
             File.WriteAllText(filePath, json);
 #if UNITY_EDITOR
-            Debug.Log($"[JsonDataService] Saved to: {filePath}");
+            //Debug.Log($"[JsonDataService] Saved to: {filePath}");
 #endif
         }
         catch (System.Exception ex)
@@ -67,7 +67,7 @@ public static class JsonDataService
             string json = File.ReadAllText(filePath);
             T data = JsonConvert.DeserializeObject<T>(json);
 #if UNITY_EDITOR
-            Debug.Log($"[JsonDataService] Loaded from: {filePath}");
+            //Debug.Log($"[JsonDataService] Loaded from: {filePath}");
 #endif
             return data;
         }

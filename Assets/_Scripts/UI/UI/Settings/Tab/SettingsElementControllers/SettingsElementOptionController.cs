@@ -23,7 +23,6 @@ public class SettingsElementOptionController : SettingsElementController
     private void UpdateOption()
     {
         string localizedStringKey = GetUpdatedLocalizedStringKey();
-        Debug.Log("Option Updated to key: " + localizedStringKey);
         _localizedStringEvent.StringReference.TableEntryReference = localizedStringKey;
     }
 

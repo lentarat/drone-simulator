@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,18 +11,15 @@ public class DroneHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _throttleValueText;
     [SerializeField] private TextMeshProUGUI _droneFlightModeTypeText;
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
-    
+    [SerializeField] private int _updateHUDIntervalMS;
+
+    private bool _isUpdatingHUD = true;
     private SignalBus _playerSettingsSignalBus;
 
     [Inject]
     private void Construct(SignalBus playerSettingsSignalBus)
     {
         _playerSettingsSignalBus = playerSettingsSignalBus;
-        //_droneMovementSystem = droneMovementSystem;
-    }
-
-    private void Awake()
-    {
         _playerSettingsSignalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
     }
 
@@ -31,7 +30,7 @@ public class DroneHUD : MonoBehaviour
 
     private void UpdateDroneFlightModeType(PlayerSettingsSO.DroneFlightModeType droneFlightModeType)
     {
-        Debug.Log("Current flight mode: " + droneFlightModeType);
+        _droneFlightModeTypeText.text = droneFlightModeType.ToString();
     }
 
     private void OnDestroy()
@@ -39,14 +38,18 @@ public class DroneHUD : MonoBehaviour
         _playerSettingsSignalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
     }
 
-    private void Update()
+    private void Start()
     {
-        UpdateHud();    
+        UpdateHudLoopAsync().Forget();
     }
 
-    private void UpdateHud()
+    private async UniTask UpdateHudLoopAsync()
     {
-        UpdateThrottleValue();    
+        while (_isUpdatingHUD)
+        { 
+            UpdateThrottleValue();
+            await UniTask.Delay(_updateHUDIntervalMS);
+        }
     }
 
     private void UpdateThrottleValue()

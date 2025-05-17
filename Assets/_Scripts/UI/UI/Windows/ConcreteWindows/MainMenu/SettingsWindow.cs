@@ -9,17 +9,22 @@ public class SettingsWindow : BackableWindow
     [SerializeField] private ButtonToSettingsTab[] _buttonToSettingsTabs;
     [SerializeField] private SettingsTab _openedTab;
     [SerializeField] private Button _applyChangesButton;
-    [SerializeField] private PlayerSettingsSO _playerSettingsSO;
 
     private bool _hasUnsavedChanges;
-    private SignalBus _signalBus;
     private ApplyChangesButtonHighlighter _applyChangesButtonHighlighter;
+    private PlayerSettingsSO _playerSettingsSO;
+    private PlayerSettingsChangesInformer _playerSettingsChangesInformer;
     private IPlayerSettingsStorageProvider _playerSettingsStorageProvider;
 
     [Inject]
-    private void Construct(SignalBus signalBus)
-    { 
-        _signalBus = signalBus;
+    private void Construct(
+        PlayerSettingsSO playerSettingsSO,
+        PlayerSettingsChangesInformer playerSettingsChangesInformer,
+        IPlayerSettingsStorageProvider playerSettingsStorageProvider)
+    {
+        _playerSettingsSO = playerSettingsSO;
+        _playerSettingsChangesInformer = playerSettingsChangesInformer;
+        _playerSettingsStorageProvider = playerSettingsStorageProvider;
     }
 
     protected override void Awake()
@@ -27,7 +32,6 @@ public class SettingsWindow : BackableWindow
         base.Awake();
 
         Init();
-        LoadPlayerSettings();
         ManageEachSettingsTab();
         SubcribeToAnySettingsValuesChanged();
         SubscribeToApplyChangesButtonClick();
@@ -36,12 +40,6 @@ public class SettingsWindow : BackableWindow
     private void Init()
     {
         _applyChangesButtonHighlighter = new ApplyChangesButtonHighlighter(_applyChangesButton);
-    }
-
-    private void LoadPlayerSettings()
-    {
-        _playerSettingsStorageProvider = new PlayerSettingsStorageJSON();
-        _playerSettingsStorageProvider.LoadTo(_playerSettingsSO);
     }
 
     private void ManageEachSettingsTab()
@@ -90,7 +88,7 @@ public class SettingsWindow : BackableWindow
     private void ApplyChanges()
     {
         SaveSettingsTabsEnabledBefore();
-        InformPlayerSettingsSettingChanged();
+        InformPlayerSettingsChanged();
         SavePlayerSettingsIntoStorage();
         HideApplyChangesButton();
 
@@ -107,16 +105,15 @@ public class SettingsWindow : BackableWindow
             {
                 tab.SaveConcretePlayerSettings();
                 tab.WasEnabled = false;
-                Debug.Log(tab + " saved");
             }
         }
 
         _openedTab.WasEnabled = true;
     }
 
-    private void InformPlayerSettingsSettingChanged()
+    private void InformPlayerSettingsChanged()
     {
-        _signalBus.Fire(new PlayerSettingsChangedSignal(_playerSettingsSO));
+        _playerSettingsChangesInformer.InformPlayerSettingsChanged();
     }
 
     private void SavePlayerSettingsIntoStorage()

@@ -43,15 +43,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 99792485982208
-    m_Localized: "\u0410\u043A\u0440\u043E"
+    m_Localized: Acro
     m_Metadata:
       m_Items: []
   - m_Id: 100247035289600
-    m_Localized: "\u0413\u043E\u0440\u0438\u0437\u043E\u043D\u0442"
+    m_Localized: Horizon
     m_Metadata:
       m_Items: []
   - m_Id: 100307550707712
-    m_Localized: "\u041A\u0443\u0442"
+    m_Localized: Angle
     m_Metadata:
       m_Items: []
   - m_Id: 1550041373057024
