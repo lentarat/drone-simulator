@@ -7,24 +7,29 @@ using System;
 public abstract class Target : MonoBehaviour, IDamageable
 {
     [SerializeField] private NavMeshAgent _navMeshAgent;
+    [SerializeField] private SFXPlayer _deathSFXPlayer;
     [SerializeField] private float _hp;
 
-    private int _waypointPositionIndex;
-    private Vector3[] _routeWaypointsPositions;
-    private Action _onDeathAction;
+    public Action OnDeathAction { private get; set; }
+    public TargetRouteData RouteData { private get; set; }
+
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    public void Init(Vector3[] routeWaypointsPositions, int waypointPositionIndex, Action onDeathAction)
+    public void SetAudioController(AudioController audioController)
     {
-        _routeWaypointsPositions = routeWaypointsPositions;
-        _waypointPositionIndex = waypointPositionIndex;
-        _onDeathAction = onDeathAction;
+        _deathSFXPlayer.Init(audioController);
     }
 
     protected virtual void Die()
     {
-        _onDeathAction?.Invoke();
+        OnDeathAction?.Invoke();
+        PlayDeathSound();
         Destroy(gameObject);
+    }
+
+    private void PlayDeathSound()
+    {
+        _deathSFXPlayer.Play();
     }
 
     private void Start()
@@ -34,18 +39,19 @@ public abstract class Target : MonoBehaviour, IDamageable
 
     private async UniTask StartRoute()
     {
-        int i = _waypointPositionIndex;
+        int i = RouteData.WaypointPositionIndex;
+        Vector3[] routeWaypointsPositions = RouteData.WaypointsPositions;
         bool goingForward = UnityEngine.Random.Range(0, 2) == 1;
 
         while (_cancellationTokenSource.IsCancellationRequested == false) 
         {
-            _navMeshAgent.SetDestination(_routeWaypointsPositions[i]);
+            _navMeshAgent.SetDestination(routeWaypointsPositions[i]);
 
             await UniTask.WaitUntil(() =>
                 !_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.1f,
                 cancellationToken: _cancellationTokenSource.Token);
 
-            int waypointsCount = _routeWaypointsPositions.Length;
+            int waypointsCount = routeWaypointsPositions.Length;
             if (goingForward)
             {
                 i = (i + 1) % waypointsCount;

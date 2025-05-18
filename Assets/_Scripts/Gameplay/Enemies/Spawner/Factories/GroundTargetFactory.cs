@@ -5,23 +5,22 @@ using UnityEngine;
 
 public class GroundTargetFactory : TargetFactory<GroundTarget>
 {
-    private GroundTarget _groundTargetPrefab;
-
     public GroundTargetFactory(
         GameSettingsSO gameSettingsSO,
         DifficultyLevelTargetSettingsSO difficultyLevelTargetSettingsSO,
         GroundTarget groundTargetPrefab) : base(gameSettingsSO, difficultyLevelTargetSettingsSO)
     {
-        _groundTargetPrefab = groundTargetPrefab;
+        TargetPrefab = groundTargetPrefab;
     }
 
-    public override GroundTarget Create(
-        Vector3 position,
-        Quaternion rotation,
-        Transform parent)
-    {
-        GroundTarget airborneTarget = GameObject.Instantiate(_groundTargetPrefab, position, rotation, parent);
-        //Debug.Log($"{GetType().Name} spawned with speedMultiplier: {_targetSettings.SpeedMultiplier}");
-        return airborneTarget;
-    }
+    //public override GroundTarget Create(
+    //    TargetSpawnData targetSpawnData,
+    //    TargetRouteData targetRouteData,
+    //    AudioController audioController)
+    //{
+    //    GroundTarget groundTarget = GameObject.Instantiate(TargetPrefab, targetSpawnData.Position, targetSpawnData.Rotation, targetSpawnData.Parent);
+    //    groundTarget.SetAudioController(audioController);
+    //    //Debug.Log($"{GetType().Name} spawned with speedMultiplier: {_targetSettings.SpeedMultiplier}");
+    //    return groundTarget;
+    //}
 }

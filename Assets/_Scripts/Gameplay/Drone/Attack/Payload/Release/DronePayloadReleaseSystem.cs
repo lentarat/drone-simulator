@@ -7,18 +7,19 @@ public class DronePayloadReleaseSystem : MonoBehaviour
 {
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
     [SerializeField] private DronePayload _payloadPrefab;
+    [SerializeField] private SFXPlayer _sfxPlayer;
     [SerializeField] private int _nextPayloadSpawnIntervalMS;
 
-    private IPayloadReleaseInvoker _payloadReleasable;
     private CancellationToken _token;
     private DronePayload _payload;
-    private AudioManager _audioManager;
+    private AudioController _audioController;
+    private IPayloadReleaseInvoker _payloadReleasable;
 
     [Inject]
-    private void Construct(IPayloadReleaseInvoker payload, AudioManager audioManager)
+    private void Construct(IPayloadReleaseInvoker payload, AudioController audioController)
     {
         _payloadReleasable = payload;
-        _audioManager = audioManager;
+        _audioController = audioController;
     }
 
     private void Awake()
@@ -26,7 +27,7 @@ public class DronePayloadReleaseSystem : MonoBehaviour
         _payloadReleasable.OnReleaseCalled += HandleBombReleaseCalled;
 
         _token = this.GetCancellationTokenOnDestroy();
-        DelayedSpawnPayload().Forget();
+        DelayedSpawnPayloadAsync().Forget();
     }
 
     private void HandleBombReleaseCalled()
@@ -36,7 +37,7 @@ public class DronePayloadReleaseSystem : MonoBehaviour
             return;
 
         DropPayload();
-        DelayedSpawnPayload().Forget();
+        DelayedSpawnPayloadAsync().Forget();
     }
 
     private void DropPayload()
@@ -46,13 +47,13 @@ public class DronePayloadReleaseSystem : MonoBehaviour
         _payload = null;
     }
 
-    private async UniTaskVoid DelayedSpawnPayload()
+    private async UniTask DelayedSpawnPayloadAsync()
     {
         try
         {
             await UniTask.Delay(_nextPayloadSpawnIntervalMS, cancellationToken: _token);
             _payload = Instantiate(_payloadPrefab, transform);
-            _payload.Init(_audioManager);
+            _payload.Init(_audioController);
         }
         catch(System.Exception e)
         {

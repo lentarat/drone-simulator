@@ -8,20 +8,23 @@ public class TargetSpawner<T> : IInitializable where T : Target
 {
     private bool _isSpawning;
     private readonly int _maxTargetsNumber = 10;
-    private readonly Transform _targetsParent;
     private readonly Vector3[][] _routesPositions;
+    private readonly Transform _targetsParent;
+    private readonly AudioController _audioController;
     private readonly HashSet<T> _targetsHashSet = new();
     private readonly TargetFactory<T> _targetFactory;
     private readonly DifficultyLevelTargetSpawnerSettingsHolder _targetSpawnerSettings;
 
     public TargetSpawner(
         TargetFactory<T> targetFactory,
+        AudioController audioController,
         GameSettingsSO gameSettingsSO,
         DifficultyLevelTargetSpawnerSettingsSO difficultyLevelTargetSpawnerSettingsSO,
         [Inject(Id = "TargetsParent")] Transform targetsParent,
         [Inject(Id = "RoutesParents")] GameObject[] routesParents)
     {
         _targetFactory = targetFactory;
+        _audioController = audioController;
         _targetsParent = targetsParent;
         _routesPositions = RouteUtils.GetConvertedRoutesWaypointsPositions(routesParents);
         _targetSpawnerSettings =
@@ -71,10 +74,13 @@ public class TargetSpawner<T> : IInitializable where T : Target
         {
             Vector3 spawnPosition = hitInfo.point;
             Quaternion spawnRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
-            Target target = _targetFactory.Create(spawnPosition, spawnRotation, _targetsParent);
+            TargetSpawnData targetSpawnData = new(spawnPosition, spawnRotation, _targetsParent);
 
             Vector3[] routeWaypointPositions = _routesPositions[randomRouteIndex];
-            target.Init(routeWaypointPositions, randomWaypointPositionIndex, () => RemoveTargetFromHashSet(target));
+            TargetRouteData targetRouteData = new(routeWaypointPositions, randomWaypointPositionIndex);
+
+            Target target = _targetFactory.Create(targetSpawnData, targetRouteData, _audioController);
+            target.OnDeathAction = () => RemoveTargetFromHashSet(target);
 
             _targetsHashSet.Add((T)target);
         }

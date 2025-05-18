@@ -35,12 +35,12 @@ public class TargetSpawnerInstaller : MonoInstaller
                 Container.BindInterfacesAndSelfTo<TargetSpawner<GroundTarget>>().AsSingle().NonLazy();
                 break;
             }
-            case GameModeType.AirborneTargets:
-            {
-                Container.Bind<TargetFactory<AirborneTarget>>().To<AirborneTargetFactory>().AsSingle();
-                Container.BindInterfacesAndSelfTo<TargetSpawner<AirborneTarget>>().AsSingle().NonLazy();
-                break;
-            }
+            //case GameModeType.AirborneTargets:
+            //{
+            //    Container.Bind<TargetFactory<AirborneTarget>>().To<AirborneTargetFactory>().AsSingle();
+            //    Container.BindInterfacesAndSelfTo<TargetSpawner<AirborneTarget>>().AsSingle().NonLazy();
+            //    break;
+            //}
             default:
             {   
                 break;  

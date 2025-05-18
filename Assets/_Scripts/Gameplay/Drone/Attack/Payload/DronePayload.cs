@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DronePayload : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
-    protected AudioManager AudioManager { get; private set; }
+    [SerializeField] private SFXPlayer _actionSFXPlayer;
 
-    public void Init(AudioManager audioManager)
-    { 
-        AudioManager = audioManager;
+    public void Init(AudioController audioController)
+    {
+        _actionSFXPlayer.Init(audioController);
     }
 
     public void DisconnectWithVelocity(Vector3 disconnectVelocity)
@@ -17,5 +15,10 @@ public class DronePayload : MonoBehaviour
         transform.parent = null;
         _rigidbody.isKinematic = false;
         _rigidbody.velocity = disconnectVelocity;
+    }
+
+    protected void PlaySound()
+    {
+        _actionSFXPlayer.Play();
     }
 }

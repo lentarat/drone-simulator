@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: -2424482211641165078}
   - component: {fileID: 3832685974097376641}
   - component: {fileID: 7071252409927163374}
+  - component: {fileID: 6892361993137945862}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -400,6 +401,7 @@ MonoBehaviour:
   _droneMovementSystem: {fileID: 3832685974097376641}
   _payloadPrefab: {fileID: 8636783697350530491, guid: 3692306d7289f5d429dab54b313d2ab2,
     type: 3}
+  _sfxPlayer: {fileID: 0}
   _nextPayloadSpawnIntervalMS: 3000
 --- !u!114 &3832685974097376641
 MonoBehaviour:
@@ -419,7 +421,6 @@ MonoBehaviour:
   _motorsPowerClamp: 2.66
   _throttleMultiplier: 75
   _motorsAccelerationMultiplier: 12
-  _pitchAndRollAccelerationMultiplier: 0.1
 --- !u!114 &7071252409927163374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,3 +439,17 @@ MonoBehaviour:
   _maxMotorsAudioSourcePitch: 2
   _minMotorsAudioSourceVolume: 0.15
   _maxMotorsAudioSourceVolume: 0.25
+--- !u!114 &6892361993137945862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6939467342495647376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999604e20d702a740adb3c3e92c86f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordRate: 20
+  _travelTime: 5

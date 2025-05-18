@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioController : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSourcePrefab;
     
