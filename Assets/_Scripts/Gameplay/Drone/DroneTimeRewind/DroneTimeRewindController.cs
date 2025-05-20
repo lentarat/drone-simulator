@@ -8,6 +8,7 @@ public class DroneTimeRewindController : MonoBehaviour
 {
     [SerializeField] private int _recordRate = 20;
     [SerializeField] private float _travelTime = 2f;
+    [SerializeField] private Rigidbody _rigidbody;
 
     private bool _isRecording = true;
     private int _recordIntervalMS;
@@ -18,11 +19,14 @@ public class DroneTimeRewindController : MonoBehaviour
     
 
     [ContextMenu("Rewind")]
-    public void Rewind()
-    { 
+    public async UniTask Rewind()
+    {
+        await UniTask.WaitForFixedUpdate();
+
         DroneTimeRewindData data = _fixedSizeQueue.Dequeue();
         transform.position = data.Position;
         transform.rotation = data.Rotation;
+        _rigidbody.velocity = data.RigidbodyVelocity;
     }
 
     private void Start()
@@ -55,7 +59,7 @@ public class DroneTimeRewindController : MonoBehaviour
 
     private void RecordData()
     {
-        DroneTimeRewindData data = new DroneTimeRewindData(transform.position, transform.rotation); 
+        DroneTimeRewindData data = new DroneTimeRewindData(transform.position, _rigidbody.velocity, transform.rotation); 
         _fixedSizeQueue.Enqueue(data);
     }
 }
