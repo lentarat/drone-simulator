@@ -3,10 +3,10 @@ using Zenject;
 
 public class PlayerSettingsChangesInformer : IInitializable, IDisposable
 {
-    private SignalBus _signalBus;
-    private PlayerSettingsSO _playerSettingsSO;
-    private IPlayerSettingsStorageProvider _playerSettingsStorageProvider;
-    private ISceneLoader _sceneLoader;
+    private readonly SignalBus _signalBus;
+    private readonly PlayerSettingsSO _playerSettingsSO;
+    private readonly IPlayerSettingsStorageProvider _playerSettingsStorageProvider;
+    private readonly ISceneLoader _sceneLoader;
 
     public PlayerSettingsChangesInformer(
         SignalBus signalBus,

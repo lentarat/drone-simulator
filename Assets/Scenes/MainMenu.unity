@@ -5389,11 +5389,6 @@ PrefabInstance:
       propertyPath: _previousWindow
       value: 
       objectReference: {fileID: 1597547777}
-    - target: {fileID: 6104924841506660146, guid: c3fa8316cea85dd4d970fdc69e885ca6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 18
-      objectReference: {fileID: 0}
     - target: {fileID: 9063109782935176093, guid: c3fa8316cea85dd4d970fdc69e885ca6,
         type: 3}
       propertyPath: m_Pivot.x

@@ -16,7 +16,9 @@ public class FadedWindowState : WindowState
         if (BaseWindow.TryGetComponent<CanvasGroup>(out _canvasGroup))
         {
             _canvasGroup.alpha = 0f;
-            var tweener = _canvasGroup.DOFade(1f, _fadeTime).SetLink(BaseWindow.gameObject);
+            var tweener = _canvasGroup.DOFade(1f, _fadeTime)
+                .SetUpdate(true)
+                .SetLink(BaseWindow.gameObject);
             await tweener.ToUniTask();
         }
         else
@@ -30,7 +32,9 @@ public class FadedWindowState : WindowState
         if (BaseWindow.TryGetComponent<CanvasGroup>(out _canvasGroup))
         {
             _canvasGroup.alpha = 1f;
-            var tweener = _canvasGroup.DOFade(0f, _fadeTime).SetLink(BaseWindow.gameObject);
+            var tweener = _canvasGroup.DOFade(0f, _fadeTime)
+                .SetUpdate(true)
+                .SetLink(BaseWindow.gameObject);
             await tweener.ToUniTask();
         }
         else

@@ -26,7 +26,7 @@ public class PlayerSettingsSO : ScriptableObject
     public enum DroneFlightModeType
     { 
         Acro,
-        Horizon,
-        Angle
+        Angle,
+        Horizon
     }
 }
