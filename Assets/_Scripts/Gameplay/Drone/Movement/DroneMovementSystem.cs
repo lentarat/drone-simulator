@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using Zenject;
 
 public class DroneMovementSystem : MonoBehaviour
@@ -27,8 +22,8 @@ public class DroneMovementSystem : MonoBehaviour
     public Vector3 Velocity => _rigidbody.velocity;
 
     private float _droneSpeed;
-    private float _yawMotorPower;
     private float _throttleMotorPower;
+    private float _yawMotorPower;
     private Vector2 _pitchAndRollMotorPower;
     private SignalBus _signalBus;
     private PlayerSettingsSO.DroneFlightModeType _droneFlightMode;
@@ -55,6 +50,20 @@ public class DroneMovementSystem : MonoBehaviour
         return value;
     }
 
+    public float GetYawMotorPowerNormalized()
+    { 
+        float value = Mathf.Abs(_yawMotorPower / _motorsPowerClamp);
+        return value;
+    }
+
+    public float GetPitchAndRollMotorPowerNormalized()
+    {
+        float pitchValue = Mathf.Abs(_pitchAndRollMotorPower.y / _motorsPowerClamp);
+        float rollValue = Mathf.Abs(_pitchAndRollMotorPower.x / _motorsPowerClamp);
+        float value = Mathf.Max(pitchValue, rollValue);
+        return value;
+    }
+
     private void OnDestroy()
     {
         _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(ChangeDroneFlightMode);
@@ -63,8 +72,8 @@ public class DroneMovementSystem : MonoBehaviour
     private void Awake()
     {
         _droneSpeed = _dronePropertiesHolderSO.Speed;
-        _droneFlightModeMovementAdjuster = new DroneHorizonMovementAdjuster();
-        _droneFlightModeMovementAdjuster.ActionAngleThreshold = 30f;
+        _droneFlightModeMovementAdjuster = new DroneAngleMovementAdjuster();
+        _droneFlightModeMovementAdjuster.ActionAngleThreshold = 60f;
     }
 
     private void Update()
@@ -77,6 +86,8 @@ public class DroneMovementSystem : MonoBehaviour
     {
         Vector2 pitchAndRollInputVector = _droneMoveable.GetPitchAndRollInputValue;
         Vector2 adjustedPitchAndRollInputVector = _droneFlightModeMovementAdjuster.GetAdjustedPitchAndRollInputVector(pitchAndRollInputVector, _rigidbody.rotation);
+
+        //Debug.Log(pitchAndRollInputVector + " " + adjustedPitchAndRollInputVector);
         _pitchAndRollMotorPower.x = GetAdjustedMotorPowerAccordingInputValue(adjustedPitchAndRollInputVector.x, _pitchAndRollMotorPower.x);
         _pitchAndRollMotorPower.y = GetAdjustedMotorPowerAccordingInputValue(adjustedPitchAndRollInputVector.y, _pitchAndRollMotorPower.y);
 
@@ -92,7 +103,8 @@ public class DroneMovementSystem : MonoBehaviour
         float normalizedMotorPower = currentMotorPowerValue / _motorsPowerClamp;
         float t = _motorsAccelerationMultiplier * Time.deltaTime;
         normalizedMotorPower = Mathf.Lerp(normalizedMotorPower, inputValue, t);
-        return normalizedMotorPower * _motorsPowerClamp;
+        float adjustedMotorPower = normalizedMotorPower * _motorsPowerClamp;
+        return adjustedMotorPower;
     }
 
     private void UpdateCamera()

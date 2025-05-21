@@ -19,11 +19,14 @@ public class DroneMotorsAudioController : MonoBehaviour
     private void SetPitchAndVolumeAccordingMotorsThrottleValue()
     {
         float throttleMotorPower = _droneMovementSystem.GetThrottleMotorPowerNormalized();
-        if (throttleMotorPower > 0)
+        float yawMotorPower = _droneMovementSystem.GetYawMotorPowerNormalized();
+        float pitchAndRollMotorPower = _droneMovementSystem.GetPitchAndRollMotorPowerNormalized();
+        float highestMotorPowerValue = Mathf.Max(throttleMotorPower, yawMotorPower, pitchAndRollMotorPower);
+        if (highestMotorPowerValue > 0)
         {
-            float newPitchValue = Mathf.Lerp(_minMotorsAudioSourcePitch, _maxMotorsAudioSourcePitch, throttleMotorPower);
+            float newPitchValue = Mathf.Lerp(_minMotorsAudioSourcePitch, _maxMotorsAudioSourcePitch, highestMotorPowerValue);
             _motorsAudioSource.pitch = newPitchValue;
-            float newVolumeValue = Mathf.Lerp(_minMotorsAudioSourceVolume, _maxMotorsAudioSourceVolume, throttleMotorPower);
+            float newVolumeValue = Mathf.Lerp(_minMotorsAudioSourceVolume, _maxMotorsAudioSourceVolume, highestMotorPowerValue);
             _motorsAudioSource.volume = newVolumeValue;
         }
     }
