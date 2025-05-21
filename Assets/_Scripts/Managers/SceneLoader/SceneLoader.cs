@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Build.Reporting;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : ISceneLoader
@@ -9,6 +10,12 @@ public class SceneLoader : ISceneLoader
     {
         add =>_onSceneChanged += value;
         remove => _onSceneChanged -= value;
+    }
+
+    void ISceneLoader.ReloadCurrentScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     void ISceneLoader.LoadScene(SceneType sceneType)

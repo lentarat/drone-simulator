@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneHorizonMovementAdjuster : IDroneFlightModeMovementAdjuster
+public class DroneHorizonMovementAdjuster : DroneFlightModeMovementAdjuster
 {
     private float _rollAngleThreshold;
     private float _rollInputValue = 3f;
-    private float _stopStabilizingRange = 5f;
     private RollDirectionType _rollDirectionType;
 
     private enum RollDirectionType
@@ -18,12 +17,12 @@ public class DroneHorizonMovementAdjuster : IDroneFlightModeMovementAdjuster
         Left
     }
 
-    float IDroneFlightModeMovementAdjuster.ActionAngleThreshold
+    public override void SetActionAngleThreshold(float actionAngle)
     {
-        set => _rollAngleThreshold = value;
+        _rollAngleThreshold = actionAngle;
     }
 
-    Vector2 IDroneFlightModeMovementAdjuster.GetAdjustedPitchAndRollInputVector(Vector2 rawInputVector, Quaternion droneRotation)
+    public override Vector2 GetAdjustedPitchAndRollInputVector(Vector2 rawInputVector, Quaternion droneRotation)
     {
         Vector2 adjustedInputVector = rawInputVector;
 
@@ -84,54 +83,6 @@ public class DroneHorizonMovementAdjuster : IDroneFlightModeMovementAdjuster
             RollDirectionType.Right => new Vector2(_rollInputValue, 0f),
             _ => Vector2.zero
         };
-    }
-
-    private Vector2 GetStabilizationInputVector(float xRot, float zRot)
-    {
-        Vector2 stabilizedInputVector = Vector2.zero;
-        if (zRot > 180)
-        {
-            float offsetFromStabilizedValue = 360 - zRot;
-            float interpolatedInputValueY = -1;
-            if (offsetFromStabilizedValue < _stopStabilizingRange)
-            {
-                interpolatedInputValueY = 0;
-            }
-            stabilizedInputVector.y = interpolatedInputValueY;
-        }
-        else if (zRot < 180)
-        {
-            float offsetFromStabilizedValue = zRot;
-            float interpolatedInputValueY = 1;
-            if (offsetFromStabilizedValue < _stopStabilizingRange)
-            {
-                interpolatedInputValueY = 0;
-            }
-            stabilizedInputVector.y = interpolatedInputValueY;
-        }
-
-        if (xRot > 180)
-        {
-            float offsetFromStabilizedValue = 360 - xRot;
-            float interpolatedInputValueX = -1;
-            if (offsetFromStabilizedValue < _stopStabilizingRange)
-            {
-                interpolatedInputValueX = 0;
-            }
-            stabilizedInputVector.x = interpolatedInputValueX;
-        }
-        else if (xRot < 180)
-        {
-            float offsetFromStabilizedValue = xRot;
-            float interpolatedInputValueX = 1;
-            if (offsetFromStabilizedValue < _stopStabilizingRange)
-            {
-                interpolatedInputValueX = 0;
-            }
-            stabilizedInputVector.x = interpolatedInputValueX;
-        }
-
-        return stabilizedInputVector;
     }
 
     private bool HasPassedRollThreshold(float rot, ref float inputValue)

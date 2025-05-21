@@ -210,6 +210,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3929593420079046713}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5194226323131522342 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9123484941617397023, guid: 04d4122f99305e6438da1e07c7cbec5b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3929593420079046713}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be19ad851503e44fa5e34b4147c62b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5020974585536462222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -408,6 +420,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5548601875424358821, guid: 94ea7147ac2a5714e83d24724525ef43,
+        type: 3}
+      propertyPath: _droneAltimeter
+      value: 
+      objectReference: {fileID: 5194226323131522342}
     - target: {fileID: 5548601875424358821, guid: 94ea7147ac2a5714e83d24724525ef43,
         type: 3}
       propertyPath: _droneMovementSystem

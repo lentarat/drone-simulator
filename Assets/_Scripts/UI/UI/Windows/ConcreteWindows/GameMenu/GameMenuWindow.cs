@@ -36,9 +36,14 @@ public class GameMenuWindow : BaseWindow
         }
         else
         {
-            ToggleWindowState();
-            ToggePause();
+            ToggleGameWindow();
         }
+    }
+
+    private void ToggleGameWindow()
+    {
+        ToggleWindowState();
+        ToggePause();
     }
 
     private void ToggleWindowState()
@@ -65,7 +70,19 @@ public class GameMenuWindow : BaseWindow
 
     private void SubscribeToButtons()
     {
+        _resumeGameButton.onClick.AddListener(ResumeGame);
+        _restartGameButton.onClick.AddListener(RestartGame);
         _exitToMainMenuButton.onClick.AddListener(ExitToMainMenu);
+    }
+
+    private void ResumeGame()
+    {
+        ToggleGameWindow();
+    }
+
+    private void RestartGame()
+    {
+        _sceneLoader.ReloadCurrentScene();
     }
 
     private void ExitToMainMenu()

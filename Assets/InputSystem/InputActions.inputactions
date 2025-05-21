@@ -220,70 +220,26 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "CV",
-                    "id": "9c7d8705-f9ba-4c09-9c9d-145e422e3372",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "7f8bf74a-d6d5-49bf-9c8d-d9881e56f176",
-                    "path": "<Keyboard>/v",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "04cde876-8041-4f2b-88dc-00bca0180f95",
+                    "name": "",
+                    "id": "2e481ff3-841d-48b6-9f0c-53a1f675e94b",
                     "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Throttle",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "LeftJoystick",
-                    "id": "16d26a20-5841-4dbd-9448-02b07675d820",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "e1507c13-7d9d-46cd-909c-3851391a8d25",
-                    "path": "<Gamepad>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "fa053c31-f5eb-4726-9284-307cf7778588",
+                    "name": "",
+                    "id": "b21796f1-9546-43d1-b665-07b67b42d97d",
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Throttle",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -292,6 +248,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "PayloadRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3e8dbcc-26fd-4df3-ba4c-20e6bc695367",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "PayloadRelease",
                     "isComposite": false,
                     "isPartOfComposite": false

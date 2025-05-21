@@ -10,7 +10,9 @@ public class DroneHUD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _throttleValueText;
     [SerializeField] private TextMeshProUGUI _droneFlightModeTypeText;
+    [SerializeField] private TextMeshProUGUI _droneHeightValueText;
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
+    [SerializeField] private DroneAltimeter _droneAltimeter;
     [SerializeField] private int _updateHUDIntervalMS;
 
     private bool _isUpdatingHUD = true;
@@ -48,6 +50,8 @@ public class DroneHUD : MonoBehaviour
         while (_isUpdatingHUD)
         { 
             UpdateThrottleValue();
+            UpdateHeightValue();    
+
             await UniTask.Delay(_updateHUDIntervalMS);
         }
     }
@@ -56,5 +60,11 @@ public class DroneHUD : MonoBehaviour
     {
         int currentThrottlePercentage = (int)(_droneMovementSystem.GetThrottleMotorPowerNormalized() * 100f);
         _throttleValueText.text = currentThrottlePercentage.ToString() + "%";
+    }
+
+    private void UpdateHeightValue()
+    {
+        float height = Mathf.RoundToInt(_droneAltimeter.HeightValue);
+        _droneHeightValueText.text = height.ToString() + "m";
     }
 }

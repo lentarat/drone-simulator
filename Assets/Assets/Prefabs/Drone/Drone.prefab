@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 4309745593579273019}
   - component: {fileID: 5995522385043842978}
   - component: {fileID: 3614255311409843795}
+  - component: {fileID: 9123484941617397023}
   - component: {fileID: 980708191549888257}
   - component: {fileID: 625149469225990385}
   m_Layer: 7
@@ -479,15 +480,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d4a1b0299606e4080c9a581ac7b289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 3313977762897029180}
   _dronePropertiesHolderSO: {fileID: 11400000, guid: d783e14b927a2bd42a61521d070e1e7d,
     type: 2}
+  _rigidbody: {fileID: 3313977762897029180}
   _cameraTransform: {fileID: 4273831282500838363}
   _motorsPowerClamp: 237.5
   _maxThrottleValueMultiplier: 0.84
   _motorsAccelerationMultiplier: 12
-  _maxRotationAngularVelocityMultiplier: 30
   _cameraInterpolationMultiplier: 20
+--- !u!114 &9123484941617397023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193651123769013494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be19ad851503e44fa5e34b4147c62b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &980708191549888257
 MonoBehaviour:
   m_ObjectHideFlags: 0
