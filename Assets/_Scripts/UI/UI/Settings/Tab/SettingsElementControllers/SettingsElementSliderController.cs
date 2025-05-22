@@ -9,11 +9,28 @@ public class SettingsElementSliderController : SettingsElementController
     private int _minValue;
     private int _maxValue;
 
-    public void Init(StringTable localizationTable, int currentValue, int minValue, int maxValue)
+    public void Init(int currentValue, int minValue, int maxValue)
     {
-        base.Init(localizationTable, currentValue);
+        base.Init(currentValue);
+
         _minValue = minValue; 
         _maxValue = maxValue;
+
+        SetSliderRange(minValue, maxValue);
+        UpdateSlider(currentValue);
+
+        SubscribeToSliderValueChange();
+    }
+
+    private void SetSliderRange(int minValue, int maxValue)
+    { 
+        _slider.minValue = minValue;
+        _slider.maxValue = maxValue;
+    }
+
+    private void UpdateSlider(int newValue)
+    {
+        _slider.value = newValue;
     }
 
     protected override int GetAdjustedCurrentValue(int currentValue)
@@ -28,8 +45,13 @@ public class SettingsElementSliderController : SettingsElementController
         UpdateSlider(CurrentValue);
     }
 
-    private void UpdateSlider(int newValue)
-    { 
-        _slider.value = newValue;
+    private void SubscribeToSliderValueChange()
+    {
+        _slider.onValueChanged.AddListener(ChangeCurrentValue);
+    }
+
+    private void ChangeCurrentValue(float newValue)
+    {   
+        SetCurrentValue((int)newValue);
     }
 }

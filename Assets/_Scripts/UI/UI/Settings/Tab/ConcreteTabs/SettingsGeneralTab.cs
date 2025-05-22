@@ -11,9 +11,9 @@ public class SettingsGeneralTab : SettingsTab
         PlayerSettingsSO.Language = (PlayerSettingsSO.LanguageType)_languageController.Controller.GetEnumCurrentValue();
     }
 
-    protected override async UniTask ProvideCurrentValuesToControllers()
+    protected override async UniTask ProvideCurrentValuesToControllersAsync()
     {
-        await base.ProvideCurrentValuesToControllers();
+        await base.ProvideCurrentValuesToControllersAsync();
 
         int languageCurrentValue = Convert.ToInt32(PlayerSettingsSO.Language);
         _languageController.Controller.Init<PlayerSettingsSO.LanguageType>(LocalizationTable, languageCurrentValue);

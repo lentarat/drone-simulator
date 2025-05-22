@@ -10,12 +10,15 @@ public class SettingsElementOptionController : SettingsElementController
 {
     [SerializeField] private LocalizeStringEvent _localizedStringEvent;
 
+    private StringTable _localizationTable;
     private Type _enumType;
 
     public void Init<TEnum>(StringTable localizationTable, int currentValue) where TEnum : Enum
     {
         _enumType = typeof(TEnum);
-        base.Init(localizationTable, currentValue);
+        _localizationTable = localizationTable;
+
+        base.Init(currentValue);
 
         UpdateOption();
     }
@@ -34,11 +37,11 @@ public class SettingsElementOptionController : SettingsElementController
         if (keyId == 0)
         {
             string key = _localizedStringEvent.StringReference.TableEntryReference.Key;
-            localizedStringKey = LocalizationTable.GetEntry(key).Key;
+            localizedStringKey = _localizationTable.GetEntry(key).Key;
         }
         else
         {
-            localizedStringKey = LocalizationTable.GetEntry(keyId).Key;
+            localizedStringKey = _localizationTable.GetEntry(keyId).Key;
         }
 
         int lastDotIndex = localizedStringKey.LastIndexOf('.');

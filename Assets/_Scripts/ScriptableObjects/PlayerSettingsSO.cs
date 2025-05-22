@@ -4,12 +4,15 @@ using UnityEngine;
 public class PlayerSettingsSO : ScriptableObject
 {
     public LanguageType Language { get; set; }
-    public ToggleType HUD { get; set; }
+    //public ToggleType HUD { get; set; }
     public DroneFlightModeType DroneFlightMode { get; set; }
-    public int FOV { get; set; }
+    public int TiltAngle { get; set; } = 60;
+    //public int FOV { get; set; }
     public int CameraAngle { get; set; }
-    public ToggleType AnalogCamera { get; set; }
-    public ToggleType SignalLoss { get; set; }
+    public int Sound { get; set; } = 40;
+    public int Music { get; set; } = 30;
+    //public ToggleType AnalogCamera { get; set; }
+    //public ToggleType SignalLoss { get; set; }
 
     public enum ToggleType
     { 
@@ -19,8 +22,8 @@ public class PlayerSettingsSO : ScriptableObject
 
     public enum LanguageType
     { 
-        Ukrainian,
-        English
+        English,
+        Ukrainian
     }
 
     public enum DroneFlightModeType

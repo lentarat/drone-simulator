@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DroneHorizonMovementAdjuster : DroneFlightModeMovementAdjuster
 {
-    private float _rollAngleThreshold;
     private float _rollInputValue = 3f;
     private RollDirectionType _rollDirectionType;
 
@@ -15,11 +14,6 @@ public class DroneHorizonMovementAdjuster : DroneFlightModeMovementAdjuster
         Backward,
         Right,
         Left
-    }
-
-    public override void SetActionAngleThreshold(float actionAngle)
-    {
-        _rollAngleThreshold = actionAngle;
     }
 
     public override Vector2 GetAdjustedPitchAndRollInputVector(Vector2 rawInputVector, Quaternion droneRotation)
@@ -87,7 +81,7 @@ public class DroneHorizonMovementAdjuster : DroneFlightModeMovementAdjuster
 
     private bool HasPassedRollThreshold(float rot, ref float inputValue)
     {
-        if (rot > _rollAngleThreshold && rot < 360 - _rollAngleThreshold)
+        if (rot > TiltAngleThreshold && rot < 360 - TiltAngleThreshold)
         {
             if (_rollDirectionType != RollDirectionType.None)
             {

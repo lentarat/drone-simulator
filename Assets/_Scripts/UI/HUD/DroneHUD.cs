@@ -15,19 +15,44 @@ public class DroneHUD : MonoBehaviour
     [SerializeField] private DroneAltimeter _droneAltimeter;
     [SerializeField] private int _updateHUDIntervalMS;
 
+    private bool _isInitialized;
     private bool _isUpdatingHUD = true;
+    private PlayerSettingsSO.DroneFlightModeType _currentDroneFlightMode;
     private SignalBus _signalBus;
 
     [Inject]
     private void Construct(SignalBus signalBus)
     {
         _signalBus = signalBus;
-        _signalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChangedSignal);
     }
 
-    private void HandlePlayerSettingsChanged(PlayerSettingsChangedSignal signal)
+    private void HandlePlayerSettingsChangedSignal(PlayerSettingsChangedSignal signal)
     {
-        UpdateDroneFlightModeType(signal.PlayerSettingsSO.DroneFlightMode);
+        PlayerSettingsSO.DroneFlightModeType newDroneFlightMode = signal.PlayerSettingsSO.DroneFlightMode;
+
+        bool hasDroneFlightModeChanged = HasDroneFlightModeChanged(_currentDroneFlightMode, newDroneFlightMode);
+        if (hasDroneFlightModeChanged == false && _isInitialized)
+        {
+            return;
+        }
+        _currentDroneFlightMode = newDroneFlightMode;
+
+        UpdateDroneFlightModeType(newDroneFlightMode);
+
+        _isInitialized = true;
+    }
+
+    private bool HasDroneFlightModeChanged(
+        PlayerSettingsSO.DroneFlightModeType currentDroneFlightModeType,
+        PlayerSettingsSO.DroneFlightModeType newDroneFlightModeType)
+    {
+        if (currentDroneFlightModeType != newDroneFlightModeType)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void UpdateDroneFlightModeType(PlayerSettingsSO.DroneFlightModeType droneFlightModeType)
@@ -37,7 +62,7 @@ public class DroneHUD : MonoBehaviour
 
     private void OnDestroy()
     {
-        _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChangedSignal);
     }
 
     private void Start()

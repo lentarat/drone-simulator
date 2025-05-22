@@ -23,32 +23,27 @@ public class DroneMovementSystem : MonoBehaviour
     private float _throttleMotorPower;
     private float _yawMotorPower;
     private Vector2 _pitchAndRollMotorPower;
-    private SignalBus _signalBus;
-    private DroneFlightModeMovementAdjuster _droneFlightModeMovementAdjuster;
+    private DroneFlightModeMovementAdjuster _droneFlightModeMovementAdjuster = new DroneAcroMovementAdjuster();
+    private DronePlayerSettingsChangesHandler _dronePlayerSettingsChangesHandler;
     private IDroneMoveable _droneMoveable;
 
     [Inject]
-    private void Construct(IDroneMoveable droneMoveable, SignalBus signalBus)
+    private void Construct(IDroneMoveable droneMoveable, DronePlayerSettingsChangesHandler dronePlayerSettingsChangesHandler)
     {
         _droneMoveable = droneMoveable;
-        _signalBus = signalBus;
+        _dronePlayerSettingsChangesHandler = dronePlayerSettingsChangesHandler;
 
-        _signalBus.Subscribe<PlayerSettingsChangedSignal>(ChangeDroneFlightMode);
+        _dronePlayerSettingsChangesHandler.OnDronePlayerSettingsChanged += ChangeDroneFlightModeMovementAdjuster;
     }
 
-    private void ChangeDroneFlightMode(PlayerSettingsChangedSignal signal)
+    private void ChangeDroneFlightModeMovementAdjuster(DroneFlightModeMovementAdjuster droneFlightModeMovementAdjuster)
     {
-        PlayerSettingsSO.DroneFlightModeType newDroneFlightMode = signal.PlayerSettingsSO.DroneFlightMode;
+        _droneFlightModeMovementAdjuster = droneFlightModeMovementAdjuster;
+    }
 
-        _droneFlightModeMovementAdjuster = newDroneFlightMode switch
-        {
-            PlayerSettingsSO.DroneFlightModeType.Acro => new DroneAcroMovementAdjuster(),
-            PlayerSettingsSO.DroneFlightModeType.Angle => new DroneAngleMovementAdjuster(),
-            PlayerSettingsSO.DroneFlightModeType.Horizon => new DroneHorizonMovementAdjuster(),
-            _ => null
-        };
-
-        _droneFlightModeMovementAdjuster.SetActionAngleThreshold(60f);
+    private void OnDestroy()
+    {
+        _dronePlayerSettingsChangesHandler.OnDronePlayerSettingsChanged -= ChangeDroneFlightModeMovementAdjuster;
     }
 
     public float GetThrottleMotorPowerNormalized()
@@ -69,11 +64,6 @@ public class DroneMovementSystem : MonoBehaviour
         float rollValue = Mathf.Abs(_pitchAndRollMotorPower.x / _motorsPowerClamp);
         float value = Mathf.Max(pitchValue, rollValue);
         return value;
-    }
-
-    private void OnDestroy()
-    {
-        _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(ChangeDroneFlightMode);
     }
 
     private void Awake()

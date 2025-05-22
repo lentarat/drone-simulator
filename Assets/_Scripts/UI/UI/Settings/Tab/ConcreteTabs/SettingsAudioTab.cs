@@ -1,0 +1,27 @@
+using Cysharp.Threading.Tasks;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SettingsAudioTab : SettingsTab
+{
+    [SerializeField] private IntToSettingsOptionController _musicController;
+    [SerializeField] private IntToSettingsOptionController _soundController;
+
+    public override void SaveConcretePlayerSettings()
+    {
+        PlayerSettingsSO.Music = _musicController.Controller.CurrentValue;
+        PlayerSettingsSO.Sound = _soundController.Controller.CurrentValue;
+    }
+
+    protected override async UniTask ProvideCurrentValuesToControllersAsync()
+    {
+        await base.ProvideCurrentValuesToControllersAsync();
+
+        int musicCurrentValue = PlayerSettingsSO.Music;
+        _musicController.Controller.Init(musicCurrentValue, _soundController.MinValue, _soundController.MaxValue);
+
+        int soundCurrentValue = PlayerSettingsSO.Sound;
+        _soundController.Controller.Init(soundCurrentValue, _soundController.MinValue, _soundController.MaxValue);
+    }
+}

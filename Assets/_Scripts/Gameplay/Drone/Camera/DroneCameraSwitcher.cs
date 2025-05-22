@@ -15,7 +15,6 @@ public class DroneCameraSwitcher : MonoBehaviour
     {
         _droneCameraSwitchInvoker = droneCameraSwitchInvoker;
         SubscribeToCameraSwitchCalled();
-        Debug.Log("Construct");
     }
 
     private void SubscribeToCameraSwitchCalled()
@@ -39,10 +38,5 @@ public class DroneCameraSwitcher : MonoBehaviour
     private void UnsubscribeToCameraSwitchCalled()
     {
         _droneCameraSwitchInvoker.OnCameraSwitchCalled -= SwitchCamera;
-    }
-
-    private void Awake()
-    {
-        Debug.Log("Awake");
     }
 }

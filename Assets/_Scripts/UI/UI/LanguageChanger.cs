@@ -8,8 +8,10 @@ using Zenject;
 
 public class LanguageChanger : IInitializable, IDisposable
 {
-    private SignalBus _signalBus;
-    private Dictionary<PlayerSettingsSO.LanguageType, string> _languagesToCodes = new()
+    private PlayerSettingsSO.LanguageType _currentLanguageType;
+
+    private readonly SignalBus _signalBus;
+    private readonly Dictionary<PlayerSettingsSO.LanguageType, string> _languagesToCodes = new()
     {
         { PlayerSettingsSO.LanguageType.English, "en" },
         { PlayerSettingsSO.LanguageType.Ukrainian, "uk" }
@@ -22,14 +24,32 @@ public class LanguageChanger : IInitializable, IDisposable
 
     void IInitializable.Initialize()
     {
-        _signalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus.Subscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChangedSignal);
     }
 
-    private void HandlePlayerSettingsChanged(PlayerSettingsChangedSignal signal)
+    private void HandlePlayerSettingsChangedSignal(PlayerSettingsChangedSignal signal)
     {
-        PlayerSettingsSO.LanguageType languageType = signal.PlayerSettingsSO.Language;
-        string localeCode = _languagesToCodes[languageType];
+        PlayerSettingsSO.LanguageType newLanguageType = signal.PlayerSettingsSO.Language;
+        
+        bool hasLanguageChanged = HasLanguageChanged(_currentLanguageType, newLanguageType);
+        if (hasLanguageChanged == false)
+        {
+            return;
+        }
+
+        _currentLanguageType = newLanguageType;
+        string localeCode = _languagesToCodes[newLanguageType];
         SetLocale(localeCode);
+    }
+
+    private bool HasLanguageChanged(PlayerSettingsSO.LanguageType currentLanguage, PlayerSettingsSO.LanguageType newLanguage)
+    {
+        if (currentLanguage != newLanguage)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void SetLocale(string localeCode)
@@ -49,6 +69,6 @@ public class LanguageChanger : IInitializable, IDisposable
 
     void IDisposable.Dispose()
     {
-        _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChanged);
+        _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChangedSignal);
     }
 }

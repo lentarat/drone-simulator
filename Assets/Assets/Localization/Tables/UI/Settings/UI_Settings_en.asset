@@ -30,10 +30,6 @@ MonoBehaviour:
     m_Localized: Audio
     m_Metadata:
       m_Items: []
-  - m_Id: 2489347579904
-    m_Localized: Controls
-    m_Metadata:
-      m_Items: []
   - m_Id: 2580972150784
     m_Localized: Language
     m_Metadata:
@@ -64,6 +60,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2667240062033920
     m_Localized: Apply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7643216789479424
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7728052401184768
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7760178580398080
+    m_Localized: Tilt Angle
     m_Metadata:
       m_Items: []
   references:

@@ -2,13 +2,7 @@ using UnityEngine;
 
 public class DroneAngleMovementAdjuster : DroneFlightModeMovementAdjuster
 {
-    private float _tiltAngleThreshold;
     private float _antiTiltInputValue = 0.2f;
-
-    public override void SetActionAngleThreshold(float actionAngle)
-    {
-        _tiltAngleThreshold = actionAngle;
-    }
 
     public override Vector2 GetAdjustedPitchAndRollInputVector(Vector2 rawInputVector, Quaternion droneRotation)
     {
@@ -31,7 +25,7 @@ public class DroneAngleMovementAdjuster : DroneFlightModeMovementAdjuster
 
     private void AdjustInput(float rot, ref float inputValue)
     {
-        if (rot > _tiltAngleThreshold && rot < 360 - _tiltAngleThreshold)
+        if (rot > TiltAngleThreshold && rot < 360 - TiltAngleThreshold)
         {
             if (rot - 180 < 0)
             {

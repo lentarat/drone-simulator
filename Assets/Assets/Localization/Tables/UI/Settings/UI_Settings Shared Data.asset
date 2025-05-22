@@ -27,10 +27,6 @@ MonoBehaviour:
     m_Key: SettingsWindow.Audio
     m_Metadata:
       m_Items: []
-  - m_Id: 2489347579904
-    m_Key: SettingsWindow.Controls
-    m_Metadata:
-      m_Items: []
   - m_Id: 2580972150784
     m_Key: SettingsWindow.General.Language
     m_Metadata:
@@ -57,6 +53,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 100307550707712
     m_Key: SettingsWindow.Drone.FlightMode.Angle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7760178580398080
+    m_Key: SettingsWindow.Drone.TiltAngle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7643216789479424
+    m_Key: SettingsWindow.Audio.Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7728052401184768
+    m_Key: SettingsWindow.Audio.Music
     m_Metadata:
       m_Items: []
   - m_Id: 2667240062033920

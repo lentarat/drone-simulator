@@ -1,19 +1,37 @@
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioController : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSourcePrefab;
+    [SerializeField] private AudioMixerGroup _soundAudioMixerGroup;
+    [SerializeField] private AudioMixerGroup _musicAudioMixerGroup;
     
     private BehaviourPool<AudioSource> _audioSourcePool;
 
-    public void Play(AudioClip audioClip, float volume = 1f, float pitch = 1f)
+    public enum AudioType
+    { 
+        None,
+        Sound,
+        Music
+    }
+
+    public void Play(AudioClip audioClip, float volume = 1f, float pitch = 1f, AudioType audioType = AudioType.Sound)
     {
         AudioSource audioSource = _audioSourcePool.Get();
+
         audioSource.clip = audioClip;
         audioSource.volume = volume;    
         audioSource.pitch = pitch;
+        audioSource.outputAudioMixerGroup = audioType switch
+        {
+            AudioType.Sound => _soundAudioMixerGroup,
+            AudioType.Music => _musicAudioMixerGroup,
+            _ => null
+        };
+
         audioSource.Play();
 
         ReleaseAudioSourceAfter(audioSource, audioClip.length).Forget();

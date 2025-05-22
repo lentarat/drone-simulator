@@ -7,8 +7,6 @@ public abstract class SettingsElementController : MonoBehaviour
 {
     [SerializeField] private Button _leftArrowButton;
     [SerializeField] private Button _rightArrowButton;
-    
-    protected StringTable LocalizationTable { get; private set; }
 
     private int _currentValue;
     public int CurrentValue 
@@ -23,9 +21,8 @@ public abstract class SettingsElementController : MonoBehaviour
 
     public static event Action OnValueChanged;
 
-    public void Init(StringTable localizationTable, int currentValue)
+    public void Init(int currentValue)
     {
-        LocalizationTable = localizationTable;
         CurrentValue = currentValue;
     }
 
@@ -33,10 +30,10 @@ public abstract class SettingsElementController : MonoBehaviour
 
     protected virtual void HandleArrowButtonClicked(int offset)
     {
-        ChangeCurrentValue(offset);
+        OffsetCurrentValue(offset);
     }
 
-    private void ChangeCurrentValue(int offset)
+    private void OffsetCurrentValue(int offset)
     {
         CurrentValue += offset;
         OnValueChanged?.Invoke();
@@ -45,6 +42,7 @@ public abstract class SettingsElementController : MonoBehaviour
     protected void SetCurrentValue(int value)
     {
         CurrentValue = value;
+        OnValueChanged?.Invoke();
     }
 
     private void Awake()

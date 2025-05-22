@@ -18,7 +18,7 @@ public abstract class SettingsTab : MonoBehaviour
 
     public abstract void SaveConcretePlayerSettings();
 
-    protected virtual async UniTask ProvideCurrentValuesToControllers()
+    protected virtual async UniTask ProvideCurrentValuesToControllersAsync()
     {
         await FindTableAsync();
     }
@@ -65,7 +65,7 @@ public abstract class SettingsTab : MonoBehaviour
 
     private void Start()
     {
-        ProvideCurrentValuesToControllers().Forget();
+        ProvideCurrentValuesToControllersAsync().Forget();
     }
 
     private void OnEnable()
