@@ -22,10 +22,6 @@ MonoBehaviour:
     m_Localized: Play
     m_Metadata:
       m_Items: []
-  - m_Id: 53389905181384704
-    m_Localized: Workshop
-    m_Metadata:
-      m_Items: []
   - m_Id: 4226468913152
     m_Localized: Settings
     m_Metadata:

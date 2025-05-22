@@ -62,6 +62,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraSwitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""5552308a-e965-432e-a6f8-53d4cb32248e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -284,6 +293,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""PayloadRelease"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2efcb038-e65d-4d2b-8263-fac9a039d865"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CameraSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0adb3bc-dc8d-49e4-a111-4714f244dd92"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CameraSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -347,6 +378,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Drone_Yaw = m_Drone.FindAction("Yaw", throwIfNotFound: true);
         m_Drone_Throttle = m_Drone.FindAction("Throttle", throwIfNotFound: true);
         m_Drone_PayloadRelease = m_Drone.FindAction("PayloadRelease", throwIfNotFound: true);
+        m_Drone_CameraSwitch = m_Drone.FindAction("CameraSwitch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_GameMenu = m_UI.FindAction("GameMenu", throwIfNotFound: true);
@@ -415,6 +447,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Drone_Yaw;
     private readonly InputAction m_Drone_Throttle;
     private readonly InputAction m_Drone_PayloadRelease;
+    private readonly InputAction m_Drone_CameraSwitch;
     public struct DroneActions
     {
         private @InputActions m_Wrapper;
@@ -423,6 +456,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Yaw => m_Wrapper.m_Drone_Yaw;
         public InputAction @Throttle => m_Wrapper.m_Drone_Throttle;
         public InputAction @PayloadRelease => m_Wrapper.m_Drone_PayloadRelease;
+        public InputAction @CameraSwitch => m_Wrapper.m_Drone_CameraSwitch;
         public InputActionMap Get() { return m_Wrapper.m_Drone; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -444,6 +478,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @PayloadRelease.started += instance.OnPayloadRelease;
             @PayloadRelease.performed += instance.OnPayloadRelease;
             @PayloadRelease.canceled += instance.OnPayloadRelease;
+            @CameraSwitch.started += instance.OnCameraSwitch;
+            @CameraSwitch.performed += instance.OnCameraSwitch;
+            @CameraSwitch.canceled += instance.OnCameraSwitch;
         }
 
         private void UnregisterCallbacks(IDroneActions instance)
@@ -460,6 +497,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @PayloadRelease.started -= instance.OnPayloadRelease;
             @PayloadRelease.performed -= instance.OnPayloadRelease;
             @PayloadRelease.canceled -= instance.OnPayloadRelease;
+            @CameraSwitch.started -= instance.OnCameraSwitch;
+            @CameraSwitch.performed -= instance.OnCameraSwitch;
+            @CameraSwitch.canceled -= instance.OnCameraSwitch;
         }
 
         public void RemoveCallbacks(IDroneActions instance)
@@ -547,6 +587,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnYaw(InputAction.CallbackContext context);
         void OnThrottle(InputAction.CallbackContext context);
         void OnPayloadRelease(InputAction.CallbackContext context);
+        void OnCameraSwitch(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

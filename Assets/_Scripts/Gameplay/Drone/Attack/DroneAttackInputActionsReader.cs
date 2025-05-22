@@ -12,6 +12,11 @@ public class DroneAttackInputActionsReader : IPayloadReleaseInvoker
     public DroneAttackInputActionsReader(InputActions inputActions)
     { 
         _inputActions = inputActions;
+        SubscribeToPayloadReleaseCalled();
+    }
+
+    private void SubscribeToPayloadReleaseCalled()
+    {
         _inputActions.Drone.PayloadRelease.canceled += HandlePayloadReleased;
     }
 
@@ -21,6 +26,11 @@ public class DroneAttackInputActionsReader : IPayloadReleaseInvoker
     }
 
     ~DroneAttackInputActionsReader()
+    {
+        UnsubscribeToPayloadReleaseCalled();
+    }
+
+    private void UnsubscribeToPayloadReleaseCalled()
     {
         _inputActions.Drone.PayloadRelease.canceled -= HandlePayloadReleased;
     }

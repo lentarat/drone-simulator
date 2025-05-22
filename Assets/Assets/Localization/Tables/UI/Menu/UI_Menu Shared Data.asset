@@ -19,10 +19,6 @@ MonoBehaviour:
     m_Key: MainMenuWindow.Play
     m_Metadata:
       m_Items: []
-  - m_Id: 53389905181384704
-    m_Key: MainMenuWindow.Workshop
-    m_Metadata:
-      m_Items: []
   - m_Id: 4226468913152
     m_Key: MainMenuWindow.Settings
     m_Metadata:
