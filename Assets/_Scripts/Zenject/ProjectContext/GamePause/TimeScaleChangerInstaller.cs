@@ -1,6 +1,6 @@
 using Zenject;
 
-public class TimeScaleChangerInstaller : MonoInstaller
+public class TimeScaleChangerInstaller : Installer
 {
     public override void InstallBindings()
     {

@@ -11,10 +11,10 @@ public class SettingsElementSliderController : SettingsElementController
 
     public void Init(int currentValue, int minValue, int maxValue)
     {
-        base.Init(currentValue);
-
-        _minValue = minValue; 
+        _minValue = minValue;
         _maxValue = maxValue;
+
+        base.Init(currentValue);
 
         SetSliderRange(minValue, maxValue);
         UpdateSlider(currentValue);

@@ -9,8 +9,8 @@ public class PlayerSettingsSO : ScriptableObject
     public int TiltAngle { get; set; } = 60;
     //public int FOV { get; set; }
     public int CameraAngle { get; set; }
-    public int Sound { get; set; } = 40;
-    public int Music { get; set; } = 30;
+    [SerializeField] public int Sound /*{ get; set; }*/ = 40;
+    [SerializeField] public int Music /*{ get; set; } */= 30;
     //public ToggleType AnalogCamera { get; set; }
     //public ToggleType SignalLoss { get; set; }
 

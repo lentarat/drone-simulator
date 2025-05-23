@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
@@ -8,14 +6,15 @@ public class AudioVolumeChanger
 {
     private int _currentPlayerSettingsSoundVolume = -1;
     private int _currentPlayerSettingsMusicVolume = -1;
-    private float _minMusicVolume = -40f;
     private float _maxMusicVolume = 10f;
-    private SceneType _lastSceneType;
+    private float _lastMaxMusicVolumeSubtractionValue;
+    private SceneType _lastSceneType = SceneType.MainMenu;
 
+    private const float _minMusicVolume = -40f;
     private const float _minSoundVolume = -40f;
     private const float _maxSoundVolume = 10f;
     private const float _muteVolume = -80f;
-    private const float _musicVolumeInGameMultiplier = 0.5f;
+    private const float _musicVolumeInGameSubtractionMultiplier = 0.2f;
     private const float _maxPlayerSettingsAudioVolume = 100f;
     private const float _muteNormalizedVolumeThreshold = 0.05f;
     private const string _soundVolume = "SoundVolume";
@@ -23,7 +22,6 @@ public class AudioVolumeChanger
     private readonly AudioMixer _audioMixer;
     private readonly SignalBus _signalBus;
     private readonly ISceneLoader _sceneLoader;
-
 
     public AudioVolumeChanger(SignalBus signalBus, AudioMixer audioMixer, ISceneLoader sceneLoader)
     {
@@ -33,7 +31,7 @@ public class AudioVolumeChanger
 
         SubscribePlayerSettingsChangedSignal();
         SubscribeToGameStateChangedSignal();
-        //SubscribeToSceneChange();
+        SubscribeToSceneChange();
     }
 
     private void SubscribePlayerSettingsChangedSignal()
@@ -93,7 +91,7 @@ public class AudioVolumeChanger
         }
         else
         {
-            musicVolumeDB = Mathf.Lerp(_minSoundVolume, _maxSoundVolume, musicVolumeNormalized);
+            musicVolumeDB = Mathf.Lerp(_minMusicVolume, _maxMusicVolume, musicVolumeNormalized);
         }
         _audioMixer.SetFloat(_musicVolume, musicVolumeDB);
     }
@@ -109,12 +107,22 @@ public class AudioVolumeChanger
 
         if (newGameState == GameState.Normal)
         {
-            AudioListener.pause = true;
+            UnpauseAllAudio();
         }
         else
         {
-            AudioListener.pause = false;
+            PauseAllAudio();
         }
+    }
+
+    private void PauseAllAudio()
+    {
+        AudioListener.pause = true;
+    }
+
+    private void UnpauseAllAudio()
+    {
+        AudioListener.pause = false;
     }
 
     private void SubscribeToSceneChange()
@@ -124,21 +132,40 @@ public class AudioVolumeChanger
 
     private void HandleSceneChanged(SceneType sceneType)
     {
-        Debug.Log("SceneChanged to " + sceneType.ToString());
         if (sceneType == SceneType.MainMenu)
         {
-            MultiplyMusicVolumeBy(1 / _musicVolumeInGameMultiplier);
+            UnpauseAllAudio();
+            MultiplyMusicVolumeBy(1 / _musicVolumeInGameSubtractionMultiplier);
         }
         else if(_lastSceneType == SceneType.MainMenu)
         { 
-            MultiplyMusicVolumeBy(_musicVolumeInGameMultiplier);
+            MultiplyMusicVolumeBy(_musicVolumeInGameSubtractionMultiplier);
         }
     }
 
     private void MultiplyMusicVolumeBy(float volumeMultiplier)
     {
-        _minMusicVolume *= volumeMultiplier;
-        _maxMusicVolume *= volumeMultiplier;
+        if (volumeMultiplier < 1)
+        {
+            float musicVolumeRange;
+            if (_maxMusicVolume > 0)
+            {
+                musicVolumeRange = Mathf.Abs(_minMusicVolume) + _maxMusicVolume;
+            }
+            else
+            {
+                musicVolumeRange = Mathf.Abs(_minMusicVolume) - Mathf.Abs(_maxMusicVolume);
+            }
+
+            float maxMusicVolumeChangeValue = musicVolumeRange * volumeMultiplier;
+            _maxMusicVolume -= maxMusicVolumeChangeValue;
+            _lastMaxMusicVolumeSubtractionValue = maxMusicVolumeChangeValue;
+        }
+        else
+        {
+            _maxMusicVolume += _lastMaxMusicVolumeSubtractionValue;
+        }
+
         ChangeMusicVolume(_currentPlayerSettingsMusicVolume);
     }
 

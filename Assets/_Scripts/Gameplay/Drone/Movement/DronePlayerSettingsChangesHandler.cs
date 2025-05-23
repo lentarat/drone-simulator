@@ -1,5 +1,6 @@
 using System;
 using Zenject;
+using UnityEngine;
 
 public class DronePlayerSettingsChangesHandler
 {
@@ -8,7 +9,7 @@ public class DronePlayerSettingsChangesHandler
     private int _currentTiltAngle;
     private PlayerSettingsSO.DroneFlightModeType _currentDroneFlightMode;
     private SignalBus _signalBus;
-    private DroneFlightModeMovementAdjuster _droneFlightModeMovementAdjuster;
+    private DroneFlightModeMovementAdjuster _droneFlightModeMovementAdjuster = new DroneAcroMovementAdjuster();
 
     public DronePlayerSettingsChangesHandler(SignalBus signalBus)
     {
@@ -38,9 +39,10 @@ public class DronePlayerSettingsChangesHandler
             PlayerSettingsSO.DroneFlightModeType.Acro => new DroneAcroMovementAdjuster(),
             PlayerSettingsSO.DroneFlightModeType.Angle => new DroneAngleMovementAdjuster(),
             PlayerSettingsSO.DroneFlightModeType.Horizon => new DroneHorizonMovementAdjuster(),
-            _ => null
+            _ => new DroneAcroMovementAdjuster()
         };
 
+        _droneFlightModeMovementAdjuster.SetTiltAngleThreshold(_currentTiltAngle);
         OnDronePlayerSettingsChanged?.Invoke(_droneFlightModeMovementAdjuster);
     }
 
@@ -66,8 +68,7 @@ public class DronePlayerSettingsChangesHandler
         }
 
         _currentTiltAngle = newTiltAngle;
-
-        _droneFlightModeMovementAdjuster?.SetTiltAngleThreshold(newTiltAngle);
+        _droneFlightModeMovementAdjuster.SetTiltAngleThreshold(newTiltAngle);
     }
 
     private bool HasTiltAngleChanged(int currentTiltAngle, int newTiltAngle)

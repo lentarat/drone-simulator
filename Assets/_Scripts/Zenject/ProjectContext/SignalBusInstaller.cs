@@ -6,6 +6,6 @@ public class SignalBusInstaller : MonoInstaller
     {
         Zenject.SignalBusInstaller.Install(Container);
         Container.DeclareSignal<PlayerSettingsChangedSignal>();
-        Container.DeclareSignal<GameStateChangedSignal>().OptionalSubscriber();
+        Container.DeclareSignal<GameStateChangedSignal>();
     }
 }

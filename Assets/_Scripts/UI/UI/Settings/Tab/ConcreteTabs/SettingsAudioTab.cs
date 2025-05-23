@@ -7,7 +7,7 @@ public class SettingsAudioTab : SettingsTab
 {
     [SerializeField] private IntToSettingsOptionController _musicController;
     [SerializeField] private IntToSettingsOptionController _soundController;
-
+         
     public override void SaveConcretePlayerSettings()
     {
         PlayerSettingsSO.Music = _musicController.Controller.CurrentValue;

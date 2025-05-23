@@ -87,6 +87,7 @@ public class GameMenuWindow : BaseWindow
 
     private void ExitToMainMenu()
     {
+        ToggePause();
         _sceneLoader.LoadScene(SceneType.MainMenu);
     }
 
