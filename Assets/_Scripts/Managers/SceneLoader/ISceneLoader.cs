@@ -2,7 +2,7 @@ using System;
 
 public interface ISceneLoader 
 {
-    event Action OnSceneChanged;
+    event Action<SceneType> OnSceneChanged;
     void ReloadCurrentScene();
     void LoadScene(SceneType sceneType);
 }

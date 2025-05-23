@@ -1,11 +1,17 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : ISceneLoader
 {
-    private event Action _onSceneChanged;
+    private Dictionary<string, SceneType> _stringToSceneType = new Dictionary<string, SceneType>()
+    {
+        { "MainMenu", SceneType.MainMenu },
+        { "Map1", SceneType.Map1 }
+    };
+    private event Action<SceneType> _onSceneChanged;
 
-    event Action ISceneLoader.OnSceneChanged
+    event Action<SceneType> ISceneLoader.OnSceneChanged
     {
         add =>_onSceneChanged += value;
         remove => _onSceneChanged -= value;
@@ -20,14 +26,14 @@ public class SceneLoader : ISceneLoader
     void ISceneLoader.LoadScene(SceneType sceneType)
     {
         string sceneName = sceneType.ToString();
-        SceneManager.LoadScene(sceneName);
         SceneManager.sceneLoaded += InformSceneChanged;
-        _onSceneChanged?.Invoke();
+        SceneManager.LoadScene(sceneName);
     }
 
     private void InformSceneChanged(Scene loadedScene, LoadSceneMode loadMode)
     {
         SceneManager.sceneLoaded -= InformSceneChanged;
-        _onSceneChanged?.Invoke();
+        SceneType loadedSceneType = _stringToSceneType[loadedScene.name];
+        _onSceneChanged?.Invoke(loadedSceneType);
     }
 }

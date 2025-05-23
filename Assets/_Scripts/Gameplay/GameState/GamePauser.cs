@@ -15,14 +15,10 @@ public class GamePauser
     {
         if (_currentGameState == GameState.Normal)
         {
-            Time.timeScale = 0f;
-            AudioListener.pause = true;
             _currentGameState = GameState.Paused;
         }
         else
         {
-            Time.timeScale = 1f;
-            AudioListener.pause = false;
             _currentGameState = GameState.Normal;
         }
         

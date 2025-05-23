@@ -4046,52 +4046,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &1647464804
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1647464806}
-  - component: {fileID: 1647464805}
-  m_Layer: 0
-  m_Name: MainMusicPlayer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1647464805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647464804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c28a1f4d10a29bc48b190e4b7cb26350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainMusicAudioClip: {fileID: 8300000, guid: 0a272f722bf75be4b9d13c2b488b816f, type: 3}
-  _volume: 0.5
---- !u!4 &1647464806
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647464804}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 350.63916, y: 354.21503, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1677460504
 GameObject:
   m_ObjectHideFlags: 0
@@ -5508,7 +5462,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 235149682}
   - {fileID: 1881815500}
-  - {fileID: 1647464806}
   - {fileID: 1425024820}
   - {fileID: 609254394}
   - {fileID: 1935806928}

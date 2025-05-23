@@ -30,6 +30,11 @@ public class PlayerSettingsChangesInformer : IInitializable, IDisposable
 
     public void InformPlayerSettingsChanged()
     {
+        InformPlayerSettingsChanged(SceneType.None);
+    }
+
+    private void InformPlayerSettingsChanged(SceneType sceneType)
+    {
         _signalBus.Fire(new PlayerSettingsChangedSignal(_playerSettingsSO));
     }
 
