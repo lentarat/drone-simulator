@@ -356,11 +356,14 @@ GameObject:
   - component: {fileID: 1146908948533767893}
   - component: {fileID: 4309745593579273019}
   - component: {fileID: 5995522385043842978}
+  - component: {fileID: 3803204923041894361}
   - component: {fileID: 3614255311409843795}
   - component: {fileID: 9123484941617397023}
   - component: {fileID: 980708191549888257}
   - component: {fileID: 625149469225990385}
   - component: {fileID: 8729297682824664096}
+  - component: {fileID: 4104929509807112406}
+  - component: {fileID: 3192476146623629131}
   m_Layer: 7
   m_Name: DroneInternal
   m_TagString: Untagged
@@ -605,8 +608,23 @@ MonoBehaviour:
   _droneMovementSystem: {fileID: 3614255311409843795}
   _payloadPrefab: {fileID: 8636783697350530491, guid: 3692306d7289f5d429dab54b313d2ab2,
     type: 3}
-  _sfxPlayer: {fileID: 0}
+  _releaseSFXPlayer: {fileID: 3803204923041894361}
   _nextPayloadSpawnIntervalMS: 3000
+--- !u!114 &3803204923041894361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193651123769013494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29750fba353e2245af0174e43bf3e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: b731d29fd45632b46b0d943f3756d79e, type: 3}
+  _volume: 0.6
+  _pitch: 1
 --- !u!114 &3614255311409843795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,3 +702,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _frontCamera: {fileID: 5298255611132259582}
   _bottomCamera: {fileID: 1639552369495623478}
+--- !u!114 &4104929509807112406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193651123769013494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80f9a5daebd7814d88e308672723cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 3313977762897029180}
+  _collisionSFXPlayer: {fileID: 3192476146623629131}
+  _maxSoundVolume: 0.7
+  _minSoundVolume: 0.2
+  _maxVelocitySqrMagnitude: 30
+--- !u!114 &3192476146623629131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193651123769013494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29750fba353e2245af0174e43bf3e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 270ec6a3fa36d1a46a6fb16de6ba178a, type: 3}
+  _volume: 1
+  _pitch: 1

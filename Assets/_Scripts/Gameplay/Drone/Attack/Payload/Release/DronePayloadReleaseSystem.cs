@@ -7,7 +7,7 @@ public class DronePayloadReleaseSystem : MonoBehaviour
 {
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
     [SerializeField] private DronePayload _payloadPrefab;
-    [SerializeField] private SFXPlayer _sfxPlayer;
+    [SerializeField] private SFXPlayer _releaseSFXPlayer;
     [SerializeField] private int _nextPayloadSpawnIntervalMS;
 
     private CancellationToken _token;
@@ -26,6 +26,8 @@ public class DronePayloadReleaseSystem : MonoBehaviour
     {
         _payloadReleasable.OnReleaseCalled += HandleBombReleaseCalled;
 
+        _releaseSFXPlayer.Init(_audioController);
+
         _token = this.GetCancellationTokenOnDestroy();
         DelayedSpawnPayloadAsync().Forget();
     }
@@ -37,6 +39,7 @@ public class DronePayloadReleaseSystem : MonoBehaviour
             return;
 
         DropPayload();
+        PlayReleaseSound();
         DelayedSpawnPayloadAsync().Forget();
     }
 
@@ -45,6 +48,11 @@ public class DronePayloadReleaseSystem : MonoBehaviour
         Vector3 payloadVelocityAfterDisconnetion = _droneMovementSystem.Velocity;
         _payload.DisconnectWithVelocity(payloadVelocityAfterDisconnetion);
         _payload = null;
+    }
+
+    private void PlayReleaseSound()
+    {
+        _releaseSFXPlayer.Play();
     }
 
     private async UniTask DelayedSpawnPayloadAsync()

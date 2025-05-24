@@ -25,4 +25,9 @@ public class SFXPlayer : MonoBehaviour
     {
         _audioController.Play(_audioClip, _volume, _pitch);
     }
+
+    public void Play(float volume = 1f, float pitch = 1f)
+    {
+        _audioController.Play(_audioClip, volume, pitch);
+    }
 }
