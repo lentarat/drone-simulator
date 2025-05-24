@@ -1,5 +1,7 @@
 You can use SmartPropoPlus program to set up RC transmitters to emulate Gamepad Input. https://discussions.unity.com/t/using-a-radio-control-system-for-game-input/216735
 
+Target highlightning
+
 Ідеї:
 мапи:
 	полігон для тренування польотами фпв дроном;

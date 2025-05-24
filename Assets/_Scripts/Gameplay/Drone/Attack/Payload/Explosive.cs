@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Explosive : DronePayload
@@ -5,9 +6,7 @@ public class Explosive : DronePayload
     [SerializeField] private ParticleSystem _explosionParticleSystem;
     [SerializeField] private float _damage;
     [SerializeField] private float _maxDistanceDealingDamage;
-    [SerializeField] private LayerMask _damageableLayerMask;
-
-    private float _damageReductionWithDistance = 5f;
+    [SerializeField] private LayerMask _targetLayerMask;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -16,46 +15,34 @@ public class Explosive : DronePayload
 
     private void Explode()
     {
-        FindDamageables();
+        List<Target> nearbyTargetsList = GetNearbyTargetsList();
+        DestroyNearbyTargets(nearbyTargetsList);
+
         Instantiate(_explosionParticleSystem, transform.position, _explosionParticleSystem.transform.rotation);
         PlaySound();
+
         Destroy(gameObject);
     }
 
-    private Collider[] FindDamageables()
+    private List<Target> GetNearbyTargetsList()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _maxDistanceDealingDamage, _damageableLayerMask);
-        if (colliders != null)
+        Collider[] targetsColliders = Physics.OverlapSphere(transform.position, _maxDistanceDealingDamage, _targetLayerMask);
+        List<Target> nearbyTargetsList = new List<Target>();
+        foreach (Collider collider in targetsColliders) 
         {
-            //Debug.Log(colliders.Length);
-            foreach (Collider collider in colliders)
-            {
-                float damageToApply = GetCalculatedDamage(collider.transform.position);
-                if (collider.TryGetComponent<IDamageable>(out IDamageable damageable))
-                {
-                    damageable.ApplyDamage(damageToApply);
-                }
+            if (collider.TryGetComponent<Target>(out Target target))
+            { 
+                nearbyTargetsList.Add(target);    
             }
         }
-        return colliders;
+        return nearbyTargetsList;
     }
 
-    private float GetCalculatedDamage(Vector3 targetPosition) 
+    private void DestroyNearbyTargets(List<Target> nearbyTargets)
     {
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-
-        Debug.Log("Distance equals: " + distanceToTarget);
-        
-        if (distanceToTarget < _maxDistanceDealingDamage * 0.5f)
+        foreach (Target target in nearbyTargets)
         {
-            return _damage;
-        }
-        else
-        {
-            float distanceToTargetNormalized = distanceToTarget / _maxDistanceDealingDamage;
-            float multiplier = Mathf.Exp((1 - distanceToTargetNormalized * 2f) * _damageReductionWithDistance);
-            float calculatedDamage = _damage * multiplier;
-            return calculatedDamage;
+            target.Die();
         }
     }
 

@@ -36,4 +36,11 @@ public class SceneLoader : ISceneLoader
         SceneType loadedSceneType = _stringToSceneType[loadedScene.name];
         _onSceneChanged?.Invoke(loadedSceneType);
     }
+
+    SceneType ISceneLoader.GetCurrentSceneType()
+    {
+        string currentSceneString = SceneManager.GetActiveScene().name;
+        SceneType currentScene = _stringToSceneType[currentSceneString];
+        return currentScene;
+    }
 }

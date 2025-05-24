@@ -74,6 +74,18 @@ MonoBehaviour:
     m_Localized: Tilt Angle
     m_Metadata:
       m_Items: []
+  - m_Id: 8127905199398912
+    m_Localized: Music In Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8128176537313280
+    m_Localized: Enabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8128399477153792
+    m_Localized: Disabled
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

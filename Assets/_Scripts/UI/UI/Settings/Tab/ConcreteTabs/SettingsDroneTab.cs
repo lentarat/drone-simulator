@@ -18,8 +18,8 @@ public class SettingsDroneTab : SettingsTab
     {
         await base.ProvideCurrentValuesToControllersAsync();
 
-        int droneFlightModeCurrentValue = Convert.ToInt32(PlayerSettingsSO.DroneFlightMode);
-        _flightModeController.Controller.Init<PlayerSettingsSO.DroneFlightModeType>(LocalizationTable, droneFlightModeCurrentValue);
+        int droneFlightModeTypeCurrentValue = Convert.ToInt32(PlayerSettingsSO.DroneFlightMode);
+        _flightModeController.Controller.Init<PlayerSettingsSO.DroneFlightModeType>(LocalizationTable, droneFlightModeTypeCurrentValue);
 
         int tiltAngleCurrentValue = PlayerSettingsSO.TiltAngle;
         _tiltController.Controller.Init(tiltAngleCurrentValue, _tiltController.MinValue, _tiltController.MaxValue);

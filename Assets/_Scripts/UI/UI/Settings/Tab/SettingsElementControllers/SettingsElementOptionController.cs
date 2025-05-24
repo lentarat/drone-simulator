@@ -5,6 +5,7 @@ using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.Settings;
 using Cysharp.Threading.Tasks;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEditor.ShaderGraph.Internal;
 
 public class SettingsElementOptionController : SettingsElementController
 {
@@ -79,5 +80,14 @@ public class SettingsElementOptionController : SettingsElementController
     {
         base.HandleArrowButtonClicked(offset);
         UpdateOption();
+    }
+
+    protected override void OffsetCurrentValue(int offset)
+    {
+        CurrentValue += offset;
+        if (CurrentValue == 0)
+        {
+            CurrentValue += offset;
+        }
     }
 }

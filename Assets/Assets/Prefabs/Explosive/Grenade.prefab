@@ -203,7 +203,7 @@ MonoBehaviour:
     type: 3}
   _damage: 10
   _maxDistanceDealingDamage: 3
-  _damageableLayerMask:
+  _targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
 --- !u!114 &5448300427882918566

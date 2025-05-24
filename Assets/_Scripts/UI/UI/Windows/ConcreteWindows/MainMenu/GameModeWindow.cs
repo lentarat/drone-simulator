@@ -6,18 +6,9 @@ using Zenject;
 public class GameModeWindow : BackableWindow
 {
     [Header("GameModeWindow fields")]
-    [SerializeField] private Button _freeFlyingModeButton;
-    [SerializeField] private Button _groundTargetsModeButton;
-    [SerializeField] private Button _airborneTargetsModeButton;
+    [SerializeField] private Button _grenadeDropModeButton;
+    [SerializeField] private Button _kamikadzeModeButton;
     [SerializeField] private GameSettingsSO _gameSettingsSO;
-
-    private ISceneLoader _sceneLoader;
-
-    [Inject]
-    private void Construct(ISceneLoader sceneLoader)
-    {
-        _sceneLoader = sceneLoader;
-    }
 
     protected override void Awake()
     {
@@ -28,24 +19,17 @@ public class GameModeWindow : BackableWindow
 
     private void SubscribeToButtons()
     {
-        _freeFlyingModeButton.onClick.AddListener(HandleFreeFlyingModeButtonClicked);
-        _groundTargetsModeButton.onClick.AddListener(HandleGroundTargetsModeButtonClicked);
-        _airborneTargetsModeButton.onClick.AddListener(HandleAirborneModeButtonClicked);
+        _grenadeDropModeButton.onClick.AddListener(HandleGrenadeDropModeButtonClicked);
+        _kamikadzeModeButton.onClick.AddListener(HandleKamikadzeModeButtonClicked);
     }
 
-    private void HandleFreeFlyingModeButtonClicked()
+    private void HandleGrenadeDropModeButtonClicked()
     {
-        _gameSettingsSO.GameModeType = GameModeType.FreeFlying;
-        _sceneLoader.LoadScene(SceneType.Map1);
+        _gameSettingsSO.GameModeType = GameModeType.GrenadeDrop;
     }
 
-    private void HandleGroundTargetsModeButtonClicked()
+    private void HandleKamikadzeModeButtonClicked()
     {
-        _gameSettingsSO.GameModeType = GameModeType.GroundTargets;
-    }
-
-    private void HandleAirborneModeButtonClicked()
-    {
-        _gameSettingsSO.GameModeType = GameModeType.AirborneTargets;
+        _gameSettingsSO.GameModeType = GameModeType.Kamikadze;
     }
 }

@@ -14,7 +14,6 @@ public class AudioController : MonoBehaviour
 
     public enum AudioType
     { 
-        None,
         Sound,
         Music
     }
@@ -24,7 +23,7 @@ public class AudioController : MonoBehaviour
         AudioSource audioSource = _audioSourcePool.Get();
 
         audioSource.clip = audioClip;
-        audioSource.volume = volume;    
+        audioSource.volume = volume;
         audioSource.pitch = pitch;
         audioSource.outputAudioMixerGroup = audioType switch
         {
@@ -35,7 +34,14 @@ public class AudioController : MonoBehaviour
 
         audioSource.Play();
 
-        ReleaseAudioSourceAfter(audioSource, audioClip.length).Forget();
+        if (audioType == AudioType.Music)
+        {
+            audioSource.loop = true;
+        }
+        else
+        { 
+            ReleaseAudioSourceAfter(audioSource, audioClip.length).Forget();
+        }
     }
 
     private async UniTask ReleaseAudioSourceAfter(AudioSource audioSource, float time)

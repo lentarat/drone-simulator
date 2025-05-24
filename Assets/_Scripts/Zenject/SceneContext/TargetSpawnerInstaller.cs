@@ -25,27 +25,8 @@ public class TargetSpawnerInstaller : MonoInstaller
 
     private void BindTargetFactoryAndTargetSpawner()
     {
-        GameModeType gameModeType = _gameSettingsSO.GameModeType;
-
-        switch (gameModeType)
-        {
-            case GameModeType.GroundTargets:
-            {
-                Container.Bind<TargetFactory<GroundTarget>>().To<GroundTargetFactory>().AsSingle();
-                Container.BindInterfacesAndSelfTo<TargetSpawner<GroundTarget>>().AsSingle().NonLazy();
-                break;
-            }
-            //case GameModeType.AirborneTargets:
-            //{
-            //    Container.Bind<TargetFactory<AirborneTarget>>().To<AirborneTargetFactory>().AsSingle();
-            //    Container.BindInterfacesAndSelfTo<TargetSpawner<AirborneTarget>>().AsSingle().NonLazy();
-            //    break;
-            //}
-            default:
-            {   
-                break;  
-            }
-        }
+        Container.Bind<TargetFactory<GroundTarget>>().To<GroundTargetFactory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<TargetSpawner<GroundTarget>>().AsSingle().NonLazy();
     }
 
     private void BindTargetsParent()

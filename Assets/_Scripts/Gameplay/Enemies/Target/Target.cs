@@ -4,11 +4,10 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using System;
 
-public abstract class Target : MonoBehaviour, IDamageable
+public abstract class Target : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private SFXPlayer _deathSFXPlayer;
-    [SerializeField] private float _hp;
 
     public Action OnDeathAction { private get; set; }
     public TargetRouteData RouteData { private get; set; }
@@ -20,7 +19,7 @@ public abstract class Target : MonoBehaviour, IDamageable
         _deathSFXPlayer.Init(audioController);
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         OnDeathAction?.Invoke();
         PlayDeathSound();
@@ -67,11 +66,5 @@ public abstract class Target : MonoBehaviour, IDamageable
     {
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource.Dispose();
-    }
-
-    void IDamageable.ApplyDamage(float damage)
-    {
-        Debug.Log("Damage applied: " + damage);
-        Die();
     }
 }

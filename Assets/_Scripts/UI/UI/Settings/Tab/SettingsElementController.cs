@@ -12,7 +12,7 @@ public abstract class SettingsElementController : MonoBehaviour
     public int CurrentValue 
     { 
         get => _currentValue;
-        private set
+        protected set
         { 
             int adjustedValue = GetAdjustedCurrentValue(value);
             _currentValue = adjustedValue;
@@ -31,12 +31,12 @@ public abstract class SettingsElementController : MonoBehaviour
     protected virtual void HandleArrowButtonClicked(int offset)
     {
         OffsetCurrentValue(offset);
+        OnValueChanged?.Invoke();
     }
 
-    private void OffsetCurrentValue(int offset)
+    protected virtual void OffsetCurrentValue(int offset)
     {
         CurrentValue += offset;
-        OnValueChanged?.Invoke();
     }
     
     protected void SetCurrentValue(int value)
