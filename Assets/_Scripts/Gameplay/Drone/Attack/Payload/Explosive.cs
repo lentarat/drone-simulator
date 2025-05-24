@@ -4,7 +4,6 @@ using UnityEngine;
 public class Explosive : DronePayload
 {
     [SerializeField] private ParticleSystem _explosionParticleSystem;
-    [SerializeField] private float _damage;
     [SerializeField] private float _maxDistanceDealingDamage;
     [SerializeField] private LayerMask _targetLayerMask;
 

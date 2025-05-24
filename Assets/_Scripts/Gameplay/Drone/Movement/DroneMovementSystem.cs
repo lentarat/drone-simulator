@@ -18,7 +18,8 @@ public class DroneMovementSystem : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private float _cameraInterpolationMultiplier;
 
-    public Vector3 Velocity => _rigidbody.velocity;
+    //public Vector3 Velocity => _rigidbody.velocity;
+    public Rigidbody Rigidbody => _rigidbody;
 
     private float _droneSpeed;
     private float _throttleMotorPower;

@@ -10,11 +10,12 @@ public class DronePayload : MonoBehaviour
         _actionSFXPlayer.Init(audioController);
     }
 
-    public void DisconnectWithVelocity(Vector3 disconnectVelocity)
+    public void DisconnectWithVelocity(Vector3 disconnectVelocity, Vector3 additionalAccelerationVector)
     {
         transform.parent = null;
         _rigidbody.isKinematic = false;
         _rigidbody.velocity = disconnectVelocity;
+        _rigidbody.AddForce(additionalAccelerationVector, ForceMode.VelocityChange);
     }
 
     protected void PlaySound()

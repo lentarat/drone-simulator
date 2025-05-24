@@ -18,7 +18,7 @@ public class PayloadRealisticRotationAdjuster : MonoBehaviour
         if (_payloadRigidbody.velocity.sqrMagnitude > 0.1f)
         {
             Vector3 targetDirection = _payloadRigidbody.velocity.normalized;
-            transform.up = Vector3.Lerp(transform.up, targetDirection, Time.fixedDeltaTime * _rotationSpeed);
+            transform.up = Vector3.Slerp(transform.up, targetDirection, Time.fixedDeltaTime * _rotationSpeed);
         }
     }
 }

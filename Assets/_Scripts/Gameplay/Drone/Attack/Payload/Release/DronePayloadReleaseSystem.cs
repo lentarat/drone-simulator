@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +10,7 @@ public class DronePayloadReleaseSystem : MonoBehaviour
     [SerializeField] private DronePayload _payloadPrefab;
     [SerializeField] private SFXPlayer _releaseSFXPlayer;
     [SerializeField] private int _nextPayloadSpawnIntervalMS;
+    [SerializeField] private float _payloadReleaseAdditionalAccelerationValue;
 
     private CancellationToken _token;
     private DronePayload _payload;
@@ -45,8 +47,10 @@ public class DronePayloadReleaseSystem : MonoBehaviour
 
     private void DropPayload()
     {
-        Vector3 payloadVelocityAfterDisconnetion = _droneMovementSystem.Velocity;
-        _payload.DisconnectWithVelocity(payloadVelocityAfterDisconnetion);
+        Vector3 payloadVelocityAfterDisconnetion = _droneMovementSystem.Rigidbody.velocity;
+        Vector3 droneRigidbodyDown = _droneMovementSystem.Rigidbody.rotation * Vector3.down;
+        Vector3 additionalVelocityChangeVector = droneRigidbodyDown * _payloadReleaseAdditionalAccelerationValue;
+        _payload.DisconnectWithVelocity(payloadVelocityAfterDisconnetion, additionalVelocityChangeVector);
         _payload = null;
     }
 
@@ -60,6 +64,8 @@ public class DronePayloadReleaseSystem : MonoBehaviour
         try
         {
             await UniTask.Delay(_nextPayloadSpawnIntervalMS, cancellationToken: _token);
+            await UniTask.WaitForFixedUpdate();
+
             _payload = Instantiate(_payloadPrefab, transform);
             _payload.Init(_audioController);
         }
