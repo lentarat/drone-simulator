@@ -82,6 +82,7 @@ public class GameMenuWindow : BaseWindow
 
     private void RestartGame()
     {
+        ToggePause();
         _sceneLoader.ReloadCurrentScene();
     }
 

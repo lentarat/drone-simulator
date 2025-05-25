@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -19,8 +20,17 @@ public class SceneLoader : ISceneLoader
 
     void ISceneLoader.ReloadCurrentScene()
     {
+        ReloadCurrentSceneAsync().Forget();
+    }
+
+    private async UniTask ReloadCurrentSceneAsync()
+    {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+
+        await SceneManager.LoadSceneAsync(currentSceneIndex);
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        InformSceneChanged(currentScene, LoadSceneMode.Single);
     }
 
     void ISceneLoader.LoadScene(SceneType sceneType)

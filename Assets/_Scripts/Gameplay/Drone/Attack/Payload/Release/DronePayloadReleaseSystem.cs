@@ -11,22 +11,23 @@ public class DronePayloadReleaseSystem : MonoBehaviour
     [SerializeField] private SFXPlayer _releaseSFXPlayer;
     [SerializeField] private int _nextPayloadSpawnIntervalMS;
     [SerializeField] private float _payloadReleaseAdditionalAccelerationValue;
+    [SerializeField] private Transform _payloadPlaceTransform;
 
     private CancellationToken _token;
     private DronePayload _payload;
     private AudioController _audioController;
-    private IPayloadReleaseInvoker _payloadReleasable;
+    private IPayloadReleaseInvoker _payloadReleaseInvoker;
 
     [Inject]
-    private void Construct(IPayloadReleaseInvoker payload, AudioController audioController)
+    private void Construct(IPayloadReleaseInvoker payloadReleaseInvoker, AudioController audioController)
     {
-        _payloadReleasable = payload;
+        _payloadReleaseInvoker = payloadReleaseInvoker;
         _audioController = audioController;
     }
 
     private void Awake()
     {
-        _payloadReleasable.OnReleaseCalled += HandleBombReleaseCalled;
+        _payloadReleaseInvoker.OnReleaseCalled += HandleBombReleaseCalled;
 
         _releaseSFXPlayer.Init(_audioController);
 
@@ -66,7 +67,7 @@ public class DronePayloadReleaseSystem : MonoBehaviour
             await UniTask.Delay(_nextPayloadSpawnIntervalMS, cancellationToken: _token);
             await UniTask.WaitForFixedUpdate();
 
-            _payload = Instantiate(_payloadPrefab, transform);
+            _payload = Instantiate(_payloadPrefab, _payloadPlaceTransform);
             _payload.Init(_audioController);
         }
         catch(System.Exception e)
@@ -77,6 +78,6 @@ public class DronePayloadReleaseSystem : MonoBehaviour
 
     private void OnDisable()
     {
-        _payloadReleasable.OnReleaseCalled -= HandleBombReleaseCalled;
+        _payloadReleaseInvoker.OnReleaseCalled -= HandleBombReleaseCalled;
     }
 }

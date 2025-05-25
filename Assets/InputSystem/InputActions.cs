@@ -71,6 +71,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TeleportToSpawnPosition"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec6259b0-3ae0-41c7-b4c8-99bb0f6f6d26"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -315,6 +324,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""CameraSwitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a912a003-ea12-453f-bd78-1ebe938fb6f7"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""TeleportToSpawnPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""231a7061-772f-4a71-80c9-6ed4fbbc2797"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TeleportToSpawnPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -379,6 +410,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Drone_Throttle = m_Drone.FindAction("Throttle", throwIfNotFound: true);
         m_Drone_PayloadRelease = m_Drone.FindAction("PayloadRelease", throwIfNotFound: true);
         m_Drone_CameraSwitch = m_Drone.FindAction("CameraSwitch", throwIfNotFound: true);
+        m_Drone_TeleportToSpawnPosition = m_Drone.FindAction("TeleportToSpawnPosition", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_GameMenu = m_UI.FindAction("GameMenu", throwIfNotFound: true);
@@ -448,6 +480,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Drone_Throttle;
     private readonly InputAction m_Drone_PayloadRelease;
     private readonly InputAction m_Drone_CameraSwitch;
+    private readonly InputAction m_Drone_TeleportToSpawnPosition;
     public struct DroneActions
     {
         private @InputActions m_Wrapper;
@@ -457,6 +490,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Throttle => m_Wrapper.m_Drone_Throttle;
         public InputAction @PayloadRelease => m_Wrapper.m_Drone_PayloadRelease;
         public InputAction @CameraSwitch => m_Wrapper.m_Drone_CameraSwitch;
+        public InputAction @TeleportToSpawnPosition => m_Wrapper.m_Drone_TeleportToSpawnPosition;
         public InputActionMap Get() { return m_Wrapper.m_Drone; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -481,6 +515,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @CameraSwitch.started += instance.OnCameraSwitch;
             @CameraSwitch.performed += instance.OnCameraSwitch;
             @CameraSwitch.canceled += instance.OnCameraSwitch;
+            @TeleportToSpawnPosition.started += instance.OnTeleportToSpawnPosition;
+            @TeleportToSpawnPosition.performed += instance.OnTeleportToSpawnPosition;
+            @TeleportToSpawnPosition.canceled += instance.OnTeleportToSpawnPosition;
         }
 
         private void UnregisterCallbacks(IDroneActions instance)
@@ -500,6 +537,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @CameraSwitch.started -= instance.OnCameraSwitch;
             @CameraSwitch.performed -= instance.OnCameraSwitch;
             @CameraSwitch.canceled -= instance.OnCameraSwitch;
+            @TeleportToSpawnPosition.started -= instance.OnTeleportToSpawnPosition;
+            @TeleportToSpawnPosition.performed -= instance.OnTeleportToSpawnPosition;
+            @TeleportToSpawnPosition.canceled -= instance.OnTeleportToSpawnPosition;
         }
 
         public void RemoveCallbacks(IDroneActions instance)
@@ -588,6 +628,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnThrottle(InputAction.CallbackContext context);
         void OnPayloadRelease(InputAction.CallbackContext context);
         void OnCameraSwitch(InputAction.CallbackContext context);
+        void OnTeleportToSpawnPosition(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

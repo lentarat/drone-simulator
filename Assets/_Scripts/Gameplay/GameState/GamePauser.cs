@@ -4,11 +4,11 @@ using Zenject;
 public class GamePauser
 {
     private GameState _currentGameState;
-    private SignalBus _signalBus;
+    private GameStateChangedInformer _gameStateChangedInformer;
 
-    public GamePauser(SignalBus signalBus)
+    public GamePauser(GameStateChangedInformer gameStateChangedInformer)
     {
-        _signalBus = signalBus;
+        _gameStateChangedInformer = gameStateChangedInformer;
     }
 
     public void TogglePause()
@@ -21,7 +21,7 @@ public class GamePauser
         {
             _currentGameState = GameState.Normal;
         }
-        
-        _signalBus.Fire(new GameStateChangedSignal(_currentGameState));
+
+        _gameStateChangedInformer.InformGameStateChanged(_currentGameState);
     }
 }
