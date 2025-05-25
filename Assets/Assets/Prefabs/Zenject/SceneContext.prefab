@@ -95,6 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63c6194a4a28944eb77d4bb4007db31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _droneWithGrenade: {fileID: 6269035655547239475, guid: ad58c4071d4a7cf46832db8543148012,
+    type: 3}
+  _droneKamikadze: {fileID: 0}
 --- !u!114 &8488789249136018725
 MonoBehaviour:
   m_ObjectHideFlags: 0

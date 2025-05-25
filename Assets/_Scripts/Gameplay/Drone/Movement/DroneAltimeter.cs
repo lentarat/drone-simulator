@@ -14,7 +14,7 @@ public class DroneAltimeter : MonoBehaviour
 
     private void Awake()
     {
-        _groundLayer = LayerMask.NameToLayer(_groundLayerName);
+        _groundLayer = LayerMask.GetMask(_groundLayerName);
     }
 
     private void FixedUpdate()

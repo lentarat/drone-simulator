@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class DronePayloadReleaseSystem : MonoBehaviour
     [SerializeField] private int _nextPayloadSpawnIntervalMS;
     [SerializeField] private float _payloadReleaseAdditionalAccelerationValue;
     [SerializeField] private Transform _payloadPlaceTransform;
+
+    public bool HasReleasedPayload { get; private set; }
+    public event Action<Rigidbody> OnPayloadCreated;
 
     private CancellationToken _token;
     private DronePayload _payload;
@@ -53,6 +57,8 @@ public class DronePayloadReleaseSystem : MonoBehaviour
         Vector3 additionalVelocityChangeVector = droneRigidbodyDown * _payloadReleaseAdditionalAccelerationValue;
         _payload.DisconnectWithVelocity(payloadVelocityAfterDisconnetion, additionalVelocityChangeVector);
         _payload = null;
+
+        HasReleasedPayload = true;
     }
 
     private void PlayReleaseSound()
@@ -69,8 +75,13 @@ public class DronePayloadReleaseSystem : MonoBehaviour
 
             _payload = Instantiate(_payloadPrefab, _payloadPlaceTransform);
             _payload.Init(_audioController);
+
+            Rigidbody payloadRigidbody = _payloadPrefab.GetComponent<Rigidbody>();
+            OnPayloadCreated?.Invoke(payloadRigidbody);
+
+            HasReleasedPayload = false;
         }
-        catch(System.Exception e)
+        catch (System.Exception e)
         {
             Debug.Log(e);
         }

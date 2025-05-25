@@ -65,6 +65,12 @@ public class DroneHUD : MonoBehaviour
         _signalBus.Unsubscribe<PlayerSettingsChangedSignal>(HandlePlayerSettingsChangedSignal);
     }
 
+    public void Init(DroneMovementSystem droneMovementSystem, DroneAltimeter droneAltimeter)
+    { 
+        _droneMovementSystem = droneMovementSystem;
+        _droneAltimeter = droneAltimeter;
+    }
+
     private void Start()
     {
         UpdateHudLoopAsync().Forget();
