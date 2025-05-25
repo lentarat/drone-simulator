@@ -15,7 +15,7 @@ public class DroneSpawner : MonoBehaviour
         _droneFactory = droneFactory;
     }
 
-    private void Start()
+    private void Awake()
     {
         Drone spawnedDrone = SpawnDrone();
         InitDroneSpawnPositionTeleporter(spawnedDrone);

@@ -97,7 +97,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _droneWithGrenade: {fileID: 6269035655547239475, guid: ad58c4071d4a7cf46832db8543148012,
     type: 3}
-  _droneKamikadze: {fileID: 0}
+  _droneKamikadze: {fileID: 3328916695871611281, guid: 695f09204e317a645821fc6cabc97721,
+    type: 3}
+  _droneParentTransform: {fileID: 0}
+  _gameSettingsSO: {fileID: 11400000, guid: cbeee14dc798a1241a0a63c2b866c7fc, type: 2}
 --- !u!114 &8488789249136018725
 MonoBehaviour:
   m_ObjectHideFlags: 0

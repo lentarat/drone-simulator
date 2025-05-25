@@ -76,7 +76,7 @@ public class DronePayloadReleaseSystem : MonoBehaviour
             _payload = Instantiate(_payloadPrefab, _payloadPlaceTransform);
             _payload.Init(_audioController);
 
-            Rigidbody payloadRigidbody = _payloadPrefab.GetComponent<Rigidbody>();
+            Rigidbody payloadRigidbody = _payload.GetComponent<Rigidbody>();
             OnPayloadCreated?.Invoke(payloadRigidbody);
 
             HasReleasedPayload = false;

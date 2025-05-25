@@ -1,5 +1,90 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5802634120868000930
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7599701400158152499}
+    m_Modifications:
+    - target: {fileID: 1163776293138390512, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_Name
+      value: RPG7Rocket
+      objectReference: {fileID: 0}
+    - target: {fileID: 1163776293138390512, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.097
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d246b1b61c5dee74687b265ca2be7eb5, type: 3}
+--- !u!54 &304169656717130160 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6106802264011590930, guid: d246b1b61c5dee74687b265ca2be7eb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5802634120868000930}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3331435777316019484 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5802634120868000930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8733225894709943714
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8,10 +93,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114232744456849708, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      propertyPath: _bottomCamera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 914870775733454445, guid: ad58c4071d4a7cf46832db8543148012,
         type: 3}
       propertyPath: m_Name
-      value: Drone Variant
+      value: DroneKamikadze
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172403230074403473, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2614709682691220525, guid: ad58c4071d4a7cf46832db8543148012,
         type: 3}
@@ -28,8 +123,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    - target: {fileID: 7673183634354521675, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      propertyPath: _payloadRigidbody
+      value: 
+      objectReference: {fileID: 304169656717130160}
+    - target: {fileID: 7673183634354521675, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      propertyPath: _dronePayloadReleaseSystem
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114232744456849708, guid: ad58c4071d4a7cf46832db8543148012, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 1407570216849579270, guid: ad58c4071d4a7cf46832db8543148012, type: 3}
+    - {fileID: 4215500327681641229, guid: ad58c4071d4a7cf46832db8543148012, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1172403230074403473, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3331435777316019484}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad58c4071d4a7cf46832db8543148012, type: 3}
+--- !u!4 &7599701400158152499 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1172403230074403473, guid: ad58c4071d4a7cf46832db8543148012,
+    type: 3}
+  m_PrefabInstance: {fileID: 8733225894709943714}
+  m_PrefabAsset: {fileID: 0}

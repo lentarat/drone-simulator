@@ -6,4 +6,4 @@ map - https://assetstore.unity.com/packages/3d/props/lowpoly-style-large-content
 drone throttle sound - https://freesound.org/people/Sadiquecat/sounds/677833/
 main music - https://freesound.org/people/pholosho_seloane/sounds/688889/
 switch click sound - https://freesound.org/people/PotatokingXII/sounds/352882/
-explosions - https://assetstore.unity.com/packages/vfx/particles/fire-explosions/cinematic-explosions-free-257086
+rpg rocket - https://www.turbosquid.com/3d-models/3d-rpg7-lowpoly-pbr-free-model-2104997

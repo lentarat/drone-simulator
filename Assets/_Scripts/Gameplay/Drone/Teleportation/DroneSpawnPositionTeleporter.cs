@@ -28,38 +28,47 @@ public class DroneSpawnPositionTeleporter : MonoBehaviour
 
     private void HandleTeleportButtonPerformed(InputAction.CallbackContext context)
     {
-        TeleportDroneAndPayloadAsync().Forget();
+        TeleportDroneAndPayload().Forget();
     }
 
-    private async UniTask TeleportDroneAndPayloadAsync()
+    private async UniTask TeleportDroneAndPayload()
     {
-        await UniTask.Yield();
-
-        bool hasReleasedPayload = _dronePayloadReleaseSystem.HasReleasedPayload;
-        RigidbodyInterpolation cachedInterpolation = RigidbodyInterpolation.None;
+        bool hasReleasedPayload = false;
+        if (_dronePayloadReleaseSystem != null)
+        {
+            hasReleasedPayload = _dronePayloadReleaseSystem.HasReleasedPayload;
+        }
+        RigidbodyInterpolation cachedPayloadInterpolation = RigidbodyInterpolation.None;
         if (hasReleasedPayload == false)
         {
-            cachedInterpolation = _payloadRigidbody.interpolation;
+            cachedPayloadInterpolation = _payloadRigidbody.interpolation;
             _payloadRigidbody.interpolation = RigidbodyInterpolation.None;
-            _payloadRigidbody.isKinematic = false;
         }
+        RigidbodyInterpolation cachedDroneInterpolation = _droneRigidbody.interpolation;
+        _droneRigidbody.interpolation = RigidbodyInterpolation.None;
 
-        _droneRigidbody.position = _spawnPositionTransform.position;
+        _droneRigidbody.position =_spawnPositionTransform.position;
         _droneRigidbody.rotation = Quaternion.identity;
         _droneRigidbody.velocity = Vector3.zero;
         _droneRigidbody.angularVelocity = Vector3.zero;
 
+        _droneRigidbody.interpolation = cachedDroneInterpolation;
         if (hasReleasedPayload == false)
         {
-            _payloadRigidbody.interpolation = cachedInterpolation;
-            _payloadRigidbody.isKinematic = true;
+            await UniTask.WaitForFixedUpdate();
+
+            _payloadRigidbody.interpolation = cachedPayloadInterpolation;
         }
     }
 
-    private void OnDestroy() 
+    private void OnDestroy()
     {
         UnsubscribeToTeleportButtonPerformed();
-        UnsubscribeToDronePayloadCreated();
+        
+        if (_dronePayloadReleaseSystem != null)
+        {
+            UnsubscribeToDronePayloadCreated();
+        }
     }
 
     private void UnsubscribeToTeleportButtonPerformed()

@@ -11,13 +11,13 @@ public class DroneHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _throttleValueText;
     [SerializeField] private TextMeshProUGUI _droneFlightModeTypeText;
     [SerializeField] private TextMeshProUGUI _droneHeightValueText;
-    [SerializeField] private DroneMovementSystem _droneMovementSystem;
-    [SerializeField] private DroneAltimeter _droneAltimeter;
     [SerializeField] private int _updateHUDIntervalMS;
 
     private bool _isInitialized;
     private bool _isUpdatingHUD = true;
     private PlayerSettingsSO.DroneFlightModeType _currentDroneFlightMode;
+    private DroneMovementSystem _droneMovementSystem;
+    private DroneAltimeter _droneAltimeter;
     private SignalBus _signalBus;
 
     [Inject]

@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 5432563768756152870}
   - component: {fileID: 649781611043448829}
   - component: {fileID: 1286831694971420442}
+  - component: {fileID: 3571600546991803216}
   m_Layer: 7
   m_Name: Cube_1
   m_TagString: Untagged
@@ -221,6 +222,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &3571600546991803216
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2203569808978592312}
+  m_Material: {fileID: 13400000, guid: b8c4aaa6c4be5634eb2280d074f41526, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18357794
+  m_Height: 1.0856209
+  m_Direction: 0
+  m_Center: {x: 0.007876172, y: -0.46125513, z: 0.0035929896}
 --- !u!1 &3249910232875764897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1202,7 @@ GameObject:
   - component: {fileID: 7280651835568624380}
   - component: {fileID: 1853418982442438890}
   - component: {fileID: 5973413675665350850}
+  - component: {fileID: 1469711693642035596}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
@@ -1271,6 +1296,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1469711693642035596
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976909109583540695}
+  m_Material: {fileID: 13400000, guid: b8c4aaa6c4be5634eb2280d074f41526, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18357794
+  m_Height: 1.0856209
+  m_Direction: 0
+  m_Center: {x: 0.007876172, y: -0.46125513, z: 0.0035929896}
 --- !u!1 &8527727399551611286
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class DronePayload : MonoBehaviour
@@ -21,5 +22,17 @@ public class DronePayload : MonoBehaviour
     protected void PlaySound()
     {
         _actionSFXPlayer.Play();
+    }
+
+    private void Awake()
+    {
+        FixUnknownBag();
+    }
+
+    private void FixUnknownBag()
+    {
+        RigidbodyInterpolation cachedRigidbodyInterpolation = _rigidbody.interpolation;
+        _rigidbody.interpolation = RigidbodyInterpolation.None;
+        _rigidbody.interpolation = cachedRigidbodyInterpolation;
     }
 }

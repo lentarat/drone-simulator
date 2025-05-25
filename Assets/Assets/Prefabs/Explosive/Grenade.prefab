@@ -154,7 +154,7 @@ MonoBehaviour:
   _actionSFXPlayer: {fileID: 2273862137086937531}
   _explosionParticleSystem: {fileID: 1370505974204788713, guid: c7c10f98b57b1ec4894a0f173e45ce27,
     type: 3}
-  _maxDistanceDealingDamage: 3
+  _maxDistanceDealingDamage: 1
   _targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
