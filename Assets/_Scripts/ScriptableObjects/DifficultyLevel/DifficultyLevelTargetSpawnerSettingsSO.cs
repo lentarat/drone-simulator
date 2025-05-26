@@ -12,7 +12,9 @@ public class DifficultyLevelTargetSpawnerSettingsSO : ScriptableObject
 public struct DifficultyLevelTargetSpawnerSettingsHolder
 {
     [SerializeField] private DifficultyLevelType _difficultyLevelType;
-    public DifficultyLevelType DifficultyLevelType => _difficultyLevelType;
     [SerializeField] private int _nextTargetSpawnIntervalMS;
+    [SerializeField] private int _maxTargetsCount;
+    public DifficultyLevelType DifficultyLevelType => _difficultyLevelType;
     public int NextTargetSpawnIntervalMS => _nextTargetSpawnIntervalMS;
+    public int MaxTargetsCount => _maxTargetsCount;
 }

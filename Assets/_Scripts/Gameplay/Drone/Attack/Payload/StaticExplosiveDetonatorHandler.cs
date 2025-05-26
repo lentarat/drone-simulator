@@ -41,7 +41,6 @@ public class StaticExplosiveDetonatorHandler : MonoBehaviour
 
         foreach (ContactPoint contact in collision.contacts)
         {
-            Debug.Log(collision.collider.name);
             if (contact.thisCollider == _detonatorCollider)
             {
                 return true;

@@ -40,7 +40,7 @@ public static class JsonDataService
             string json = File.ReadAllText(filePath);
             JsonConvert.PopulateObject(json, target);
 #if UNITY_EDITOR
-            Debug.Log($"[JsonDataService] Loaded from: {filePath}");
+            //Debug.Log($"[JsonDataService] Loaded from: {filePath}");
 #endif
         }
         catch (System.Exception ex)

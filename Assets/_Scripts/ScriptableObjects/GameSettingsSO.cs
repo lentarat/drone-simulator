@@ -6,5 +6,5 @@ using UnityEngine;
 public class GameSettingsSO : ScriptableObject
 {
     public GameModeType GameModeType { get; set; } = GameModeType.Kamikadze;
-    public DifficultyLevelType DifficultyLevelType { get; set; } = DifficultyLevelType.Medium;
+    public DifficultyLevelType DifficultyLevelType { get; set; } = DifficultyLevelType.Hard;
 }

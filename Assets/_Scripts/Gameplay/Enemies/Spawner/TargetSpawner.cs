@@ -1,13 +1,13 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using Zenject;
 
 public class TargetSpawner<T> : IInitializable where T : Target
 {
     private bool _isSpawning;
-    private readonly int _maxTargetsNumber = 10;
     private readonly Vector3[][] _routesPositions;
     private readonly Transform _targetsParent;
     private readonly AudioController _audioController;
@@ -29,8 +29,6 @@ public class TargetSpawner<T> : IInitializable where T : Target
         _routesPositions = RouteUtils.GetConvertedRoutesWaypointsPositions(routesParents);
         _targetSpawnerSettings =
             GetSettingsRegardingDifficultyLevel(gameSettingsSO.DifficultyLevelType, difficultyLevelTargetSpawnerSettingsSO);
-        Debug.Log(_targetSpawnerSettings.DifficultyLevelType + " " + _targetSpawnerSettings.NextTargetSpawnIntervalMS);
-        //_maxTargetsNumber = (int)(_targetSpawnTransforms.Length * 1.5f);
     }
 
     private DifficultyLevelTargetSpawnerSettingsHolder GetSettingsRegardingDifficultyLevel(
@@ -52,19 +50,31 @@ public class TargetSpawner<T> : IInitializable where T : Target
 
         while (_isSpawning)
         {
+            bool isTargetCountExceeded = IsTargetCountExceeded(_targetsHashSet.Count, _targetSpawnerSettings.MaxTargetsCount);
+            if (isTargetCountExceeded)
+            {
+                int nextCheckIntervalMS = 300;
+                await UniTask.Delay(nextCheckIntervalMS);
+                continue;
+            }
             SpawnTarget();
 
             await UniTask.Delay(_targetSpawnerSettings.NextTargetSpawnIntervalMS);
         }
     }
 
-    private void SpawnTarget()
+    private bool IsTargetCountExceeded(int currentTargetCount, int maxTargetCount)
     {
-        if (_targetsHashSet.Count >= _maxTargetsNumber)
+        if (currentTargetCount >= maxTargetCount)
         {
-            return;
+            return true;
         }
 
+        return false;
+    }
+
+    private void SpawnTarget()
+    {
         int randomRouteIndex = Random.Range(0, _routesPositions.Length);
         int randomWaypointPositionIndex = Random.Range(0, _routesPositions[randomRouteIndex].Length);
         Vector3 randomRouteWaypointPosition = _routesPositions[randomRouteIndex][randomWaypointPositionIndex];

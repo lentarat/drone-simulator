@@ -5,7 +5,6 @@ public class TargetSpawnerInstaller : MonoInstaller
 {
     [Header("Targets")]
     [SerializeField] private GroundTarget _groundTargetPrefab;
-    [SerializeField] private AirborneTarget _airborneTargetPrefab;
     [Header("ScriptableObjects")]
     [SerializeField] private GameSettingsSO _gameSettingsSO;
     [SerializeField] private DifficultyLevelTargetSettingsSO _difficultyLevelTargetSettingsSO;
@@ -42,7 +41,6 @@ public class TargetSpawnerInstaller : MonoInstaller
     private void BindTargets()
     {
         Container.Bind<GroundTarget>().FromInstance(_groundTargetPrefab);
-        Container.Bind<AirborneTarget>().FromInstance(_airborneTargetPrefab);
     }
 
     private void BindScriptableObjects()

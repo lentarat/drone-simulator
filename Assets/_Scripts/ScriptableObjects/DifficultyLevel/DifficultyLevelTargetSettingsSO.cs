@@ -12,7 +12,7 @@ public class DifficultyLevelTargetSettingsSO : ScriptableObject
 public struct DifficultyLevelTargetSettingsHolder
 {
     [SerializeField] private DifficultyLevelType _difficultyLevelType;
-    public DifficultyLevelType DifficultyLevelType => _difficultyLevelType;
     [SerializeField] private float _speedMultiplier;
+    public DifficultyLevelType DifficultyLevelType => _difficultyLevelType;
     public float SpeedMultiplier => _speedMultiplier;
 }

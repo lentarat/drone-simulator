@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _difficultyLevelTargetSettingsHolder:
   - _difficultyLevelType: 0
-    _speedMultiplier: 0.8
+    _speedMultiplier: 0.4
   - _difficultyLevelType: 1
     _speedMultiplier: 1
   - _difficultyLevelType: 2
-    _speedMultiplier: 1.2
+    _speedMultiplier: 1.75

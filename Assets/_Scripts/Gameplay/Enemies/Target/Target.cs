@@ -10,13 +10,15 @@ public abstract class Target : MonoBehaviour
     [SerializeField] private SFXPlayer _deathSFXPlayer;
 
     public Action OnDeathAction { private get; set; }
-    public TargetRouteData RouteData { private get; set; }
+    private TargetRouteData _targetRouteData;
 
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    public void SetAudioController(AudioController audioController)
+    public void Init(TargetRouteData targetRouteData, AudioController audioController, float targetSpeed)
     {
+        _targetRouteData = targetRouteData;
         _deathSFXPlayer.Init(audioController);
+        SetNavMeshAgentSpeed(targetSpeed);
     }
 
     public virtual void Die()
@@ -38,9 +40,18 @@ public abstract class Target : MonoBehaviour
 
     private async UniTask StartRoute()
     {
-        int i = RouteData.WaypointPositionIndex;
-        Vector3[] routeWaypointsPositions = RouteData.WaypointsPositions;
+        int i = _targetRouteData.WaypointPositionIndex;
+        Vector3[] routeWaypointsPositions = _targetRouteData.WaypointsPositions;
         bool goingForward = UnityEngine.Random.Range(0, 2) == 1;
+        int offset;
+        if (goingForward)
+        {
+            offset = 1;
+        }
+        else
+        {
+            offset = -1;
+        }
 
         while (_cancellationTokenSource.IsCancellationRequested == false) 
         {
@@ -51,15 +62,30 @@ public abstract class Target : MonoBehaviour
                 cancellationToken: _cancellationTokenSource.Token);
 
             int waypointsCount = routeWaypointsPositions.Length;
-            if (goingForward)
+            if (i == waypointsCount - 1)
             {
-                i = (i + 1) % waypointsCount;
+                offset = -1;
             }
-            else
+            else if (i == 0)
             {
-                i = (i - 1 + waypointsCount) % waypointsCount;
+                offset = 1;
             }
+
+            i += offset;
+            //if (goingForward)
+            //{
+            //    i = (i + 1) % waypointsCount;
+            //}
+            //else
+            //{
+            //    i = (i - 1 + waypointsCount) % waypointsCount;
+            //}
         }
+    }
+
+    private void SetNavMeshAgentSpeed(float targetSpeed)
+    { 
+        _navMeshAgent.speed *= targetSpeed;
     }
 
     private void OnDestroy()

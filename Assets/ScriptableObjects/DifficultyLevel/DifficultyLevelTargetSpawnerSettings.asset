@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _difficultyLevelTargetSpawnerSettingsHolder:
   - _difficultyLevelType: 0
-    _nextTargetSpawnIntervalMS: 5000
+    _nextTargetSpawnIntervalMS: 10000
+    _maxTargetsCount: 6
   - _difficultyLevelType: 1
-    _nextTargetSpawnIntervalMS: 3000
+    _nextTargetSpawnIntervalMS: 7500
+    _maxTargetsCount: 12
   - _difficultyLevelType: 2
-    _nextTargetSpawnIntervalMS: 1000
+    _nextTargetSpawnIntervalMS: 3500
+    _maxTargetsCount: 20

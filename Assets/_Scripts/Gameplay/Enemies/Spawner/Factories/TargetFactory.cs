@@ -31,9 +31,7 @@ public abstract class TargetFactory<T> where T : Target
         AudioController audioController)
     {
         T target = GameObject.Instantiate(TargetPrefab, targetSpawnData.Position, targetSpawnData.Rotation, targetSpawnData.Parent);
-        target.RouteData = targetRouteData;
-        target.SetAudioController(audioController);
-        //Debug.Log($"{GetType().Name} spawned with speedMultiplier: {_targetSettings.SpeedMultiplier}");
+        target.Init(targetRouteData, audioController, _targetSettings.SpeedMultiplier);
         return target;
     }
 }
