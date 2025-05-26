@@ -147,8 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557c8bd72e1eaf244a0383af56f69325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 6106802264011590930}
+  _payloadRigidbody: {fileID: 6106802264011590930}
+  _droneRigidbody: {fileID: 0}
   _actionSFXPlayer: {fileID: -6855377637684339723}
+  _isKinematic: 0
   _explosionParticleSystem: {fileID: 1370505974204788713, guid: c7c10f98b57b1ec4894a0f173e45ce27,
     type: 3}
   _maxDistanceDealingDamage: 1

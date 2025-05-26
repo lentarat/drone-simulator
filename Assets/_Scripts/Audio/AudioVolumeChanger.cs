@@ -160,10 +160,13 @@ public class AudioVolumeChanger
             _musicVolumeDB = Mathf.Lerp(_minMusicVolumeDB, _maxMusicVolume, musicVolumeNormalized);
         }
 
-        if (_currentMusicInGameValue == PlayerSettingsSO.ToggleType.Enabled)
+        bool isInMainMenu = IsInMainMenu();
+        if (isInMainMenu == false && _currentMusicInGameValue == PlayerSettingsSO.ToggleType.Disabled)
         {
-            ChangeVolume(_musicVolumeParamString, _musicVolumeDB);
+            return;
         }
+        
+        ChangeVolume(_musicVolumeParamString, _musicVolumeDB);
     }
 
     private void SubscribeToGameStateChangedSignal()

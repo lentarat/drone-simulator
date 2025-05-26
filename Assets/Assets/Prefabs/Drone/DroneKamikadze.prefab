@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4506242639566596457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7112883028008620879}
+  - component: {fileID: 2526785137483328420}
+  m_Layer: 7
+  m_Name: DetonatorCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7112883028008620879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506242639566596457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8062115299872422092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2526785137483328420
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506242639566596457}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4038729, y: 0.13201003, z: 0.16660511}
+  m_Center: {x: 0.27799693, y: -0.10304143, z: 0.00019925833}
 --- !u!1001 &5802634120868000930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8,6 +61,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7599701400158152499}
     m_Modifications:
+    - target: {fileID: -98343832795170696, guid: d246b1b61c5dee74687b265ca2be7eb5,
+        type: 3}
+      propertyPath: _droneRigidbody
+      value: 
+      objectReference: {fileID: 3206101641813993618}
     - target: {fileID: 1163776293138390512, guid: d246b1b61c5dee74687b265ca2be7eb5,
         type: 3}
       propertyPath: m_Name
@@ -68,7 +126,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1623845569536722134, guid: d246b1b61c5dee74687b265ca2be7eb5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -79,6 +138,18 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 5802634120868000930}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3325209255056854234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -98343832795170696, guid: d246b1b61c5dee74687b265ca2be7eb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5802634120868000930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557c8bd72e1eaf244a0383af56f69325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3331435777316019484 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9132380635373447614, guid: d246b1b61c5dee74687b265ca2be7eb5,
@@ -139,15 +210,78 @@ PrefabInstance:
     - {fileID: 1407570216849579270, guid: ad58c4071d4a7cf46832db8543148012, type: 3}
     - {fileID: 4215500327681641229, guid: ad58c4071d4a7cf46832db8543148012, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1644031053076030830, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7112883028008620879}
     - targetCorrespondingSourceObject: {fileID: 1172403230074403473, guid: ad58c4071d4a7cf46832db8543148012,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3331435777316019484}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3504620484983089658, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2273607074653749550}
+    - targetCorrespondingSourceObject: {fileID: 3504620484983089658, guid: ad58c4071d4a7cf46832db8543148012,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4501381882735000070}
   m_SourcePrefab: {fileID: 100100000, guid: ad58c4071d4a7cf46832db8543148012, type: 3}
+--- !u!54 &3206101641813993618 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6146563409412584752, guid: ad58c4071d4a7cf46832db8543148012,
+    type: 3}
+  m_PrefabInstance: {fileID: 8733225894709943714}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5300824093041669208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3504620484983089658, guid: ad58c4071d4a7cf46832db8543148012,
+    type: 3}
+  m_PrefabInstance: {fileID: 8733225894709943714}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2273607074653749550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5300824093041669208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf6a69ad66449d43b8893397bc49d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _droneRigidbody: {fileID: 3206101641813993618}
+  _detonatorCollider: {fileID: 2526785137483328420}
+  _droneExplosive: {fileID: 3325209255056854234}
+  _minSqrMagnituteToDetonate: 30
+  _collisionCheckInterval: 1
+--- !u!114 &4501381882735000070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5300824093041669208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999604e20d702a740adb3c3e92c86f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _droneExplosive: {fileID: 3325209255056854234}
+  _recordRate: 20
+  _travelTime: 3
+  _droneRigidbody: {fileID: 3206101641813993618}
 --- !u!4 &7599701400158152499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1172403230074403473, guid: ad58c4071d4a7cf46832db8543148012,
+    type: 3}
+  m_PrefabInstance: {fileID: 8733225894709943714}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8062115299872422092 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1644031053076030830, guid: ad58c4071d4a7cf46832db8543148012,
     type: 3}
   m_PrefabInstance: {fileID: 8733225894709943714}
   m_PrefabAsset: {fileID: 0}

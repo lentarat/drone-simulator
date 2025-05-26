@@ -2,10 +2,6 @@ using System;
 using UnityEngine.Localization.Components;
 using UnityEngine;
 using UnityEngine.Localization.Tables;
-using UnityEngine.Localization.Settings;
-using Cysharp.Threading.Tasks;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEditor.ShaderGraph.Internal;
 
 public class SettingsElementOptionController : SettingsElementController
 {

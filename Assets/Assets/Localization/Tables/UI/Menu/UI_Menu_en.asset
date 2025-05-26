@@ -46,6 +46,14 @@ MonoBehaviour:
     m_Localized: Choose difficulty level
     m_Metadata:
       m_Items: []
+  - m_Id: 9993800301518848
+    m_Localized: Grenade Drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9994001896546304
+    m_Localized: Kamikadze
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

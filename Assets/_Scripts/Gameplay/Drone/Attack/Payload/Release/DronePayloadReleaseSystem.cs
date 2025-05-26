@@ -10,9 +10,10 @@ public class DronePayloadReleaseSystem : MonoBehaviour
     [SerializeField] private DroneMovementSystem _droneMovementSystem;
     [SerializeField] private DronePayload _payloadPrefab;
     [SerializeField] private SFXPlayer _releaseSFXPlayer;
+    [SerializeField] private Rigidbody _droneRigidbody;
+    [SerializeField] private Transform _payloadPlaceTransform;
     [SerializeField] private int _nextPayloadSpawnIntervalMS;
     [SerializeField] private float _payloadReleaseAdditionalAccelerationValue;
-    [SerializeField] private Transform _payloadPlaceTransform;
 
     public bool HasReleasedPayload { get; private set; }
     public event Action<Rigidbody> OnPayloadCreated;

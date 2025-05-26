@@ -1,10 +1,13 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
+using Zenject;
 
 public class DronePayload : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private Rigidbody _payloadRigidbody;
     [SerializeField] private SFXPlayer _actionSFXPlayer;
+    [SerializeField] private bool _isKinematic = true;
 
     public void Init(AudioController audioController)
     {
@@ -14,9 +17,9 @@ public class DronePayload : MonoBehaviour
     public void DisconnectWithVelocity(Vector3 disconnectVelocity, Vector3 additionalAccelerationVector)
     {
         transform.parent = null;
-        _rigidbody.isKinematic = false;
-        _rigidbody.velocity = disconnectVelocity;
-        _rigidbody.AddForce(additionalAccelerationVector, ForceMode.VelocityChange);
+        _payloadRigidbody.isKinematic = false;
+        _payloadRigidbody.velocity = disconnectVelocity;
+        _payloadRigidbody.AddForce(additionalAccelerationVector, ForceMode.VelocityChange);
     }
 
     protected void PlaySound()
@@ -24,15 +27,15 @@ public class DronePayload : MonoBehaviour
         _actionSFXPlayer.Play();
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        FixUnknownBag();
+        FixUnknownBehaviour();
     }
 
-    private void FixUnknownBag()
+    private void FixUnknownBehaviour()
     {
-        RigidbodyInterpolation cachedRigidbodyInterpolation = _rigidbody.interpolation;
-        _rigidbody.interpolation = RigidbodyInterpolation.None;
-        _rigidbody.interpolation = cachedRigidbodyInterpolation;
+        RigidbodyInterpolation cachedRigidbodyInterpolation = _payloadRigidbody.interpolation;
+        _payloadRigidbody.interpolation = RigidbodyInterpolation.None;
+        _payloadRigidbody.interpolation = cachedRigidbodyInterpolation;
     }
 }

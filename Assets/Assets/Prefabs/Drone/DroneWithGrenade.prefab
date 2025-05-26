@@ -98,9 +98,10 @@ MonoBehaviour:
   _payloadPrefab: {fileID: 8636783697350530491, guid: 3692306d7289f5d429dab54b313d2ab2,
     type: 3}
   _releaseSFXPlayer: {fileID: 1281846724705474074}
+  _droneRigidbody: {fileID: 6146563409412584752}
+  _payloadPlaceTransform: {fileID: 1172403230074403473}
   _nextPayloadSpawnIntervalMS: 3000
   _payloadReleaseAdditionalAccelerationValue: 1
-  _payloadPlaceTransform: {fileID: 1172403230074403473}
 --- !u!114 &1281846724705474074
 MonoBehaviour:
   m_ObjectHideFlags: 0

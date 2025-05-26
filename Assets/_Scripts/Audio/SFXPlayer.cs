@@ -9,12 +9,11 @@ public class SFXPlayer : MonoBehaviour
 
     private AudioController _audioController;
 
-    //Uncomment in case compile-time gameobjects with this component are present in a scene.
-    //[Inject]
-    //private void Construct(AudioController audioController)
-    //{ 
-    //    _audioController = audioController;
-    //}
+    [Inject]
+    private void Construct(AudioController audioController)
+    {
+        _audioController = audioController;
+    }
 
     public void Init(AudioController audioController)
     { 
