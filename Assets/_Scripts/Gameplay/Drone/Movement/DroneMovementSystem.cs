@@ -33,6 +33,7 @@ public class DroneMovementSystem : MonoBehaviour
         _dronePlayerSettingsChangesHandler = dronePlayerSettingsChangesHandler;
 
         _dronePlayerSettingsChangesHandler.OnDronePlayerSettingsChanged += ChangeDroneFlightModeMovementAdjuster;
+        _droneFlightModeMovementAdjuster = _dronePlayerSettingsChangesHandler.DroneFlightModeMovementAdjuster;
     }
 
     private void ChangeDroneFlightModeMovementAdjuster(DroneFlightModeMovementAdjuster droneFlightModeMovementAdjuster)

@@ -9,7 +9,7 @@ public class DronePlayerSettingsChangesHandler
     private int _currentTiltAngle;
     private PlayerSettingsSO.DroneFlightModeType _currentDroneFlightMode;
     private SignalBus _signalBus;
-    private DroneFlightModeMovementAdjuster _droneFlightModeMovementAdjuster = new DroneAcroMovementAdjuster();
+    public DroneFlightModeMovementAdjuster DroneFlightModeMovementAdjuster { get; private set; } = new DroneAcroMovementAdjuster();
 
     public DronePlayerSettingsChangesHandler(SignalBus signalBus)
     {
@@ -34,7 +34,7 @@ public class DronePlayerSettingsChangesHandler
         }
         _currentDroneFlightMode = newDroneFlightMode;
 
-        _droneFlightModeMovementAdjuster = newDroneFlightMode switch
+        DroneFlightModeMovementAdjuster = newDroneFlightMode switch
         {
             PlayerSettingsSO.DroneFlightModeType.Acro => new DroneAcroMovementAdjuster(),
             PlayerSettingsSO.DroneFlightModeType.Angle => new DroneAngleMovementAdjuster(),
@@ -42,8 +42,8 @@ public class DronePlayerSettingsChangesHandler
             _ => new DroneAcroMovementAdjuster()
         };
 
-        _droneFlightModeMovementAdjuster.SetTiltAngleThreshold(_currentTiltAngle);
-        OnDronePlayerSettingsChanged?.Invoke(_droneFlightModeMovementAdjuster);
+        DroneFlightModeMovementAdjuster.SetTiltAngleThreshold(_currentTiltAngle);
+        OnDronePlayerSettingsChanged?.Invoke(DroneFlightModeMovementAdjuster);
     }
 
     private bool HasDroneFlightModeChanged(
@@ -68,7 +68,7 @@ public class DronePlayerSettingsChangesHandler
         }
 
         _currentTiltAngle = newTiltAngle;
-        _droneFlightModeMovementAdjuster.SetTiltAngleThreshold(newTiltAngle);
+        DroneFlightModeMovementAdjuster.SetTiltAngleThreshold(newTiltAngle);
     }
 
     private bool HasTiltAngleChanged(int currentTiltAngle, int newTiltAngle)
