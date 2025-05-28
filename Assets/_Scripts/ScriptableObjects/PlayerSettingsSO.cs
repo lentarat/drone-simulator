@@ -4,10 +4,8 @@ using UnityEngine;
 public class PlayerSettingsSO : ScriptableObject
 {
     public LanguageType Language { get; set; } = LanguageType.English;
-    //public ToggleType HUD { get; set; }
     public DroneFlightModeType DroneFlightMode { get; set; } = DroneFlightModeType.Acro;
     public int TiltAngle { get; set; } = 60;
-    //public int FOV { get; set; }
     public int CameraAngle { get; set; }
     public int Music { get; set; } = 50;
     public int Sound { get; set; } = 50;

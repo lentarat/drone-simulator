@@ -3473,7 +3473,7 @@ MonoBehaviour:
   _flightModeController:
     _controller: {fileID: 4610556255039033515}
   _tiltController:
-    _minValue: 10
+    _minValue: 20
     _maxValue: 70
     _controller: {fileID: 3563444700012215423}
 --- !u!1 &3931987782140192718

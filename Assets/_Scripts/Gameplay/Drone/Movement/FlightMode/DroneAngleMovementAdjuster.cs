@@ -9,13 +9,13 @@ public class DroneAngleMovementAdjuster : DroneFlightModeMovementAdjuster
         Vector3 droneRight = droneRotation * Vector3.right;   
         Vector3 droneForward = droneRotation * Vector3.forward; 
 
-        float currentPitchAngle = Vector3.SignedAngle(
+        float currentRollAngle = Vector3.SignedAngle(
             Vector3.ProjectOnPlane(droneForward, Vector3.up),
             droneForward,
             -droneRight
         );
 
-        float currentRollAngle = Vector3.SignedAngle(
+        float currentPitchAngle = Vector3.SignedAngle(
             Vector3.ProjectOnPlane(droneRight, Vector3.up),
             droneRight,
             -droneForward
@@ -23,30 +23,30 @@ public class DroneAngleMovementAdjuster : DroneFlightModeMovementAdjuster
 
         bool isNeutral = inputVector.sqrMagnitude < _inputVectorDeadzone * _inputVectorDeadzone;
 
-        float deltaPitch;
         float deltaRoll;
+        float deltaPitch;
 
         if (isNeutral)
         {
-            deltaPitch = Mathf.Clamp(-currentPitchAngle / TiltAngleThreshold, -1f, 1f);
             deltaRoll = Mathf.Clamp(-currentRollAngle / TiltAngleThreshold, -1f, 1f);
+            deltaPitch = Mathf.Clamp(-currentPitchAngle / TiltAngleThreshold, -1f, 1f);
         }
         else
         {
             float desiredPitchAngle = Mathf.Clamp(inputVector.x, -1f, 1f) * TiltAngleThreshold;
             float desiredRollAngle = Mathf.Clamp(inputVector.y, -1f, 1f) * TiltAngleThreshold;
 
-            deltaPitch = Mathf.Clamp(
-                (desiredPitchAngle - currentPitchAngle) / TiltAngleThreshold,
+            deltaRoll = Mathf.Clamp(
+                (desiredPitchAngle - currentRollAngle) / TiltAngleThreshold,
                 -1f, 1f
             );
 
-            deltaRoll = Mathf.Clamp(
-                (desiredRollAngle - currentRollAngle) / TiltAngleThreshold,
+            deltaPitch = Mathf.Clamp(
+                (desiredRollAngle - currentPitchAngle) / TiltAngleThreshold,
                 -1f, 1f
             );
         }
 
-        return new Vector2(deltaPitch, deltaRoll);
+        return new Vector2(deltaRoll, deltaPitch);
     }
 }
