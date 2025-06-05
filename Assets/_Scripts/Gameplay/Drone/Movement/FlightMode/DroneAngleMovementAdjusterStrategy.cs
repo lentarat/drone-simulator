@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DroneAngleMovementAdjuster : DroneFlightModeMovementAdjuster
+public class DroneAngleMovementAdjusterStrategy : DroneFlightModeMovementAdjusterStrategy
 {
     const float _inputVectorDeadzone = 0.01f;
 

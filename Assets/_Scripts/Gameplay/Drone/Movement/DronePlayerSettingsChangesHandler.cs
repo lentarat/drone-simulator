@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DronePlayerSettingsChangesHandler
 {
-    public event Action<DroneFlightModeMovementAdjuster> OnDronePlayerSettingsChanged;
+    public event Action<DroneFlightModeMovementAdjusterStrategy> OnDronePlayerSettingsChanged;
 
     private int _currentTiltAngle;
     private PlayerSettingsSO.DroneFlightModeType _currentDroneFlightMode;
     private SignalBus _signalBus;
-    public DroneFlightModeMovementAdjuster DroneFlightModeMovementAdjuster { get; private set; } = new DroneAcroMovementAdjuster();
+    public DroneFlightModeMovementAdjusterStrategy DroneFlightModeMovementAdjuster { get; private set; } = new DroneAcroMovementAdjusterStrategy();
 
     public DronePlayerSettingsChangesHandler(SignalBus signalBus)
     {
@@ -36,10 +36,10 @@ public class DronePlayerSettingsChangesHandler
 
         DroneFlightModeMovementAdjuster = newDroneFlightMode switch
         {
-            PlayerSettingsSO.DroneFlightModeType.Acro => new DroneAcroMovementAdjuster(),
-            PlayerSettingsSO.DroneFlightModeType.Angle => new DroneAngleMovementAdjuster(),
-            PlayerSettingsSO.DroneFlightModeType.Horizon => new DroneHorizonMovementAdjuster(),
-            _ => new DroneAcroMovementAdjuster()
+            PlayerSettingsSO.DroneFlightModeType.Acro => new DroneAcroMovementAdjusterStrategy(),
+            PlayerSettingsSO.DroneFlightModeType.Angle => new DroneAngleMovementAdjusterStrategy(),
+            PlayerSettingsSO.DroneFlightModeType.Horizon => new DroneHorizonMovementAdjusterStrategy(),
+            _ => new DroneAcroMovementAdjusterStrategy()
         };
 
         DroneFlightModeMovementAdjuster.SetTiltAngleThreshold(_currentTiltAngle);

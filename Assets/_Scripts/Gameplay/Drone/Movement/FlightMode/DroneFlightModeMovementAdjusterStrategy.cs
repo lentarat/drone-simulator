@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class DroneFlightModeMovementAdjuster
+public abstract class DroneFlightModeMovementAdjusterStrategy
 {
     protected float TiltAngleThreshold { get; private set; }
 

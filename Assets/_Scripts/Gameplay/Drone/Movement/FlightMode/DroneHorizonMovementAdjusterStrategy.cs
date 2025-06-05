@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneHorizonMovementAdjuster : DroneFlightModeMovementAdjuster
+public class DroneHorizonMovementAdjusterStrategy : DroneFlightModeMovementAdjusterStrategy
 {
     const float _inputVectorDeadzone = 0.01f;
     const float _flipThresholdMultiplier = 0.95f;

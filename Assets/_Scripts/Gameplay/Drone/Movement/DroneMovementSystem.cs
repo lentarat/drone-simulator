@@ -22,7 +22,7 @@ public class DroneMovementSystem : MonoBehaviour
     private float _throttleMotorPower;
     private float _yawMotorPower;
     private Vector2 _pitchAndRollMotorPower;
-    private DroneFlightModeMovementAdjuster _droneFlightModeMovementAdjuster = new DroneAcroMovementAdjuster();
+    private DroneFlightModeMovementAdjusterStrategy _droneFlightModeMovementAdjusterStrategy = new DroneAcroMovementAdjusterStrategy();
     private DronePlayerSettingsChangesHandler _dronePlayerSettingsChangesHandler;
     private IDroneMoveable _droneMoveable;
 
@@ -33,12 +33,12 @@ public class DroneMovementSystem : MonoBehaviour
         _dronePlayerSettingsChangesHandler = dronePlayerSettingsChangesHandler;
 
         _dronePlayerSettingsChangesHandler.OnDronePlayerSettingsChanged += ChangeDroneFlightModeMovementAdjuster;
-        _droneFlightModeMovementAdjuster = _dronePlayerSettingsChangesHandler.DroneFlightModeMovementAdjuster;
+        _droneFlightModeMovementAdjusterStrategy = _dronePlayerSettingsChangesHandler.DroneFlightModeMovementAdjuster;
     }
 
-    private void ChangeDroneFlightModeMovementAdjuster(DroneFlightModeMovementAdjuster droneFlightModeMovementAdjuster)
+    private void ChangeDroneFlightModeMovementAdjuster(DroneFlightModeMovementAdjusterStrategy droneFlightModeMovementAdjusterStrategy)
     {
-        _droneFlightModeMovementAdjuster = droneFlightModeMovementAdjuster;
+        _droneFlightModeMovementAdjusterStrategy = droneFlightModeMovementAdjusterStrategy;
     }
 
     private void OnDestroy()
@@ -80,7 +80,7 @@ public class DroneMovementSystem : MonoBehaviour
     private void UpdateMotorsPowers()
     {
         Vector2 pitchAndRollInputVector = _droneMoveable.GetPitchAndRollInputValue;
-        Vector2 adjustedPitchAndRollInputVector = _droneFlightModeMovementAdjuster.GetAdjustedPitchAndRollInputVector(pitchAndRollInputVector, _rigidbody.rotation);
+        Vector2 adjustedPitchAndRollInputVector = _droneFlightModeMovementAdjusterStrategy.GetAdjustedPitchAndRollInputVector(pitchAndRollInputVector, _rigidbody.rotation);
 
         _pitchAndRollMotorPower.x = GetAdjustedMotorPowerAccordingInputValue(adjustedPitchAndRollInputVector.x, _pitchAndRollMotorPower.x);
         _pitchAndRollMotorPower.y = GetAdjustedMotorPowerAccordingInputValue(adjustedPitchAndRollInputVector.y, _pitchAndRollMotorPower.y);
