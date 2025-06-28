@@ -15,7 +15,7 @@ public class AudioVolumeChanger
     private const float _minMusicVolumeDB = -40f;
     private const float _minSoundVolumeDB = -40f;
     private const float _maxSoundVolumeDB = 10f;
-    private const float _muteVolume = -80f;
+    private const float _muteVolumeDB = -80f;
     private const float _musicVolumeInGameSubtractionMultiplier = 0.2f;
     private const float _maxPlayerSettingsAudioVolume = 100f;
     private const float _muteNormalizedVolumeThreshold = 0.05f;
@@ -82,7 +82,7 @@ public class AudioVolumeChanger
 
         if (soundVolumeNormalized < _muteNormalizedVolumeThreshold)
         {
-            soundVolumeDB = _muteVolume;
+            soundVolumeDB = _muteVolumeDB;
         }
         else
         {
@@ -122,7 +122,7 @@ public class AudioVolumeChanger
             case PlayerSettingsSO.ToggleType.Disabled:
                 {
                     bool isInMainMenu = IsInMainMenu();
-                    newMusicVolumeDB = isInMainMenu ? _musicVolumeDB : _minMusicVolumeDB; 
+                    newMusicVolumeDB = isInMainMenu ? _musicVolumeDB : _muteVolumeDB; 
                     break;
                 }
             default:
@@ -153,7 +153,7 @@ public class AudioVolumeChanger
 
         if (musicVolumeNormalized < _muteNormalizedVolumeThreshold)
         {
-            _musicVolumeDB = _muteVolume;
+            _musicVolumeDB = _muteVolumeDB;
         }
         else
         {
@@ -248,7 +248,7 @@ public class AudioVolumeChanger
     {
         if (_currentMusicInGameValue == PlayerSettingsSO.ToggleType.Disabled)
         {
-            ChangeVolume(_musicVolumeParamString, _minMusicVolumeDB);
+            ChangeVolume(_musicVolumeParamString, _muteVolumeDB);
         }
     }
 

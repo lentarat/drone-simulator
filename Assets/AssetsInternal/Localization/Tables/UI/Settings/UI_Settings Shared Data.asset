@@ -67,6 +67,14 @@ MonoBehaviour:
     m_Key: SettingsWindow.Drone.TiltAngle
     m_Metadata:
       m_Items: []
+  - m_Id: 21026977438605312
+    m_Key: SettingsWindow.Drone.CameraAngle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21026980760494080
+    m_Key: SettingsWindow.Drone.CameraFOV
+    m_Metadata:
+      m_Items: []
   - m_Id: 7643216789479424
     m_Key: SettingsWindow.Audio.Sound
     m_Metadata:

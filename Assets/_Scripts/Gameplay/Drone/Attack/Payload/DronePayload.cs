@@ -7,7 +7,6 @@ public class DronePayload : MonoBehaviour
 {
     [SerializeField] private Rigidbody _payloadRigidbody;
     [SerializeField] private SFXPlayer _actionSFXPlayer;
-    [SerializeField] private bool _isKinematic = true;
 
     public void Init(AudioController audioController)
     {
