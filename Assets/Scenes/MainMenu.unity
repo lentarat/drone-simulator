@@ -3952,6 +3952,7 @@ MonoBehaviour:
     _window: {fileID: 1981688721}
   - _button: {fileID: 469414190}
     _window: {fileID: 14136883}
+  _quitButton: {fileID: 1197175258}
 --- !u!225 &1597547778
 CanvasGroup:
   m_ObjectHideFlags: 0
